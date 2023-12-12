@@ -1,7 +1,5 @@
 package lol.hyper.cobalttester;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 public class Instance {
@@ -15,7 +13,6 @@ public class Instance {
     private final int cors;
     private final long startTime;
     private boolean works;
-    public static Logger logger = LogManager.getLogger(Instance.class);
 
     public Instance(String frontEnd, String version, String commit, String branch, String instanceName, String url, int cors, long startTime) {
         this.frontEnd = frontEnd;
@@ -74,9 +71,6 @@ public class Instance {
         return this.cors;
     }
 
-    public long startTime() {
-        return this.startTime;
-    }
 
     public String commit() {
         return this.commit;
@@ -95,6 +89,10 @@ public class Instance {
     }
 
     public String frontEnd() {
-        return this.frontEnd;
+        if (frontEnd.equals("None")) {
+            return "None";
+        }
+        String template = "[url](https://url)";
+        return template.replaceAll("url", this.frontEnd);
     }
 }
