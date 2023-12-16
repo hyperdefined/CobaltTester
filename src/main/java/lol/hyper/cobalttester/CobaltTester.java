@@ -6,8 +6,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,19 +26,17 @@ public class CobaltTester {
             logger.error("Unable to find 'instances' file!");
             System.exit(1);
         }
-        ArrayList<Instance> instances = new ArrayList<Instance>();
-        JSONObject cache = null;
+        ArrayList<Instance> instances = new ArrayList<>();
+        JSONObject cache = new JSONObject();
         File cacheFile = new File("cache.json");
+        // delete the file if it exists
         if (cacheFile.exists()) {
-            String contents = JSONUtil.readFile(cacheFile);
-            if (contents != null) {
-                cache = new JSONObject(contents);
+            boolean deleteStatus = cacheFile.delete();
+            if (deleteStatus) {
+                logger.info("Deleted cache.json");
             } else {
-                logger.error("Unable to read contents of cache file.");
-                System.exit(1);
+                logger.error("Unable to delete cache.json");
             }
-        } else {
-            cache = new JSONObject();
         }
         try (LineIterator it = FileUtils.lineIterator(instancesFile, "UTF-8");) {
             while (it.hasNext()) {
@@ -46,9 +46,13 @@ public class CobaltTester {
                 }
 
                 List<String> lineFix = Arrays.asList(line.split(","));
-                String rawURL = lineFix.get(0);
+                String api = lineFix.get(0);
                 String frontEnd = lineFix.get(1);
-                String fullURL = "https://" + rawURL + "/api/serverInfo";
+                String fullURL = "https://" + api + "/api/serverInfo";
+
+                if (frontEnd.equals("None")) {
+                    frontEnd = api;
+                }
 
                 JSONObject request = RequestUtil.requestJSON(fullURL);
                 if (request != null) {
@@ -58,9 +62,9 @@ public class CobaltTester {
                     String name = request.getString("name");
                     int cors = request.getInt("cors");
                     long startTime = request.getLong("startTime");
-                    Instance instance = new Instance(frontEnd, version, commit, branch, name, rawURL, cors, startTime);
-                    logger.info("Saving new instance: " + instance);
-                    logger.info("Testing instance: " + instance);
+                    Instance instance = new Instance(frontEnd, version, commit, branch, name, api, cors, startTime);
+                    logger.info("Frontend: " + frontEnd);
+                    logger.info("API: " + api);
                     if (instance.test()) {
                         instance.works(true);
                         logger.info("Working: true");
@@ -72,7 +76,7 @@ public class CobaltTester {
                     instances.add(instance);
                 } else {
                     logger.error("Unable to get JSON from " + fullURL);
-                    Instance instance = new Instance(frontEnd, "-1", null, null, null, rawURL, -1, -1L);
+                    Instance instance = new Instance(frontEnd, "-1", null, null, null, api, -1, -1L);
                     instances.add(instance);
                 }
             }
@@ -100,22 +104,52 @@ public class CobaltTester {
         table.append("| Frontend | API | Version | Commit | Branch | Name | CORS | Status |\n");
         table.append("| --- | --- | --- | --- | --- | --- | --- | --- |\n");
         for (Instance instance : instances) {
-            if (cache.has(instance.url())) {
-                if (instance.doesWork()) {
-                    cache.remove(instance.url());
-                    cache.put(instance.url(), instance.toJSON());
-                } else {
-                    JSONObject instanceInJSON = cache.getJSONObject(instance.url());
-                    instanceInJSON.remove("status");
-                    instanceInJSON.put("status", false);
-                }
-            } else {
-                cache.put(instance.url(), instance.toJSON());
-            }
             String status = instance.doesWork() ? "Online" : "Offline";
-            table.append("| ").append(instance.frontEnd()).append(" | ").append(instance.url()).append(" | ").append(instance.version()).append(" | ").append(instance.commit()).append(" | ").append(instance.branch()).append(" | ").append(instance.name()).append(" | ").append(instance.cors()).append(" | ").append(status).append(" |\n");
+            // does not have a front end
+            if (instance.api().equals(instance.frontEnd())) {
+                cache.put(instance.api(), instance.toJSON());
+                table.append("| ").append("None");
+            } else {
+                cache.put(instance.frontEnd(), instance.toJSON());
+                table.append("| ").append(instance.markdown());
+            }
+            table.append(" | ").append(instance.api()).append(" | ").append(instance.version()).append(" | ").append(instance.commit()).append(" | ").append(instance.branch()).append(" | ").append(instance.name()).append(" | ").append(instance.cors()).append(" | ").append(status).append(" |\n");
         }
+        cache.put("lastUpdated", System.currentTimeMillis());
         JSONUtil.writeFile(cache, cacheFile);
         JSONUtil.replaceSelected(table.toString());
+
+
+        try {
+            executeCommand("rm", "-r", "_site");
+            executeCommand("bundle", "exec", "jekyll", "build");
+        } catch (InterruptedException exception) {
+            logger.error("Unable to build site!", exception);
+        }
+    }
+
+    private static void executeCommand(String... command) throws IOException, InterruptedException {
+        ProcessBuilder processBuilder = new ProcessBuilder(command);
+        processBuilder.redirectErrorStream(true);
+
+        Process process = processBuilder.start();
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                logger.info(line);
+            }
+        }
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                logger.error(line);
+            }
+        }
+
+        int exitCode = process.waitFor();
+
+        logger.info("Exit Code: " + exitCode);
     }
 }

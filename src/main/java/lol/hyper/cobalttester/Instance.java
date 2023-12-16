@@ -9,18 +9,18 @@ public class Instance {
     private final String commit;
     private final String branch;
     private final String instanceName;
-    private final String url;
+    private final String api;
     private final int cors;
     private final long startTime;
     private boolean works;
 
-    public Instance(String frontEnd, String version, String commit, String branch, String instanceName, String url, int cors, long startTime) {
+    public Instance(String frontEnd, String version, String commit, String branch, String instanceName, String api, int cors, long startTime) {
         this.frontEnd = frontEnd;
         this.version = version;
         this.commit = commit;
         this.branch = branch;
         this.instanceName = instanceName;
-        this.url = url;
+        this.api = api;
         this.cors = cors;
         this.startTime = startTime;
         this.works = false;
@@ -32,18 +32,22 @@ public class Instance {
         instanceJSON.put("commit", this.commit);
         instanceJSON.put("branch", this.branch);
         instanceJSON.put("name", this.instanceName);
-        instanceJSON.put("url", this.url);
+        instanceJSON.put("api", this.api);
         instanceJSON.put("cors", this.cors);
         instanceJSON.put("startTime", this.startTime);
         instanceJSON.put("status", this.works);
-        instanceJSON.put("frontEnd", this.frontEnd);
+        if (frontEnd.equals(api)) {
+            instanceJSON.put("frontEnd", "None");
+        } else {
+            instanceJSON.put("frontEnd", this.frontEnd);
+        }
         return instanceJSON;
     }
 
     public boolean test() {
         JSONObject body = new JSONObject();
         body.put("url", "https://www.youtube.com/watch?v=kpwNjdEPz7E");
-        String postResponse = RequestUtil.sendPost(body, "https://" + this.url + "/api/json");
+        String postResponse = RequestUtil.sendPost(body, "https://" + this.api + "/api/json");
         if (postResponse == null) {
             return false;
         }
@@ -52,7 +56,7 @@ public class Instance {
     }
 
     public String toString() {
-        return this.url;
+        return this.frontEnd;
     }
 
     public void works(boolean works) {
@@ -61,10 +65,6 @@ public class Instance {
 
     public String branch() {
         return this.branch;
-    }
-
-    public String url() {
-        return this.url;
     }
 
     public int cors() {
@@ -88,11 +88,16 @@ public class Instance {
         return this.works;
     }
 
+    public String api() {
+        return this.api;
+    }
+
     public String frontEnd() {
-        if (frontEnd.equals("None")) {
-            return "None";
-        }
+        return this.frontEnd;
+    }
+
+    public String markdown() {
         String template = "[url](https://url)";
-        return template.replaceAll("url", this.frontEnd);
+        return template.replaceAll("url", frontEnd);
     }
 }
