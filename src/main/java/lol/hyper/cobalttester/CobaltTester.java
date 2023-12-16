@@ -51,7 +51,7 @@ public class CobaltTester {
                 String fullURL = "https://" + api + "/api/serverInfo";
 
                 if (frontEnd.equals("None")) {
-                    frontEnd = api;
+                    frontEnd = null;
                 }
 
                 JSONObject request = RequestUtil.requestJSON(fullURL);
@@ -106,7 +106,7 @@ public class CobaltTester {
         for (Instance instance : instances) {
             String status = instance.doesWork() ? "Online" : "Offline";
             // does not have a front end
-            if (instance.api().equals(instance.frontEnd())) {
+            if (instance.frontEnd() == null) {
                 cache.put(instance.api(), instance.toJSON());
                 table.append("| ").append("None");
             } else {

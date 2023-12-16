@@ -2,6 +2,8 @@ package lol.hyper.cobalttester;
 
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 public class Instance {
 
     private final String frontEnd;
@@ -36,11 +38,7 @@ public class Instance {
         instanceJSON.put("cors", this.cors);
         instanceJSON.put("startTime", this.startTime);
         instanceJSON.put("status", this.works);
-        if (frontEnd.equals(api)) {
-            instanceJSON.put("frontEnd", "None");
-        } else {
-            instanceJSON.put("frontEnd", this.frontEnd);
-        }
+        instanceJSON.put("frontEnd", Objects.requireNonNullElse(frontEnd, "None"));
         return instanceJSON;
     }
 
