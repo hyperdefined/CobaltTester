@@ -4,6 +4,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -27,8 +28,8 @@ public class CobaltTester {
             System.exit(1);
         }
         ArrayList<Instance> instances = new ArrayList<>();
-        JSONObject cache = new JSONObject();
-        File cacheFile = new File("cache.json");
+        JSONArray cache = new JSONArray();
+        File cacheFile = new File("instances.json");
         // delete the file if it exists
         if (cacheFile.exists()) {
             boolean deleteStatus = cacheFile.delete();
@@ -107,15 +108,14 @@ public class CobaltTester {
             String status = instance.doesWork() ? "Online" : "Offline";
             // does not have a front end
             if (instance.frontEnd() == null) {
-                cache.put(instance.api(), instance.toJSON());
+                cache.put(instance.toJSON());
                 table.append("| ").append("None");
             } else {
-                cache.put(instance.frontEnd(), instance.toJSON());
+                cache.put(instance.toJSON());
                 table.append("| ").append(instance.markdown());
             }
             table.append(" | ").append(instance.api()).append(" | ").append(instance.version()).append(" | ").append(instance.commit()).append(" | ").append(instance.branch()).append(" | ").append(instance.name()).append(" | ").append(instance.cors()).append(" | ").append(status).append(" |\n");
         }
-        cache.put("lastUpdated", System.currentTimeMillis());
         JSONUtil.writeFile(cache, cacheFile);
         JSONUtil.replaceSelected(table.toString());
 
