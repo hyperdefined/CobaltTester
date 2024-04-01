@@ -34,9 +34,9 @@ public class CobaltTester {
         if (cacheFile.exists()) {
             boolean deleteStatus = cacheFile.delete();
             if (deleteStatus) {
-                logger.info("Deleted cache.json");
+                logger.info("Deleted instances.json");
             } else {
-                logger.error("Unable to delete cache.json");
+                logger.error("Unable to delete instances.json");
             }
         }
         try (LineIterator it = FileUtils.lineIterator(instancesFile, "UTF-8");) {
@@ -123,6 +123,7 @@ public class CobaltTester {
         try {
             executeCommand("rm", "-r", "_site");
             executeCommand("bundle", "exec", "jekyll", "build");
+            executeCommand("cp", "instances.json", "_site");
         } catch (InterruptedException exception) {
             logger.error("Unable to build site!", exception);
         }
@@ -130,6 +131,7 @@ public class CobaltTester {
 
     private static void executeCommand(String... command) throws IOException, InterruptedException {
         ProcessBuilder processBuilder = new ProcessBuilder(command);
+        logger.info("Running " + processBuilder.command());
         processBuilder.redirectErrorStream(true);
 
         Process process = processBuilder.start();
