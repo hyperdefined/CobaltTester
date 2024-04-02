@@ -18,6 +18,7 @@ import java.util.List;
 public class CobaltTester {
 
     public static Logger logger;
+    public static ArrayList<Instance> instances = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
         System.setProperty("log4j.configurationFile", "log4j2config.xml");
@@ -27,7 +28,6 @@ public class CobaltTester {
             logger.error("Unable to find 'instances' file!");
             System.exit(1);
         }
-        ArrayList<Instance> instances = new ArrayList<>();
         JSONArray cache = new JSONArray();
         File cacheFile = new File("instances.json");
         // delete the file if it exists
@@ -49,37 +49,12 @@ public class CobaltTester {
                 List<String> lineFix = Arrays.asList(line.split(","));
                 String api = lineFix.get(0);
                 String frontEnd = lineFix.get(1);
-                String fullURL = "https://" + api + "/api/serverInfo";
 
                 if (frontEnd.equals("None")) {
                     frontEnd = null;
                 }
+                buildInstance(frontEnd, api);
 
-                JSONObject request = RequestUtil.requestJSON(fullURL);
-                if (request != null) {
-                    String version = request.getString("version");
-                    String commit = request.getString("commit");
-                    String branch = request.getString("branch");
-                    String name = request.getString("name");
-                    int cors = request.getInt("cors");
-                    long startTime = request.getLong("startTime");
-                    Instance instance = new Instance(frontEnd, version, commit, branch, name, api, cors, startTime);
-                    logger.info("Frontend: " + frontEnd);
-                    logger.info("API: " + api);
-                    if (instance.test()) {
-                        instance.works(true);
-                        logger.info("Working: true");
-                    } else {
-                        logger.info("Working: false");
-                        instance.works(false);
-                    }
-                    logger.info("-----------------------------------------");
-                    instances.add(instance);
-                } else {
-                    logger.error("Unable to get JSON from " + fullURL);
-                    Instance instance = new Instance(frontEnd, "-1", null, null, null, api, -1, -1L);
-                    instances.add(instance);
-                }
             }
         } catch (IOException exception) {
             logger.error("Unable to read contents of instances file!", exception);
@@ -102,20 +77,51 @@ public class CobaltTester {
 
 
         StringBuilder table = new StringBuilder();
-        table.append("| Frontend | API | Version | Commit | Branch | Name | CORS | Status |\n");
-        table.append("| --- | --- | --- | --- | --- | --- | --- | --- |\n");
+        // build the table for output
+        table.append("<table>\n<tr><th>Frontend</th><th>API</th><th>Version</th><th>Commit</th><th>Branch</th><th>Name</th><th>CORS</th><th>Status</th></tr>\n");
         for (Instance instance : instances) {
-            String status = instance.doesWork() ? "Online" : "Offline";
             // does not have a front end
+            String frontEnd;
             if (instance.frontEnd() == null) {
                 cache.put(instance.toJSON());
-                table.append("| ").append("None");
+                frontEnd = "None";
             } else {
                 cache.put(instance.toJSON());
-                table.append("| ").append(instance.markdown());
+                frontEnd = "<a href=\"" + instance.frontEnd() + "\">" + instance.frontEnd() + "</a>";
             }
-            table.append(" | ").append(instance.api()).append(" | ").append(instance.version()).append(" | ").append(instance.commit()).append(" | ").append(instance.branch()).append(" | ").append(instance.name()).append(" | ").append(instance.cors()).append(" | ").append(status).append(" |\n");
+            String api = instance.api();
+            String version = instance.version();
+            String commit = instance.commit();
+            String branch = instance.branch();
+            String name = instance.name();
+            int cors = instance.cors();
+            String status = "Unknown";
+            // if both api and frontend online, report it online
+            if (instance.doesApiWork() && instance.doesFrontEndWork()) {
+                status = "Online";
+                table.append("\n<tr class=\"status-online\">");
+            }
+            // if either api or frontend are offline, report it partial status
+            if (!instance.doesApiWork() || !instance.doesFrontEndWork()) {
+                status = "Partial";
+                // if both api and frontend are offline, report it offline status
+                if (!instance.doesApiWork() && !instance.doesFrontEndWork()) {
+                    status = "Offline";
+                    table.append("\n<tr class=\"status-offline\">\n");
+                } else {
+                    table.append("\n<tr class=\"status-partial\">");
+                }
+            }
+            table.append("<td>").append(frontEnd).append("</td>");
+            table.append("<td>").append(api).append("</td>");
+            table.append("<td>").append(version).append("</td>");
+            table.append("<td>").append(commit).append("</td>");
+            table.append("<td>").append(branch).append("</td>");
+            table.append("<td>").append(name).append("</td>");
+            table.append("<td>").append(cors).append("</td>");
+            table.append("<td>").append(status).append("</td></tr>");
         }
+        table.append("</table>");
         JSONUtil.writeFile(cache, cacheFile);
         JSONUtil.replaceSelected(table.toString());
 
@@ -153,5 +159,42 @@ public class CobaltTester {
         int exitCode = process.waitFor();
 
         logger.info("Exit Code: " + exitCode);
+    }
+
+    public static void buildInstance(String frontEnd, String baseApi) {
+        String fullApiURL = "https://" + baseApi + "/api/serverInfo";
+        JSONObject request = RequestUtil.requestJSON(fullApiURL);
+        if (request != null) {
+            String version = request.getString("version");
+            String commit = request.getString("commit");
+            String branch = request.getString("branch");
+            String name = request.getString("name");
+            int cors = request.getInt("cors");
+            long startTime = request.getLong("startTime");
+            Instance instance = new Instance(frontEnd, version, commit, branch, name, baseApi, cors, startTime);
+            logger.info("Frontend: " + frontEnd);
+            logger.info("API: " + baseApi);
+            if (instance.testApi()) {
+                instance.apiWorks(true);
+                logger.info("API status: true");
+            } else {
+                instance.apiWorks(false);
+                logger.info("API status: false");
+            }
+
+            if (instance.testFrontEnd()) {
+                instance.frontEndWorks(true);
+                logger.info("Frontend status: true");
+            } else {
+                instance.frontEndWorks(false);
+                logger.info("Frontend status: false");
+            }
+            logger.info("-----------------------------------------");
+            instances.add(instance);
+        } else {
+            logger.error("Unable to get JSON from " + fullApiURL);
+            Instance instance = new Instance(frontEnd, "-1", null, null, null, baseApi, -1, -1L);
+            instances.add(instance);
+        }
     }
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{{ page.title }}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="description" content="{{ page.description }}">
+        <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="{{ page.title }}">
+        <meta property="og:description" content="{{ page.description }}">
+        <meta property="og:image" content="https://raw.githubusercontent.com/wukko/cobalt/current/src/front/icons/generic.png">
+        <meta name="theme-color" content="#346eeb">
+        <meta name="twitter:card" content="summary">
+        <meta property="twitter:domain" content="https://instances.hyper.lol/">
+        <meta property="twitter:url" content="{{ site.url }}{{ page.url }}">
+        <meta name="twitter:title" content="{{ page.title }}">
+        <meta name="twitter:description" content="{{ page.description }}">
+        <meta name="twitter:image" content="https://raw.githubusercontent.com/wukko/cobalt/current/src/front/icons/generic.png">
+        <link href="https://fonts.googleapis.com/css?family=Maven+Pro:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+        <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/wukko/cobalt/current/src/front/icons/favicon.ico">
+        <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery.min.css" rel="stylesheet">
+        <script async src="https://data.hyper.lol/script.js" data-website-id="8bbcfc41-d4c2-41a6-b9e3-4a33a2f9cb5e"></script>
+    </head>
+    <body style="max-width: unset;">
+        {{ content }}
+    </body>
+</html>

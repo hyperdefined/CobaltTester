@@ -77,4 +77,20 @@ public class RequestUtil {
             return null;
         }
     }
+
+    public static boolean testUrl(String url) {
+        int response;
+        try {
+            URL connectUrl = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) connectUrl.openConnection();
+            connection.setRequestProperty("User-Agent", "CobaltInstances (+https://github.com/hyperdefined/CobaltInstances)");
+            connection.setRequestMethod("GET");
+            connection.connect();
+            response = connection.getResponseCode();
+        } catch (IOException exception) {
+            logger.error("Unable to read URL " + url, exception);
+            return false;
+        }
+        return response == 200;
+    }
 }

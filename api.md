@@ -1,6 +1,8 @@
 ---
 layout: home
 permalink: /api/
+title: "hyper's cobalt instance API"
+description: "an api to access the instance list"
 ---
 # hyper's cobalt instance API
 This is an "API" to access the list of instances. You don't need to scrap the page itself.
@@ -22,3 +24,5 @@ This returns a JSON array with all instances. In each instance, you have some in
 },
 ```
 The status simply returns true/false if the API returns something back. If it's unable to reach it, it will return false. Due note: not all instances will support all services.
+
+Please set a proper user agent when making requests..

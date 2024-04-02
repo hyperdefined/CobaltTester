@@ -14,7 +14,8 @@ public class Instance {
     private final String api;
     private final int cors;
     private final long startTime;
-    private boolean works;
+    private boolean apiWorks;
+    private boolean frontEndWorks;
 
     public Instance(String frontEnd, String version, String commit, String branch, String instanceName, String api, int cors, long startTime) {
         this.frontEnd = frontEnd;
@@ -25,7 +26,6 @@ public class Instance {
         this.api = api;
         this.cors = cors;
         this.startTime = startTime;
-        this.works = false;
     }
 
     public JSONObject toJSON() {
@@ -37,12 +37,14 @@ public class Instance {
         instanceJSON.put("api", this.api);
         instanceJSON.put("cors", this.cors);
         instanceJSON.put("startTime", this.startTime);
-        instanceJSON.put("status", this.works);
+        instanceJSON.put("api_status", this.apiWorks);
+        instanceJSON.put("frontend_status", this.frontEndWorks);
+        instanceJSON.put("status", this.apiWorks);
         instanceJSON.put("frontEnd", Objects.requireNonNullElse(frontEnd, "None"));
         return instanceJSON;
     }
 
-    public boolean test() {
+    public boolean testApi() {
         JSONObject body = new JSONObject();
         body.put("url", "https://www.youtube.com/watch?v=kpwNjdEPz7E");
         String postResponse = RequestUtil.sendPost(body, "https://" + this.api + "/api/json");
@@ -53,12 +55,20 @@ public class Instance {
         return responseJSON.has("url");
     }
 
+    public boolean testFrontEnd() {
+        return RequestUtil.testUrl("https://" + frontEnd);
+    }
+
     public String toString() {
         return this.frontEnd;
     }
 
-    public void works(boolean works) {
-        this.works = works;
+    public void apiWorks(boolean works) {
+        this.apiWorks = works;
+    }
+
+    public void frontEndWorks(boolean works) {
+        this.frontEndWorks = works;
     }
 
     public String branch() {
@@ -82,8 +92,12 @@ public class Instance {
         return this.version;
     }
 
-    public boolean doesWork() {
-        return this.works;
+    public boolean doesApiWork() {
+        return this.apiWorks;
+    }
+
+    public boolean doesFrontEndWork() {
+        return this.frontEndWorks;
     }
 
     public String api() {

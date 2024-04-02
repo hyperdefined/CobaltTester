@@ -45,3 +45,4 @@ logs/
 instances
 _site/
 Gemfile.lock
+instances.json
