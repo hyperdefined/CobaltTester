@@ -87,7 +87,7 @@ public class CobaltTester {
                 frontEnd = "None";
             } else {
                 cache.put(instance.toJSON());
-                frontEnd = "<a href=\"" + instance.frontEnd() + "\">" + instance.frontEnd() + "</a>";
+                frontEnd = "<a href=\"https://" + instance.frontEnd() + "\">" + instance.frontEnd() + "</a>";
             }
             String api = instance.api();
             String version = instance.version();
