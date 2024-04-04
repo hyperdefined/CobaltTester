@@ -35,11 +35,10 @@ public class Instance {
         instanceJSON.put("branch", this.branch);
         instanceJSON.put("name", this.instanceName);
         instanceJSON.put("api", this.api);
-        instanceJSON.put("cors", this.cors);
-        instanceJSON.put("startTime", this.startTime);
-        instanceJSON.put("api_status", this.apiWorks);
-        instanceJSON.put("frontend_status", this.frontEndWorks);
-        instanceJSON.put("status", this.apiWorks);
+        instanceJSON.put("cors", this.cors == 1);
+        instanceJSON.put("startTime", Long.valueOf(this.startTime));
+        instanceJSON.put("api_online", this.apiWorks);
+        instanceJSON.put("frontend_online", this.frontEndWorks);
         instanceJSON.put("frontEnd", Objects.requireNonNullElse(frontEnd, "None"));
         return instanceJSON;
     }

@@ -13,18 +13,18 @@ To access it, you can use <code>https://instances.hyper.lol/instances.json</code
 This returns a JSON array with all instances. In each instance, you have some information, like so:
 ```json
 {
-    "cors": 1,
-    "frontend_status": true,
-    "commit": "825db84",
-    "name": "us4",
-    "startTime": 1711942963149,
-    "api_status": true,
-    "api": "co.wuk.sh",
-    "version": "7.12.3",
-    "branch": "awesome",
-    "frontEnd": "cobalt.tools"
-  },
+  "api_online": true,
+  "cors": true,
+  "frontend_online": true,
+  "commit": "156372a",
+  "name": "us3",
+  "startTime": 1712113601595,
+  "api": "co.wuk.sh",
+  "version": "7.12.3",
+  "branch": "current",
+  "frontEnd": "cobalt.tools"
+}
 ```
 
 ## Status
-`frontend_status` and `api_status` are used to determine if parts of the instance is online/offline. `frontend_status` returns true if the frontend returns 200. `api_status` returns true if the API reponds correctly to a POST request. This does not check all services for an instance. Some services might not work due to server location or missing cookies for some websites.
+`frontend_online` and `api_online` are used to determine if parts of the instance is online/offline. `frontend_online` returns true if the frontend returns 200. `api_online` returns true if the API responds correctly to a POST request. This does not check all services for an instance. Some services might not work due to server location or missing cookies for some websites.
