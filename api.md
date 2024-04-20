@@ -14,7 +14,7 @@ This returns a JSON array with all instances. In each instance, you have some in
 ```json
 {
   "api_online": true,
-  "cors": true,
+  "cors": 1,
   "frontend_online": true,
   "commit": "156372a",
   "name": "us3",

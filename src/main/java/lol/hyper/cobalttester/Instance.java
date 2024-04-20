@@ -35,7 +35,7 @@ public class Instance {
         instanceJSON.put("branch", this.branch);
         instanceJSON.put("name", this.instanceName);
         instanceJSON.put("api", this.api);
-        instanceJSON.put("cors", this.cors == 1);
+        instanceJSON.put("cors", this.cors);
         instanceJSON.put("startTime", Long.valueOf(this.startTime));
         instanceJSON.put("api_online", this.apiWorks);
         instanceJSON.put("frontend_online", this.frontEndWorks);
