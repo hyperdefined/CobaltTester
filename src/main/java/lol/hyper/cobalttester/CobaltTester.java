@@ -89,7 +89,7 @@ public class CobaltTester {
                 cache.put(instance.toJSON());
                 frontEnd = "<a href=\"https://" + instance.frontEnd() + "\">" + instance.frontEnd() + "</a>";
             }
-            String api = "<a href=\"https://" + instance.api() + "/api/serverInfo\">" + instance.frontEnd() + "</a>";
+            String api = "<a href=\"https://" + instance.api() + "/api/serverInfo\">" + instance.api() + "</a>";
             String version = instance.version();
             String commit = instance.commit();
             String branch = instance.branch();
