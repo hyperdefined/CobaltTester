@@ -14,13 +14,14 @@ This returns a JSON array with all instances. In each instance, you have some in
 ```json
 {
   "api_online": true,
+  "protocol": "https",
   "cors": 1,
   "frontend_online": true,
-  "commit": "156372a",
-  "name": "us3",
-  "startTime": 1712113601595,
+  "commit": "617e427",
+  "name": "us4",
+  "startTime": 1713962378753,
   "api": "co.wuk.sh",
-  "version": "7.12.3",
+  "version": "7.12.6",
   "branch": "current",
   "frontEnd": "cobalt.tools"
 }

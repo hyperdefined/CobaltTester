@@ -1,5 +1,6 @@
-package lol.hyper.cobalttester;
+package lol.hyper.cobalttester.tools;
 
+import lol.hyper.cobalttester.CobaltTester;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
@@ -27,7 +28,7 @@ public class RequestUtil {
             connection.setDoOutput(true);
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
-            connection.setRequestProperty("User-Agent", "CobaltInstances (+https://instances.hyper.lol)");
+            connection.setRequestProperty("User-Agent", CobaltTester.USER_AGENT);
             byte[] out = body.toString().getBytes(StandardCharsets.UTF_8);
             OutputStream stream = connection.getOutputStream();
             stream.write(out);
@@ -57,7 +58,7 @@ public class RequestUtil {
         String rawJSON;
         try {
             URLConnection connection = new URL(url).openConnection();
-            connection.setRequestProperty("User-Agent", "CobaltInstances (+https://github.com/hyperdefined/CobaltInstances)");
+            connection.setRequestProperty("User-Agent", CobaltTester.USER_AGENT);
             connection.connect();
             InputStream in = connection.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
@@ -83,7 +84,7 @@ public class RequestUtil {
         try {
             URL connectUrl = new URL(url);
             HttpURLConnection connection = (HttpURLConnection) connectUrl.openConnection();
-            connection.setRequestProperty("User-Agent", "CobaltInstances (+https://github.com/hyperdefined/CobaltInstances)");
+            connection.setRequestProperty("User-Agent", CobaltTester.USER_AGENT);
             connection.setRequestMethod("GET");
             connection.connect();
             response = connection.getResponseCode();

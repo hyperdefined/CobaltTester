@@ -4,18 +4,24 @@ title: "hyper's cobalt instance list"
 description: "a collection of known cobalt instances"
 ---
 # hyper's cobalt instance list
-This is a list of different cobalt instances. If you want your instance to be added, ping @hyperdefined on the [cobalt discord](https://discord.gg/pQPt8HBUPu). This list is generated every 15 minutes. All requests use the user agent `CobaltInstances (+https://instances.hyper.lol)`.
+This is a list of different cobalt instances. This list is generated every hour. All requests use the user agent `CobaltTester (+https://instances.hyper.lol)`.
 
-The only official instance is from wukko, <code>cobalt.tools</code>. All others listed are 3rd party.
+The only official instance cobalt is from wukko, <code>cobalt.tools</code>. All others listed are 3rd party.
 
 The status of an instance can be 3 values:
-* `Online`: Frontend and API are both online.
-* `Partial`: Frontend or API are offline.
+* `Online`: Frontend and API are both online and working. Both were able to respond, and the API was able to download media.
+* `Partial`: Frontend or API are offline/not working. Most of the time, the API couldn't download the test media.
 * `Offline`: Frontend and API are both offline.
 
-## Instances
+These are either user submitted or manually found. If you want to be added/removed, ping @hyperdefined on the [cobalt discord](https://discord.gg/pQPt8HBUPu).
+
+# Instances
 If you want to fetch this list, see the [API](https://instances.hyper.lol/api/) page.
 
 Last updated (UTC): <TIME>
-
+## With Domains
+These are instances that have a front facing domain.
 <TABLE>
+## Without Domains
+These are instances that do not have a front facing domain.
+<TABLE2>

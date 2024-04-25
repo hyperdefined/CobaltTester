@@ -1,5 +1,6 @@
 package lol.hyper.cobalttester;
 
+import lol.hyper.cobalttester.tools.RequestUtil;
 import org.json.JSONObject;
 
 import java.util.Objects;
@@ -7,23 +8,25 @@ import java.util.Objects;
 public class Instance {
 
     private final String frontEnd;
+    private final String api;
+    private final String protocol;
     private final String version;
     private final String commit;
     private final String branch;
-    private final String instanceName;
-    private final String api;
+    private final String name;
     private final int cors;
     private final long startTime;
     private boolean apiWorks;
     private boolean frontEndWorks;
 
-    public Instance(String frontEnd, String version, String commit, String branch, String instanceName, String api, int cors, long startTime) {
+    public Instance(String frontEnd, String api, String protocol, String version, String commit, String branch, String name, int cors, long startTime) {
         this.frontEnd = frontEnd;
+        this.api = api;
+        this.protocol = protocol;
         this.version = version;
         this.commit = commit;
         this.branch = branch;
-        this.instanceName = instanceName;
-        this.api = api;
+        this.name = name;
         this.cors = cors;
         this.startTime = startTime;
     }
@@ -33,20 +36,21 @@ public class Instance {
         instanceJSON.put("version", this.version);
         instanceJSON.put("commit", this.commit);
         instanceJSON.put("branch", this.branch);
-        instanceJSON.put("name", this.instanceName);
+        instanceJSON.put("name", this.name);
         instanceJSON.put("api", this.api);
         instanceJSON.put("cors", this.cors);
         instanceJSON.put("startTime", Long.valueOf(this.startTime));
         instanceJSON.put("api_online", this.apiWorks);
         instanceJSON.put("frontend_online", this.frontEndWorks);
         instanceJSON.put("frontEnd", Objects.requireNonNullElse(frontEnd, "None"));
+        instanceJSON.put("protocol", protocol);
         return instanceJSON;
     }
 
     public boolean testApi() {
         JSONObject body = new JSONObject();
-        body.put("url", "https://www.youtube.com/watch?v=kpwNjdEPz7E");
-        String postResponse = RequestUtil.sendPost(body, "https://" + this.api + "/api/json");
+        body.put("url", "https://twitter.com/TweetsOfCats/status/1783249644975169656");
+        String postResponse = RequestUtil.sendPost(body, protocol + "://" + this.api + "/api/json");
         if (postResponse == null) {
             return false;
         }
@@ -55,7 +59,10 @@ public class Instance {
     }
 
     public boolean testFrontEnd() {
-        return RequestUtil.testUrl("https://" + frontEnd);
+        if (frontEnd == null) {
+            return true;
+        }
+        return RequestUtil.testUrl(protocol + "://" + frontEnd);
     }
 
     public String toString() {
@@ -84,7 +91,7 @@ public class Instance {
     }
 
     public String name() {
-        return this.instanceName;
+        return this.name;
     }
 
     public String version() {
@@ -107,8 +114,7 @@ public class Instance {
         return this.frontEnd;
     }
 
-    public String markdown() {
-        String template = "[url](https://url)";
-        return template.replaceAll("url", frontEnd);
+    public String protocol() {
+        return this.protocol;
     }
 }
