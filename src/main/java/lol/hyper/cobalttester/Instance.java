@@ -55,7 +55,10 @@ public class Instance {
             return false;
         }
         JSONObject responseJSON = new JSONObject(postResponse);
-        return responseJSON.has("url");
+        if (responseJSON.getString("status").equalsIgnoreCase("redirect")) {
+            return responseJSON.getString("url").contains("https://video.twimg.com");
+        }
+        return false;
     }
 
     public boolean testFrontEnd() {
