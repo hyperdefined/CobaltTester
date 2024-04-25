@@ -44,3 +44,4 @@ logs/
 _site/
 Gemfile.lock
 instances.json
+CobaltTester-1.0-SNAPSHOT.jar
