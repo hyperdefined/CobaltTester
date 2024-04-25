@@ -63,7 +63,7 @@ public class Instance {
 
     public boolean testFrontEnd() {
         if (frontEnd == null) {
-            return true;
+            return false;
         }
         return RequestUtil.testUrl(protocol + "://" + frontEnd);
     }
