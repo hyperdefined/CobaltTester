@@ -27,6 +27,7 @@ public class CobaltTester {
         logger.info("Total available threads: " + availableThreads);
 
         File instancesFile = new File("instances");
+        File blockedInstances = new File("blocked_instances");
         if (!instancesFile.exists()) {
             logger.error("Unable to find 'instances' file!");
             System.exit(1);
@@ -44,10 +45,17 @@ public class CobaltTester {
         }
 
         ArrayList<String> instanceFileContents = FileUtil.readInstances(instancesFile);
+        ArrayList<String> blockedInstancesContents = FileUtil.readInstances(blockedInstances);
         if (instanceFileContents == null) {
             logger.error("Unable to read instance file! Exiting...");
             System.exit(1);
         }
+        if (blockedInstancesContents == null) {
+            logger.error("Unable to read blocked instance file! Exiting...");
+            System.exit(1);
+        }
+
+        logger.info(blockedInstancesContents);
 
         ArrayList<Instance> instances = new ArrayList<>();
         for (String line : instanceFileContents) {
@@ -55,6 +63,13 @@ public class CobaltTester {
             String api = lineFix.get(0);
             String frontEnd = lineFix.get(1);
             String protocol = lineFix.get(2);
+
+            boolean apiBlocked = blockedInstancesContents.stream().anyMatch(api::contains);
+            boolean frontEndBlocked = blockedInstancesContents.stream().anyMatch(frontEnd::contains);
+            if (apiBlocked || frontEndBlocked) {
+                logger.warn("Skipping instance " + api + " because it's blocked.");
+                continue;
+            }
 
             if (frontEnd.equals("None")) {
                 frontEnd = null;

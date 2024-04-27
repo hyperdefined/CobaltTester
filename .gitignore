@@ -4,7 +4,7 @@ target/
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
-backend/.idea/
+.idea/
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
@@ -48,4 +48,5 @@ web/instances.json
 backend/target
 backend/logs
 backend/instances.json
-CobaltTester-1.0-SNAPSHOT.jar
+backend/blocked_instances
+backend/CobaltTester-1.0-SNAPSHOT.jar
