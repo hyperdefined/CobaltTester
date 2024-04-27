@@ -15,8 +15,18 @@
 
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://instances.hyper.lol" # the base hostname & protocol for your site, e.g. http://example.com
+title: "hyper's cobalt instance list"
 
 permalink: /:title
+
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      layout: "default"
+
+livereload: true
 
 # Exclude from processing.
 # The following items will not be processed, by default.
