@@ -121,7 +121,7 @@ public class CobaltTester {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        instances.sort(Comparator.comparingDouble(Instance::getScoreResults).reversed());
+        instances.sort(Comparator.comparingDouble(Instance::getScore).reversed());
 
         // write to instances.json file
         for (Instance instance : instances) {
