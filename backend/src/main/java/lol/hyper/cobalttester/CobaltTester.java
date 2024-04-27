@@ -28,6 +28,7 @@ public class CobaltTester {
 
         File instancesFile = new File("instances");
         File blockedInstances = new File("blocked_instances");
+        File testUrlsFile = new File("test_urls");
         if (!instancesFile.exists()) {
             logger.error("Unable to find 'instances' file!");
             System.exit(1);
@@ -46,12 +47,17 @@ public class CobaltTester {
 
         ArrayList<String> instanceFileContents = FileUtil.readInstances(instancesFile);
         ArrayList<String> blockedInstancesContents = FileUtil.readInstances(blockedInstances);
+        ArrayList<String> testUrlsContents = FileUtil.readInstances(testUrlsFile);
         if (instanceFileContents == null) {
             logger.error("Unable to read instance file! Exiting...");
             System.exit(1);
         }
         if (blockedInstancesContents == null) {
             logger.error("Unable to read blocked instance file! Exiting...");
+            System.exit(1);
+        }
+        if (testUrlsContents == null) {
+            logger.error("Unable to read test urls file! Exiting...");
             System.exit(1);
         }
 
@@ -94,7 +100,7 @@ public class CobaltTester {
         for (int i = 0; i < threads; i++) {
             int extraTask = (i < remainderTasks) ? 1 : 0; // Distribute remainder tasks
             int endTask = startTask + tasksPerThread + extraTask;
-            executor.submit(new Tester(startTask, endTask, latch, instances, i));
+            executor.submit(new Tester(startTask, endTask, latch, instances, i, testUrlsContents));
             startTask = endTask;
         }
 
