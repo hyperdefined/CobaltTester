@@ -4,7 +4,7 @@ target/
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
-.idea/
+backend/.idea/
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
@@ -38,10 +38,14 @@ build/
 ### Mac OS ###
 .DS_Store
 
-### Project Specific ###
-index.md
-logs/
-_site/
-Gemfile.lock
-instances.json
+### Web Module ###
+web/index.md
+web/Gemfile.lock
+web/_site
+web/instances.json
+
+### Backend Module ##
+backend/target
+backend/logs
+backend/instances.json
 CobaltTester-1.0-SNAPSHOT.jar
