@@ -1,6 +1,6 @@
 ---
 title: "Instances"
-description: "a collection of communit cobalt instances"
+description: "a collection of community cobalt instances"
 ---
 This is a list of community cobalt instances. This list is generated every hour. All requests use the user agent `CobaltTester (+https://instances.hyper.lol)`.
 
