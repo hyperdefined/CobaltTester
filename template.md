@@ -13,6 +13,7 @@ The status of an instance can be 3 values:
 * `Online`: Frontend and API are both online and working. Both were able to respond, and the API was able to download media.
 * `Partial`: Frontend or API are offline/not working. Most of the time, the API couldn't download the test media.
 * `Offline`: Frontend and API are both offline.
+
 ## Score
 A score is the percentage of media that instance was able to download. The higher the score to 100, the more media that instance can download. Some services require certain cookies to be set, so not all instances can handle certain websites.
 
