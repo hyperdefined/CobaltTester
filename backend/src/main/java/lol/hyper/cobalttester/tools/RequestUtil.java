@@ -1,6 +1,7 @@
 package lol.hyper.cobalttester.tools;
 
 import lol.hyper.cobalttester.CobaltTester;
+import lol.hyper.cobalttester.RequestResults;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
@@ -17,8 +18,9 @@ public class RequestUtil {
 
     public static Logger logger = LogManager.getLogger(RequestUtil.class);
 
-    public static JSONObject sendPost(JSONObject body, String url) {
-        String response;
+    public static RequestResults sendPost(JSONObject body, String url) {
+        String content;
+        int responseCode = -1;
         try {
             StringBuilder stringBuilder;
             BufferedReader reader;
@@ -32,26 +34,20 @@ public class RequestUtil {
             byte[] out = body.toString().getBytes(StandardCharsets.UTF_8);
             OutputStream stream = connection.getOutputStream();
             stream.write(out);
-            int responseCode = connection.getResponseCode();
-            if (responseCode == 200) {
-                String line;
-                reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                stringBuilder = new StringBuilder();
-                while ((line = reader.readLine()) != null) {
-                    stringBuilder.append(line);
-                }
-            } else {
-                logger.error("POST request failed with response code: " + responseCode);
-                return null;
+            responseCode = connection.getResponseCode();
+            String line;
+            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            stringBuilder = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line);
             }
             reader.close();
-            response = stringBuilder.toString();
+            content = stringBuilder.toString();
             connection.disconnect();
         } catch (Exception exception) {
-            logger.error("Unable to set POST request!", exception);
-            return null;
+            return new RequestResults(null, responseCode);
         }
-        return new JSONObject(response);
+        return new RequestResults(content, responseCode);
     }
 
     public static JSONObject requestJSON(String url) {

@@ -16,24 +16,7 @@ public class Tester implements Runnable {
     private final ArrayList<Instance> instances;
     private final int threadNumber;
     private final Logger logger = LogManager.getLogger(this);
-    private final String[] testUrls = {
-            "https://www.youtube.com/watch?v=b3rFbkFjRrA",
-            "https://music.youtube.com/watch?v=iYJoahPxhR8",
-            "https://www.youtube.com/shorts/q3dii5mwgUI",
-            "https://www.tiktok.com/@hancorecantaim/video/7298613260780195079",
-            "https://www.instagram.com/linustech/reel/C6CJa5rvM47/",
-            "https://x.com/PepitoTheCat/status/1783716906618294596",
-            "https://www.reddit.com/r/TikTokCringe/comments/wup1fg/id_be_escaping_at_the_first_chance_i_got/",
-            "https://soundcloud.com/rick-astley-official/never-gonna-give-you-up-4",
-            "https://www.bilibili.com/video/BV1Ti421m7sM?spm_id_from=333.1007.tianma.1-2-2.click",
-            "https://www.dailymotion.com/video/x8xjm74",
-            "https://ok.ru/video/7533205195294",
-            "https://streamable.com/p7blpp",
-            "https://www.tumblr.com/viralfrog/748037133842939904",
-            "https://twitch.tv/letshugotv/clip/BloodyPlumpPanTebowing-oCocuxjwZ8I-IZYa",
-            "https://vk.com/video-220754053_456240614",
-            "https://vimeo.com/936245676"
-    };
+    private final String[] testUrls = {"https://www.youtube.com/watch?v=b3rFbkFjRrA", "https://music.youtube.com/watch?v=iYJoahPxhR8", "https://www.youtube.com/shorts/q3dii5mwgUI", "https://www.tiktok.com/@hancorecantaim/video/7298613260780195079", "https://www.instagram.com/linustech/reel/C6CJa5rvM47/", "https://x.com/PepitoTheCat/status/1783716906618294596", "https://www.reddit.com/r/TikTokCringe/comments/wup1fg/id_be_escaping_at_the_first_chance_i_got/", "https://soundcloud.com/rick-astley-official/never-gonna-give-you-up-4", "https://www.bilibili.com/video/BV1Ti421m7sM?spm_id_from=333.1007.tianma.1-2-2.click", "https://www.dailymotion.com/video/x8xjm74", "https://ok.ru/video/7533205195294", "https://streamable.com/p7blpp", "https://www.tumblr.com/viralfrog/748037133842939904", "https://twitch.tv/letshugotv/clip/BloodyPlumpPanTebowing-oCocuxjwZ8I-IZYa", "https://vk.com/video-220754053_456240614", "https://vimeo.com/936245676"};
 
     public Tester(int startTask, int endTask, CountDownLatch latch, ArrayList<Instance> instances, int threadNumber) {
         this.startTask = startTask;
@@ -110,19 +93,14 @@ public class Tester implements Runnable {
         for (String url : testUrls) {
             JSONObject postContents = new JSONObject();
             postContents.put("url", url);
-            JSONObject testResponse = RequestUtil.sendPost(postContents, api);
-            if (testResponse == null || !testResponse.has("status")) {
-                logger.warn("Test FAILED for " + api + " with " + url);
+            RequestResults testResponse = RequestUtil.sendPost(postContents, api);
+            if (testResponse.getResponseCode() != 200) {
+                logger.warn("Test FAIL for " + api + " with code " + testResponse.getResponseCode() + " with " + url);
                 continue;
             }
-            String status = testResponse.getString("status");
-            switch (status) {
-                // any of these means the api worked
-                case "redirect", "stream", "success" -> {
-                    logger.info("Test PASS for " + api + " with " + url);
-                    score++;
-                }
-                case "rate-limit" -> logger.info("Test RATE-LIMITED for " + api);
+            if (testResponse.getResponseCode() == 200) {
+                logger.info("Test PASS for " + api +  " with " + url);
+                score++;
             }
             Thread.sleep(5000);
         }

@@ -33,7 +33,7 @@ public class CobaltTester {
             System.exit(1);
         }
         JSONArray cacheArray = new JSONArray();
-        File cacheFile = new File("web", "instances.json");
+        File cacheFile = new File("../web", "instances.json");
         // delete the file if it exists
         if (cacheFile.exists()) {
             boolean deleteStatus = cacheFile.delete();
@@ -54,8 +54,6 @@ public class CobaltTester {
             logger.error("Unable to read blocked instance file! Exiting...");
             System.exit(1);
         }
-
-        logger.info(blockedInstancesContents);
 
         ArrayList<Instance> instances = new ArrayList<>();
         for (String line : instanceFileContents) {
@@ -116,7 +114,7 @@ public class CobaltTester {
         FileUtil.writeFile(cacheArray, cacheFile);
 
         // edit the template with the tables
-        String template = FileUtil.readFile(new File("web", "template.md"));
+        String template = FileUtil.readFile(new File("../web", "template.md"));
         if (template == null) {
             logger.error("Unable to read template.md! Exiting...");
             System.exit(1);
@@ -128,6 +126,6 @@ public class CobaltTester {
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
         f.setTimeZone(TimeZone.getTimeZone("UTC"));
         template = template.replace("<TIME>", f.format(new Date()));
-        FileUtil.writeFile(template, new File("web", "index.md"));
+        FileUtil.writeFile(template, new File("../web", "index.md"));
     }
 }
