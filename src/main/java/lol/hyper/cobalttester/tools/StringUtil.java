@@ -15,7 +15,7 @@ public class StringUtil {
     public static String makeTable(List<Instance> instances, String type) {
         StringBuilder table = new StringBuilder();
         // build the table for output
-        table.append("<table>\n<tr><th>Frontend</th><th>API</th><th>Version</th><th>Commit</th><th>Name</th><th>CORS</th><th>Score</th><th>Status</th></tr>\n");
+        table.append("<table>\n<tr><th>Frontend</th><th>API</th><th>Version</th><th>Commit</th><th>Branch</th><th>Name</th><th>CORS</th><th>Score</th><th>Status</th></tr>\n");
 
         Iterator<Instance> copyIterator = instances.iterator();
         if (type.equalsIgnoreCase("ip")) {
@@ -48,6 +48,7 @@ public class StringUtil {
             String api = "<a href=\"" + instance.getProtocol() + "://" + instance.getApi() + "/api/serverInfo\">" + instance.getApi() + "</a>";
             String version = instance.getVersion();
             String commit = instance.getCommit();
+            String branch = instance.getBranch();
             String name = instance.getName();
             int cors = instance.getCors();
             String status = "Unknown";
@@ -72,6 +73,7 @@ public class StringUtil {
             table.append("<td>").append(api).append("</td>");
             table.append("<td>").append(version).append("</td>");
             table.append("<td>").append(commit).append("</td>");
+            table.append("<td>").append(branch).append("</td>");
             table.append("<td>").append(name).append("</td>");
             table.append("<td>").append(cors).append("</td>");
             table.append("<td>").append(score).append("</td>");
