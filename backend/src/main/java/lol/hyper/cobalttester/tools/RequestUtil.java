@@ -18,6 +18,13 @@ public class RequestUtil {
 
     public static final Logger logger = LogManager.getLogger(RequestUtil.class);
 
+    /**
+     * Send a POST request.
+     *
+     * @param body The body to send.
+     * @param url  The url to send to.
+     * @return A RequestResults object.
+     */
     public static RequestResults sendPost(JSONObject body, String url) {
         String content;
         int responseCode = -1;
@@ -50,6 +57,12 @@ public class RequestUtil {
         return new RequestResults(content, responseCode);
     }
 
+    /**
+     * Request a JSON object from URL.
+     *
+     * @param url The URL to request.
+     * @return The JSONObject it returns. NULL if something went wrong.
+     */
     public static JSONObject requestJSON(String url) {
         String rawJSON;
         try {
@@ -75,6 +88,12 @@ public class RequestUtil {
         }
     }
 
+    /**
+     * Test to see if a URL returns HTTP 200.
+     *
+     * @param url The url to test.
+     * @return true/false if it works.
+     */
     public static boolean testUrl(String url) {
         int response;
         try {

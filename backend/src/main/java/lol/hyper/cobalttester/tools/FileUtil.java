@@ -16,17 +16,29 @@ public class FileUtil {
 
     private static final Logger logger = LogManager.getLogger(FileUtil.class);
 
-    public static void writeFile(Object json, File file) {
+    /**
+     * Write contents of an object to a file.
+     *
+     * @param content The content to write.
+     * @param file    The file to write to.
+     */
+    public static void writeFile(Object content, File file) {
         logger.info("Writing to file " + file.getAbsolutePath());
         try {
             FileWriter writer = new FileWriter(file);
-            writer.write(json.toString());
+            writer.write(content.toString());
             writer.close();
         } catch (IOException exception) {
             logger.error("Unable to write file " + file, exception);
         }
     }
 
+    /**
+     * Read contents of a file.
+     *
+     * @param file The file to read.
+     * @return The contents. NULL if something went wrong.
+     */
     public static String readFile(File file) {
         byte[] encoded;
         try {
@@ -38,9 +50,15 @@ public class FileUtil {
         return new String(encoded, StandardCharsets.UTF_8);
     }
 
-    public static ArrayList<String> readInstances(File instancesFile) {
+    /**
+     * Read the "raw" files. Mainly for instances, blocked_instances, and test_urls.
+     *
+     * @param file The file to read.
+     * @return The contents. NULL if something went wrong.
+     */
+    public static ArrayList<String> readRawFile(File file) {
         ArrayList<String> contents = new ArrayList<>();
-        try (LineIterator it = FileUtils.lineIterator(instancesFile, "UTF-8");) {
+        try (LineIterator it = FileUtils.lineIterator(file, "UTF-8");) {
             while (it.hasNext()) {
                 String line = it.nextLine();
                 // skip lines that have comment/whitespace

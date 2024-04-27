@@ -36,6 +36,7 @@ public class Tester implements Runnable {
                 Instance instance = instances.get(i);
                 String protocol = instance.getProtocol();
                 String api = protocol + "://" + instance.getApi() + "/api/serverInfo";
+                // make sure the API works before testing
                 boolean testApi = RequestUtil.testUrl(api);
                 instance.setApiWorking(testApi);
                 // if the api is offline, don't perform tests on this instance
@@ -43,6 +44,7 @@ public class Tester implements Runnable {
                     logger.warn("Skipping " + api + " tests because it's offline.");
                     continue;
                 }
+                // load the JSON from the api
                 JSONObject apiInfo = RequestUtil.requestJSON(api);
                 if (apiInfo == null) {
                     logger.warn("Skipping " + api + " tests because the API JSON returned null");
@@ -86,26 +88,27 @@ public class Tester implements Runnable {
     private void performTests(Instance instance) throws InterruptedException {
         int score = 0;
         int totalTests = testUrls.size();
+        boolean checkFrontEnd = instance.getFrontEnd() != null;
         String api = instance.getProtocol() + "://" + instance.getApi() + "/api/json";
-        // if the frontend exists, add that to the tests
-        if (instance.getFrontEnd() != null) {
-            totalTests++;
-        }
+        // perform a POST request for each url
         for (String url : testUrls) {
             JSONObject postContents = new JSONObject();
             postContents.put("url", url);
             RequestResults testResponse = RequestUtil.sendPost(postContents, api);
+            // if the URL did not return HTTP 200, it did not pass
             if (testResponse.responseCode() != 200) {
                 logger.warn("Test FAIL for " + api + " with code " + testResponse.responseCode() + " with " + url);
                 continue;
             }
-            if (testResponse.responseCode() == 200) {
-                logger.info("Test PASS for " + api +  " with " + url);
-                score++;
-            }
+            // since it returned HTTP 200, it passed
+            logger.info("Test PASS for " + api + " with " + url);
+            score++;
             Thread.sleep(5000);
         }
-        if (instance.getFrontEnd() != null) {
+        // if the frontend exists, check it here
+        // add that to the tests as well
+        if (checkFrontEnd) {
+            totalTests++;
             String frontEnd = instance.getProtocol() + "://" + instance.getFrontEnd();
             boolean testFrontEnd = RequestUtil.testUrl(frontEnd);
             if (testFrontEnd) {
@@ -116,7 +119,7 @@ public class Tester implements Runnable {
                 logger.warn("Test FAILED for checking " + frontEnd);
             }
         }
-        instance.setScore(score);
-        instance.setTestsRan(totalTests);
+        double finalScore = (double) score / totalTests * 100.0;
+        instance.setScore(finalScore);
     }
 }

@@ -17,8 +17,7 @@ public class Instance {
     private long startTime;
     private boolean apiWorking;
     private boolean frontEndWorking;
-    private int score;
-    private int testsRan;
+    private double score;
 
     public Instance(String frontEnd, String api, String protocol) {
         this.frontEnd = frontEnd;
@@ -39,7 +38,7 @@ public class Instance {
         instanceJSON.put("frontend_online", this.frontEndWorking);
         instanceJSON.put("frontEnd", Objects.requireNonNullElse(frontEnd, "None"));
         instanceJSON.put("protocol", protocol);
-        instanceJSON.put("score", getScoreResults());
+        instanceJSON.put("score", score);
         return instanceJSON;
     }
 
@@ -120,19 +119,11 @@ public class Instance {
     }
 
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 
-
-    public void setTestsRan(int testsRan) {
-        this.testsRan = testsRan;
-    }
-
-    public double getScoreResults() {
-        if (testsRan == 0) {
-            return 0.0;
-        }
-        return (double) score / testsRan * 100.0;
+    public double getScore() {
+        return score;
     }
 }
