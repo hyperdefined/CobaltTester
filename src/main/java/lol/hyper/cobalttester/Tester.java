@@ -16,7 +16,14 @@ public class Tester implements Runnable {
     private final ArrayList<Instance> instances;
     private final int threadNumber;
     private final Logger logger = LogManager.getLogger(this);
-    private final String[] testUrls = {"https://www.youtube.com/watch?v=b3rFbkFjRrA", "https://music.youtube.com/watch?v=iYJoahPxhR8", "https://www.tiktok.com/@hancorecantaim/video/7298613260780195079", "https://www.instagram.com/linustech/reel/C6CJa5rvM47/", "https://x.com/PepitoTheCat/status/1783716906618294596", "https://www.reddit.com/r/TikTokCringe/comments/wup1fg/id_be_escaping_at_the_first_chance_i_got/"};
+    private final String[] testUrls = {
+        "https://www.youtube.com/watch?v=b3rFbkFjRrA",
+        "https://music.youtube.com/watch?v=iYJoahPxhR8",
+        "https://www.tiktok.com/@hancorecantaim/video/7298613260780195079", 
+        "https://www.instagram.com/linustech/reel/C6CJa5rvM47/",
+        "https://x.com/PepitoTheCat/status/1783716906618294596",
+        "https://www.reddit.com/r/TikTokCringe/comments/wup1fg/id_be_escaping_at_the_first_chance_i_got/"
+    };
 
     public Tester(int startTask, int endTask, CountDownLatch latch, ArrayList<Instance> instances, int threadNumber) {
         this.startTask = startTask;
