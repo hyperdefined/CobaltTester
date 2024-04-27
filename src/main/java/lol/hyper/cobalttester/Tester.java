@@ -19,6 +19,7 @@ public class Tester implements Runnable {
     private final String[] testUrls = {
         "https://www.youtube.com/watch?v=b3rFbkFjRrA",
         "https://music.youtube.com/watch?v=iYJoahPxhR8",
+        "https://www.youtube.com/shorts/q3dii5mwgUI",
         "https://www.tiktok.com/@hancorecantaim/video/7298613260780195079", 
         "https://www.instagram.com/linustech/reel/C6CJa5rvM47/",
         "https://x.com/PepitoTheCat/status/1783716906618294596",
