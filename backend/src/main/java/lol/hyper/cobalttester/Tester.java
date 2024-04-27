@@ -95,11 +95,11 @@ public class Tester implements Runnable {
             JSONObject postContents = new JSONObject();
             postContents.put("url", url);
             RequestResults testResponse = RequestUtil.sendPost(postContents, api);
-            if (testResponse.getResponseCode() != 200) {
-                logger.warn("Test FAIL for " + api + " with code " + testResponse.getResponseCode() + " with " + url);
+            if (testResponse.responseCode() != 200) {
+                logger.warn("Test FAIL for " + api + " with code " + testResponse.responseCode() + " with " + url);
                 continue;
             }
-            if (testResponse.getResponseCode() == 200) {
+            if (testResponse.responseCode() == 200) {
                 logger.info("Test PASS for " + api +  " with " + url);
                 score++;
             }

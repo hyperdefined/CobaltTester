@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class RequestUtil {
 
-    public static Logger logger = LogManager.getLogger(RequestUtil.class);
+    public static final Logger logger = LogManager.getLogger(RequestUtil.class);
 
     public static RequestResults sendPost(JSONObject body, String url) {
         String content;

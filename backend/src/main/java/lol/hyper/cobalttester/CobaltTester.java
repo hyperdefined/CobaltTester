@@ -16,7 +16,6 @@ import java.util.concurrent.Executors;
 public class CobaltTester {
 
     public static Logger logger;
-    public static ArrayList<Instance> instances = new ArrayList<>();
     public static final String USER_AGENT = "CobaltTester (+https://instances.hyper.lol)";
 
     public static void main(String[] args) {

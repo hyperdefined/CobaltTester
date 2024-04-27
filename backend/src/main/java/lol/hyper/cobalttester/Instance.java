@@ -55,10 +55,6 @@ public class Instance {
         return cors;
     }
 
-    public long getStartTime() {
-        return startTime;
-    }
-
     public String getApi() {
         return api;
     }
@@ -123,17 +119,11 @@ public class Instance {
         this.frontEndWorking = frontEndWorking;
     }
 
-    public int getScore() {
-        return score;
-    }
 
     public void setScore(int score) {
         this.score = score;
     }
 
-    public int getTestsRan() {
-        return testsRan;
-    }
 
     public void setTestsRan(int testsRan) {
         this.testsRan = testsRan;
