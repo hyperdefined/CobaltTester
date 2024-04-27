@@ -115,7 +115,7 @@ public class Tester implements Runnable {
             if (testFrontEnd) {
                 score++;
                 instance.setFrontEndWorking(true);
-                logger.warn("Test PASS for checking " + frontEnd);
+                logger.info("Test PASS for checking " + frontEnd);
             } else {
                 logger.warn("Test FAILED for checking " + frontEnd);
             }
