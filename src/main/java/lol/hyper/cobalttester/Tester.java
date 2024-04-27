@@ -19,7 +19,7 @@ public class Tester implements Runnable {
     private final String[] testUrls = {
         "https://www.youtube.com/watch?v=b3rFbkFjRrA",
         "https://music.youtube.com/watch?v=iYJoahPxhR8",
-        "https://www.youtube.com/shorts/q3dii5mwgUI",
+        "https://www.youtube.com/shorts/q3dii5mwgUI",z
         "https://www.tiktok.com/@hancorecantaim/video/7298613260780195079", 
         "https://www.instagram.com/linustech/reel/C6CJa5rvM47/",
         "https://x.com/PepitoTheCat/status/1783716906618294596",
@@ -31,7 +31,8 @@ public class Tester implements Runnable {
         "https://streamable.com/p7blpp",
         "https://www.tumblr.com/viralfrog/748037133842939904",
         "https://twitch.tv/letshugotv/clip/BloodyPlumpPanTebowing-oCocuxjwZ8I-IZYa",
-        "https://vk.com/video-220754053_456240614"
+        "https://vk.com/video-220754053_456240614",
+        "https://vimeo.com/936245676"
     };
 
     public Tester(int startTask, int endTask, CountDownLatch latch, ArrayList<Instance> instances, int threadNumber) {
