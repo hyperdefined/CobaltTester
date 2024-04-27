@@ -23,7 +23,8 @@ public class Tester implements Runnable {
         "https://www.instagram.com/linustech/reel/C6CJa5rvM47/",
         "https://x.com/PepitoTheCat/status/1783716906618294596",
         "https://www.reddit.com/r/TikTokCringe/comments/wup1fg/id_be_escaping_at_the_first_chance_i_got/",
-        "https://soundcloud.com/rick-astley-official/never-gonna-give-you-up-4"
+        "https://soundcloud.com/rick-astley-official/never-gonna-give-you-up-4",
+        "https://www.bilibili.com/video/BV1Ti421m7sM?spm_id_from=333.1007.tianma.1-2-2.click"
     };
 
     public Tester(int startTask, int endTask, CountDownLatch latch, ArrayList<Instance> instances, int threadNumber) {
