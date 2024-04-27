@@ -45,8 +45,8 @@ web/_site
 web/instances.json
 
 ### Backend Module ##
+logs/
 backend/target
-backend/logs
 backend/instances.json
 backend/blocked_instances
-backend/CobaltTester-1.0-SNAPSHOT.jar
+CobaltTester-*.jar
