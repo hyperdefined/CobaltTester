@@ -26,7 +26,8 @@ public class Tester implements Runnable {
         "https://soundcloud.com/rick-astley-official/never-gonna-give-you-up-4",
         "https://www.bilibili.com/video/BV1Ti421m7sM?spm_id_from=333.1007.tianma.1-2-2.click",
         "https://www.dailymotion.com/video/x8xjm74",
-        "https://ok.ru/video/7533205195294"
+        "https://ok.ru/video/7533205195294",
+        "https://streamable.com/p7blpp"
     };
 
     public Tester(int startTask, int endTask, CountDownLatch latch, ArrayList<Instance> instances, int threadNumber) {
