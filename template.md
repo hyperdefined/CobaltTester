@@ -22,10 +22,16 @@ There can also be region blocking based on where the instance is.
 # Instances
 If you want to fetch this list, see the [API](https://instances.hyper.lol/api/) page.
 
+Note: you can scroll horizontally if you're on mobile.
+
 Last updated (UTC): <TIME>
 ## With Domains
 These are instances that have a front facing domain.
+<div class="table-container">
 <TABLE>
+</div>
 ## Without Domains
 These are instances that do not have a front facing domain.
+<div class="table-container">
 <TABLE2>
+</div>

@@ -13,16 +13,17 @@ To access it, you can use <code>https://instances.hyper.lol/instances.json</code
 This returns a JSON array with all instances. In each instance, you have some information, like so:
 ```json
 {
+  "score": 85.71428571428571,
   "api_online": true,
   "protocol": "https",
   "cors": 1,
   "frontend_online": true,
-  "commit": "617e427",
-  "name": "us4",
-  "startTime": 1713962378753,
+  "commit": "eaf88fe",
+  "name": "us3",
+  "startTime": 1714180992438,
   "api": "co.wuk.sh",
   "version": "7.12.6",
-  "branch": "current",
+  "branch": "temp-issues",
   "frontEnd": "cobalt.tools"
 }
 ```

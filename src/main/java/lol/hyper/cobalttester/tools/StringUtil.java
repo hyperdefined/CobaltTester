@@ -10,12 +10,11 @@ import java.util.regex.Pattern;
 
 public class StringUtil {
 
-    private static final Logger logger = LogManager.getLogger(StringUtil.class);
 
     public static String makeTable(List<Instance> instances, String type) {
         StringBuilder table = new StringBuilder();
         // build the table for output
-        table.append("<table>\n<tr><th>Frontend</th><th>API</th><th>Version</th><th>Commit</th><th>Branch</th><th>Name</th><th>CORS</th><th>Score</th><th>Status</th></tr>\n");
+        table.append("<div class=\"table-container\"><table>\n<tr><th>Frontend</th><th>API</th><th>Version</th><th>Commit</th><th>Branch</th><th>Name</th><th>CORS</th><th>Score</th><th>Status</th></tr>\n");
 
         Iterator<Instance> copyIterator = instances.iterator();
         if (type.equalsIgnoreCase("ip")) {
@@ -79,7 +78,7 @@ public class StringUtil {
             table.append("<td>").append(score).append("</td>");
             table.append("<td>").append(status).append("</td></tr>");
         }
-        table.append("</table>");
+        table.append("</table></div>");
         return table.toString();
     }
 
