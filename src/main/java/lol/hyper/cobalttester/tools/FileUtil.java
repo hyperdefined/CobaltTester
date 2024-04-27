@@ -17,6 +17,7 @@ public class FileUtil {
     private static final Logger logger = LogManager.getLogger(FileUtil.class);
 
     public static void writeFile(Object json, File file) {
+        logger.info("Writing to file " + file.getAbsolutePath());
         try {
             FileWriter writer = new FileWriter(file);
             writer.write(json.toString());

@@ -1,17 +1,17 @@
 package lol.hyper.cobalttester;
 
 import lol.hyper.cobalttester.tools.FileUtil;
-import lol.hyper.cobalttester.tools.RequestUtil;
 import lol.hyper.cobalttester.tools.StringUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class CobaltTester {
 
@@ -22,6 +22,10 @@ public class CobaltTester {
     public static void main(String[] args) {
         System.setProperty("log4j.configurationFile", "log4j2config.xml");
         logger = LogManager.getLogger(CobaltTester.class);
+
+        int availableThreads = Runtime.getRuntime().availableProcessors();
+        logger.info("Total available threads: " + availableThreads);
+
         File instancesFile = new File("instances");
         if (!instancesFile.exists()) {
             logger.error("Unable to find 'instances' file!");
@@ -45,6 +49,7 @@ public class CobaltTester {
             System.exit(1);
         }
 
+        ArrayList<Instance> instances = new ArrayList<>();
         for (String line : instanceFileContents) {
             List<String> lineFix = Arrays.asList(line.split(","));
             String api = lineFix.get(0);
@@ -54,23 +59,40 @@ public class CobaltTester {
             if (frontEnd.equals("None")) {
                 frontEnd = null;
             }
-            buildInstance(frontEnd, api, protocol);
+            Instance newInstance = new Instance(frontEnd, api, protocol);
+            instances.add(newInstance);
+            logger.info("Creating instance " + api);
         }
 
-        // Sort the list in descending order based on the version
-        instances.sort((instance1, instance2) -> {
-            String[] version1Array = instance1.version().replace("-dev", "").split("\\.");
-            String[] version2Array = instance2.version().replace("-dev", "").split("\\.");
+        int totalTasks = instances.size();
+        logger.info("Total tasks to process: " + totalTasks);
 
-            for (int i = 0; i < Math.min(version1Array.length, version2Array.length); i++) {
-                int result = Integer.compare(Integer.parseInt(version2Array[i]), Integer.parseInt(version1Array[i]));
-                if (result != 0) {
-                    return result;
-                }
-            }
+        int maxThreads = 10;
+        int threads = Math.min(maxThreads, totalTasks);
+        int tasksPerThread = totalTasks / threads;
+        int remainderTasks = totalTasks % threads;
+        logger.info("Using " + threads + " threads");
+        logger.info("Putting " + tasksPerThread + " tasks on each thread");
+        logger.info("Left over: " + remainderTasks);
 
-            return Integer.compare(version2Array.length, version1Array.length);
-        });
+        CountDownLatch latch = new CountDownLatch(threads);
+        ExecutorService executor = Executors.newFixedThreadPool(threads);
+        int startTask = 0;
+        for (int i = 0; i < threads; i++) {
+            int extraTask = (i < remainderTasks) ? 1 : 0; // Distribute remainder tasks
+            int endTask = startTask + tasksPerThread + extraTask;
+            executor.submit(new Tester(startTask, endTask, latch, instances, i));
+            startTask = endTask;
+        }
+
+        try {
+            latch.await();
+            logger.info("All threads have completed!!!!");
+            executor.shutdown();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        instances.sort(Comparator.comparingDouble(Instance::getScoreResults).reversed());
 
         // write to json file
         for (Instance instance : instances) {
@@ -92,58 +114,5 @@ public class CobaltTester {
         f.setTimeZone(TimeZone.getTimeZone("UTC"));
         template = template.replace("<TIME>", f.format(new Date()));
         FileUtil.writeFile(template, new File("index.md"));
-    }
-
-    public static void buildInstance(String frontEnd, String baseApi, String protocol) {
-        String version;
-        String commit;
-        String branch;
-        String name;
-        int cors = 0;
-        long startTime;
-        String fullApiURL = protocol + "://" + baseApi + "/api/serverInfo";
-        JSONObject apiRequest = RequestUtil.requestJSON(fullApiURL);
-        if (apiRequest == null) {
-            version = "-1";
-            commit = null;
-            branch = null;
-            name = null;
-            startTime = -1;
-        } else {
-            try {
-                version = apiRequest.getString("version");
-                commit = apiRequest.getString("commit");
-                branch = apiRequest.getString("branch");
-                name = apiRequest.getString("name");
-                if (apiRequest.has("cors")) {
-                    cors = apiRequest.getInt("cors");
-                }
-                startTime = apiRequest.getLong("startTime");
-            } catch (JSONException exception) {
-                logger.error("Unable to process " + baseApi, exception);
-                return;
-            }
-        }
-        // build the instance
-        Instance instance = new Instance(frontEnd, baseApi, protocol, version, commit, branch, name, cors, startTime);
-        logger.info("Frontend: " + frontEnd);
-        logger.info("API: " + baseApi);
-        if (instance.testApi()) {
-            instance.apiWorks(true);
-            logger.info("API status: true");
-        } else {
-            instance.apiWorks(false);
-            logger.info("API status: false");
-        }
-
-        if (instance.testFrontEnd()) {
-            instance.frontEndWorks(true);
-            logger.info("Frontend status: true");
-        } else {
-            instance.frontEndWorks(false);
-            logger.info("Frontend status: false");
-        }
-        logger.info("-----------------------------------------");
-        instances.add(instance);
     }
 }

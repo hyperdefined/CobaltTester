@@ -17,7 +17,7 @@ public class RequestUtil {
 
     public static Logger logger = LogManager.getLogger(RequestUtil.class);
 
-    public static String sendPost(JSONObject body, String url) {
+    public static JSONObject sendPost(JSONObject body, String url) {
         String response;
         try {
             StringBuilder stringBuilder;
@@ -51,7 +51,7 @@ public class RequestUtil {
             logger.error("Unable to set POST request!", exception);
             return null;
         }
-        return response;
+        return new JSONObject(response);
     }
 
     public static JSONObject requestJSON(String url) {

@@ -15,14 +15,14 @@ public class StringUtil {
     public static String makeTable(List<Instance> instances, String type) {
         StringBuilder table = new StringBuilder();
         // build the table for output
-        table.append("<table>\n<tr><th>Frontend</th><th>API</th><th>Version</th><th>Commit</th><th>Branch</th><th>Name</th><th>CORS</th><th>Status</th></tr>\n");
+        table.append("<table>\n<tr><th>Frontend</th><th>API</th><th>Version</th><th>Commit</th><th>Name</th><th>CORS</th><th>Score</th><th>Status</th></tr>\n");
 
         Iterator<Instance> copyIterator = instances.iterator();
         if (type.equalsIgnoreCase("ip")) {
             while (copyIterator.hasNext()) {
                 Instance instance = copyIterator.next();
                 // remove if it's a domain
-                if (!isIP(instance.api())) {
+                if (!isIP(instance.getApi())) {
                     copyIterator.remove();
                 }
             }
@@ -31,7 +31,7 @@ public class StringUtil {
             while (copyIterator.hasNext()) {
                 Instance instance = copyIterator.next();
                 // remove if it's an IP
-                if (isIP(instance.api())) {
+                if (isIP(instance.getApi())) {
                     copyIterator.remove();
                 }
             }
@@ -40,28 +40,28 @@ public class StringUtil {
         for (Instance instance : instances) {
             // does not have a front end
             String frontEnd;
-            if (instance.frontEnd() == null) {
+            if (instance.getFrontEnd() == null) {
                 frontEnd = "None";
             } else {
-                frontEnd = "<a href=\"" + instance.protocol() + "://" + instance.frontEnd() + "\">" + instance.frontEnd() + "</a>";
+                frontEnd = "<a href=\"" + instance.getProtocol() + "://" + instance.getFrontEnd() + "\">" + instance.getFrontEnd() + "</a>";
             }
-            String api = "<a href=\"" + instance.protocol() + "://" + instance.api() + "/api/serverInfo\">" + instance.api() + "</a>";
-            String version = instance.version();
-            String commit = instance.commit();
-            String branch = instance.branch();
-            String name = instance.name();
-            int cors = instance.cors();
+            String api = "<a href=\"" + instance.getProtocol() + "://" + instance.getApi() + "/api/serverInfo\">" + instance.getApi() + "</a>";
+            String version = instance.getVersion();
+            String commit = instance.getCommit();
+            String name = instance.getName();
+            int cors = instance.getCors();
             String status = "Unknown";
+            int score = (int) instance.getScoreResults();
             // if both api and frontend online, report it online
-            if (instance.doesApiWork() && instance.doesFrontEndWork()) {
+            if (instance.isApiWorking() && instance.isFrontEndWorking()) {
                 status = "Online";
                 table.append("\n<tr class=\"status-online\">");
             }
             // if either api or frontend are offline, report it partial status
-            if (!instance.doesApiWork() || !instance.doesFrontEndWork()) {
+            if (!instance.isApiWorking() || !instance.isFrontEndWorking()) {
                 status = "Partial";
                 // if both api and frontend are offline, report it offline status
-                if (!instance.doesApiWork() && !instance.doesFrontEndWork()) {
+                if (!instance.isApiWorking() && !instance.isFrontEndWorking()) {
                     status = "Offline";
                     table.append("\n<tr class=\"status-offline\">\n");
                 } else {
@@ -72,9 +72,9 @@ public class StringUtil {
             table.append("<td>").append(api).append("</td>");
             table.append("<td>").append(version).append("</td>");
             table.append("<td>").append(commit).append("</td>");
-            table.append("<td>").append(branch).append("</td>");
             table.append("<td>").append(name).append("</td>");
             table.append("<td>").append(cors).append("</td>");
+            table.append("<td>").append(score).append("</td>");
             table.append("<td>").append(status).append("</td></tr>");
         }
         table.append("</table>");
