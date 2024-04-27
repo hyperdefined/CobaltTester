@@ -27,7 +27,8 @@ public class Tester implements Runnable {
         "https://www.bilibili.com/video/BV1Ti421m7sM?spm_id_from=333.1007.tianma.1-2-2.click",
         "https://www.dailymotion.com/video/x8xjm74",
         "https://ok.ru/video/7533205195294",
-        "https://streamable.com/p7blpp"
+        "https://streamable.com/p7blpp",
+        "https://www.tumblr.com/viralfrog/748037133842939904"
     };
 
     public Tester(int startTask, int endTask, CountDownLatch latch, ArrayList<Instance> instances, int threadNumber) {
