@@ -60,7 +60,7 @@ cdn6.tik.live,None,https
 cdn7.tik.live,None,https
 cdn8.tik.live,None,https
 
-# instances withou domains
+# instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http
 188.165.137.180:9000,188.165.137.180:9001,http
 168.119.212.145:1010,None,http
