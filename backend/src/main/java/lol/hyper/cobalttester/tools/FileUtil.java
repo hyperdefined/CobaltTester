@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class FileUtil {
 
@@ -54,10 +56,10 @@ public class FileUtil {
      * Read the "raw" files. Mainly for instances, blocked_instances, and test_urls.
      *
      * @param file The file to read.
-     * @return The contents. NULL if something went wrong.
+     * @return The contents. If the size is zero, it was not able to read it.
      */
-    public static ArrayList<String> readRawFile(File file) {
-        ArrayList<String> contents = new ArrayList<>();
+    public static List<String> readRawFile(File file) {
+        List<String> contents = new ArrayList<>();
         try (LineIterator it = FileUtils.lineIterator(file, "UTF-8");) {
             while (it.hasNext()) {
                 String line = it.nextLine();
@@ -70,7 +72,7 @@ public class FileUtil {
             }
         } catch (IOException exception) {
             logger.error("Unable to read contents of instances file!", exception);
-            return null;
+            return Collections.emptyList();
         }
         return contents;
     }

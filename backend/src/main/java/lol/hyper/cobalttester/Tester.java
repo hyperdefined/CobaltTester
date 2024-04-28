@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 public class Tester implements Runnable {
@@ -13,12 +14,12 @@ public class Tester implements Runnable {
     private final int startTask;
     private final int endTask;
     private final CountDownLatch latch;
-    private final ArrayList<Instance> instances;
+    private final List<Instance> instances;
     private final int threadNumber;
-    private final ArrayList<String> testUrls;
+    private final List<String> testUrls;
     private final Logger logger = LogManager.getLogger(this);
 
-    public Tester(int startTask, int endTask, CountDownLatch latch, ArrayList<Instance> instances, int threadNumber, ArrayList<String> testUrls) {
+    public Tester(int startTask, int endTask, CountDownLatch latch, List<Instance> instances, int threadNumber, List<String> testUrls) {
         this.startTask = startTask;
         this.endTask = endTask;
         this.latch = latch;

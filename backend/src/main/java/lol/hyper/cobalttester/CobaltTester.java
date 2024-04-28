@@ -43,25 +43,21 @@ public class CobaltTester {
         File instancesFile = new File("instances");
         File blockedInstances = new File("blocked_instances");
         File testUrlsFile = new File("test_urls");
-        ArrayList<String> instanceFileContents = FileUtil.readRawFile(instancesFile);
-        ArrayList<String> blockedInstancesContents = FileUtil.readRawFile(blockedInstances);
-        ArrayList<String> testUrlsContents = FileUtil.readRawFile(testUrlsFile);
+        List<String> instanceFileContents = FileUtil.readRawFile(instancesFile);
+        List<String> blockedInstancesContents = FileUtil.readRawFile(blockedInstances);
+        List<String> testUrlsContents = FileUtil.readRawFile(testUrlsFile);
         // make sure all files exist
-        if (instanceFileContents == null) {
-            logger.error("Unable to read instance file! Exiting...");
+        if (instanceFileContents.isEmpty()) {
+            logger.error("Instance file returned empty. Does it exist?");
             System.exit(1);
         }
-        if (blockedInstancesContents == null) {
-            logger.error("Unable to read blocked instance file! Exiting...");
-            System.exit(1);
-        }
-        if (testUrlsContents == null) {
-            logger.error("Unable to read test urls file! Exiting...");
+        if (testUrlsContents.isEmpty()) {
+            logger.error("Test URLs file returned empty. Does it exist?");
             System.exit(1);
         }
 
         // load the instance file and build each instance
-        ArrayList<Instance> instances = new ArrayList<>();
+        List<Instance> instances = new ArrayList<>();
         for (String line : instanceFileContents) {
             // each line is formatted api,frontend,protocol
             // we can split this and get each part
@@ -71,12 +67,14 @@ public class CobaltTester {
             String protocol = lineFix.get(2);
 
             // make sure the instance is not in the blocked file
-            boolean apiBlocked = blockedInstancesContents.stream().anyMatch(api::contains);
-            boolean frontEndBlocked = blockedInstancesContents.stream().anyMatch(frontEnd::contains);
-            // if it is, remove it
-            if (apiBlocked || frontEndBlocked) {
-                logger.warn("Skipping instance " + api + " because it's blocked.");
-                continue;
+            if (!blockedInstancesContents.isEmpty()) {
+                boolean apiBlocked = blockedInstancesContents.stream().anyMatch(api::contains);
+                boolean frontEndBlocked = blockedInstancesContents.stream().anyMatch(frontEnd::contains);
+                // if it is, remove it
+                if (apiBlocked || frontEndBlocked) {
+                    logger.warn("Skipping instance " + api + " because it's blocked.");
+                    continue;
+                }
             }
 
             // if the instance has "None" set for the frontend
