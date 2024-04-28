@@ -12,7 +12,7 @@ export PATH="$HOME/gems/bin:$PATH"
 # Move into backend folder, run the jar
 cd backend || exit
 echo Running backend jar...
-echo java -jar CobaltTester-1.0-SNAPSHOT.jar
+java -jar CobaltTester-1.0-SNAPSHOT.jar
 
 # Move into web folder, build the site
 cd ../web || exit
