@@ -21,7 +21,7 @@ bundle exec jekyll build
 
 # Copy the instances.json to site output
 echo Copying instances.json to site output...
-cp ../backend/instances.json _site
+cp ../web/instances.json _site
 # Remove the old location
 echo Deleting $1...
 sudo rm -r $1
