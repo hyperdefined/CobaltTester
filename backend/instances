@@ -41,7 +41,6 @@ cobalt-api.luver.pw,cobalt.stun.services,https
 social.mohsentaleb.com,social.mohsentaleb.com,http
 capi.tieren.men,cob.tieren.men,https
 y2lol.yt1s.bz,None,https
-cobalt-api.kwiat.lol,cobalt.kwiat.lol,https
 dl01.yt-dl.click,None,https
 dl02.yt-dl.click,None,https
 dl03.yt-dl.click,None,https
@@ -59,6 +58,9 @@ cdn5.tik.live,None,https
 cdn6.tik.live,None,https
 cdn7.tik.live,None,https
 cdn8.tik.live,None,https
+cobalt-uk.programowanie.fun,cobalt-uk.axolotl.top,https
+cobalt-br.programowanie.fun,cobalt-br.axolotl.top,https
+cobalt-us.programowanie.fun,cobalt-us.axolotl.top,https
 
 # instances withou domains
 31.220.77.64:9000,31.220.77.64:9001,http
