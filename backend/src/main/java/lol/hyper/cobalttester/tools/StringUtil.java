@@ -112,7 +112,7 @@ public class StringUtil {
      * @return True if the string is good.
      */
     public static boolean check(String input) {
-        String safePattern = "^[a-z0-9-]+$";
+        String safePattern = "^[a-z0-9-_]+$";
         return input.matches(safePattern);
     }
 }
