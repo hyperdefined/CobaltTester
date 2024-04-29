@@ -1,11 +1,11 @@
 package lol.hyper.cobalttester;
 
 import lol.hyper.cobalttester.tools.RequestUtil;
+import lol.hyper.cobalttester.tools.StringUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
@@ -67,22 +67,64 @@ public class Tester implements Runnable {
 
     private void getApiInfo(JSONObject apiJson, Instance instance) {
         if (apiJson.has("name")) {
-            instance.setName(apiJson.getString("name"));
+            String name = apiJson.getString("name");
+            if (StringUtil.check(name)) {
+                instance.setName(name);
+            } else {
+                instance.setName("invalid-name");
+                logger.warn(instance.getApi() + " has an invalid name!");
+            }
         }
         if (apiJson.has("version")) {
-            instance.setVersion(apiJson.getString("version"));
+            String version = apiJson.getString("version");
+            // older instances had -dev in the version
+            if (version.contains("-dev")) {
+                version = version.replace("-dev", "");
+            }
+            if (version.matches("^[0-9.]+$")) {
+                // use the version from the JSON itself
+                // just in case we replaced it
+                instance.setVersion(apiJson.getString("version"));
+            } else {
+                instance.setVersion("invalid-version");
+                logger.warn(instance.getApi() + " has an invalid version!");
+            }
         }
         if (apiJson.has("commit")) {
-            instance.setCommit(apiJson.getString("commit"));
+            String commit = apiJson.getString("commit");
+            if (StringUtil.check(commit)) {
+                instance.setCommit(commit);
+            } else {
+                instance.setCommit("invalid-commit");
+                logger.warn(instance.getApi() + " has an invalid commit!");
+            }
         }
         if (apiJson.has("branch")) {
-            instance.setBranch(apiJson.getString("branch"));
+            String branch = apiJson.getString("branch");
+            if (StringUtil.check(branch)) {
+                instance.setBranch(branch);
+            } else {
+                instance.setBranch("invalid-branch");
+                logger.warn(instance.getApi() + " has an invalid branch!");
+            }
         }
         if (apiJson.has("cors")) {
-            instance.setCors(apiJson.getInt("cors"));
+            int cors = apiJson.getInt("cors");
+            if (cors == 1 || cors == 2) {
+                instance.setCors(cors);
+            } else {
+                instance.setCors(-1);
+                logger.warn(instance.getApi() + " has an invalid cors!");
+            }
         }
         if (apiJson.has("startTime")) {
-            instance.setStartTime(apiJson.getLong("startTime"));
+            String startTimeString = String.valueOf(apiJson.getLong("startTime"));
+            if (startTimeString.matches("[0-9]+")) {
+                instance.setStartTime(apiJson.getLong("startTime"));
+            } else {
+                instance.setStartTime(0L);
+                logger.warn(instance.getApi() + " has an invalid startTime!");
+            }
         }
     }
 

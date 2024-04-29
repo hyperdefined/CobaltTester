@@ -103,4 +103,16 @@ public class StringUtil {
         String ipv4WithPortPattern = ipv4Pattern + "(:\\d{1,5})?";
         return Pattern.matches(ipv4WithPortPattern, domain);
     }
+
+    /**
+     * Check if a string is a good string :)
+     * Thank you to @ihatespawn for reporting this :)
+     *
+     * @param input The string to check.
+     * @return True if the string is good.
+     */
+    public static boolean check(String input) {
+        String safePattern = "^[a-z0-9-]+$";
+        return input.matches(safePattern);
+    }
 }
