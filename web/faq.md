@@ -1,7 +1,7 @@
 ---
 permalink: /faq/
 title: "FAQ"
-description: "an api to access the instance list"
+description: "questions and answers for the instance list"
 ---
 ### What is cobalt?
 cobalt is an open-source media downloader. It supports a wide range of social media websites. No ads, tracking, or paywalls. It was created by [wukko](https://wukko.me/) and [jj](https://github.com/dumbmoron).
