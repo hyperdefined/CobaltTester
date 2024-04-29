@@ -14,7 +14,7 @@ This is a collection of community projects that use cobalt!
 * [gobalt](https://github.com/lostdusty/gobalt) - cobalt API client in go.
 
 ### GUIs
-* [Gualto](https://github.com/lostdusty/gualto) - GUI frontend written in go. Supports deskstop and Android.
+* [Gualto](https://github.com/lostdusty/gualto) - GUI frontend written in go. Supports desktop and Android.
 
 ### Bots
 * [cobold](https://github.com/tskau/cobold) - Telegram bot for downloading media.
