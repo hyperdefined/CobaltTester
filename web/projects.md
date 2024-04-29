@@ -1,4 +1,5 @@
 ---
+permalink: /projects/
 title: "Projects"
 description: "a collection of community cobalt projects"
 ---
