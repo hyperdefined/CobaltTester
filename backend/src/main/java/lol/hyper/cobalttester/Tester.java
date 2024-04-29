@@ -110,7 +110,7 @@ public class Tester implements Runnable {
         }
         if (apiJson.has("cors")) {
             int cors = apiJson.getInt("cors");
-            if (cors == 1 || cors == 2) {
+            if (cors == 0 || cors == 1) {
                 instance.setCors(cors);
             } else {
                 instance.setCors(-1);
