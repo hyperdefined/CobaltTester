@@ -4,9 +4,15 @@ import lol.hyper.cobalttester.tools.FileUtil;
 import lol.hyper.cobalttester.tools.StringUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.json.JSONArray;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
@@ -16,11 +22,28 @@ import java.util.concurrent.Executors;
 public class CobaltTester {
 
     public static Logger logger;
-    public static final String USER_AGENT = "CobaltTester (+https://instances.hyper.lol)";
+    public static String USER_AGENT = "CobaltTester-<commit> (+https://instances.hyper.lol)";
 
     public static void main(String[] args) {
         System.setProperty("log4j.configurationFile", "log4j2config.xml");
         logger = LogManager.getLogger(CobaltTester.class);
+
+        String commit = null;
+        try {
+            commit = getCommit();
+        } catch (IOException | GitAPIException exception) {
+            logger.error("Unable to get git repo information", exception);
+            System.exit(1);
+        }
+
+        if (commit == null) {
+            logger.error("Unable to get git repo information, returned null.");
+            System.exit(1);
+        }
+
+        logger.info("CobaltTester starting up.");
+        logger.info("CobaltTester running commit: " + commit);
+        USER_AGENT = USER_AGENT.replace("<commit>", commit);
 
         // Output how many threads we can use
         int availableThreads = Runtime.getRuntime().availableProcessors();
@@ -145,5 +168,21 @@ public class CobaltTester {
         template = template.replace("<TIME>", f.format(new Date()));
         // write to index.md
         FileUtil.writeFile(template, new File("../web", "index.md"));
+    }
+
+    public static String getCommit() throws IOException, GitAPIException {
+        File root = new File("../.git");
+        FileRepositoryBuilder repositoryBuilder = new FileRepositoryBuilder();
+        try (Repository repository = repositoryBuilder.setGitDir(root).readEnvironment().findGitDir().build()) {
+            if (repository == null) {
+                System.out.println("Not inside a Git repository.");
+                return null;
+            }
+            try (Git git = new Git(repository)) {
+                RevCommit latestCommit = git.log().setMaxCount(1).call().iterator().next();
+                String fullCommitID = latestCommit.getId().getName();
+                return fullCommitID.substring(0, 7);
+            }
+        }
     }
 }
