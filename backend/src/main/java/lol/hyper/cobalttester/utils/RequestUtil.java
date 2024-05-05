@@ -1,7 +1,6 @@
-package lol.hyper.cobalttester.tools;
+package lol.hyper.cobalttester.utils;
 
 import lol.hyper.cobalttester.CobaltTester;
-import lol.hyper.cobalttester.RequestResults;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
@@ -74,7 +73,7 @@ public class RequestUtil {
             rawJSON = reader.lines().collect(Collectors.joining(System.lineSeparator()));
             reader.close();
         } catch (IOException exception) {
-            logger.error("Unable to read URL " + url, exception);
+            logger.error("Unable to read contents of " + url, exception);
             return null;
         }
         if (rawJSON.isEmpty()) {

@@ -1,6 +1,6 @@
-package lol.hyper.cobalttester.tools;
+package lol.hyper.cobalttester.utils;
 
-import lol.hyper.cobalttester.Instance;
+import lol.hyper.cobalttester.instance.Instance;
 
 import java.util.Iterator;
 import java.util.List;

@@ -1,4 +1,4 @@
-package lol.hyper.cobalttester;
+package lol.hyper.cobalttester.instance;
 
 import org.json.JSONObject;
 

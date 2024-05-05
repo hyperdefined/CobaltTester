@@ -1,7 +1,8 @@
-package lol.hyper.cobalttester;
+package lol.hyper.cobalttester.instance;
 
-import lol.hyper.cobalttester.tools.RequestUtil;
-import lol.hyper.cobalttester.tools.StringUtil;
+import lol.hyper.cobalttester.utils.RequestResults;
+import lol.hyper.cobalttester.utils.RequestUtil;
+import lol.hyper.cobalttester.utils.StringUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
@@ -38,19 +39,12 @@ public class Tester implements Runnable {
                 String protocol = instance.getProtocol();
                 String api = protocol + "://" + instance.getApi() + "/api/serverInfo";
                 // make sure the API works before testing
-                boolean testApi = RequestUtil.testUrl(api);
-                instance.setApiWorking(testApi);
-                // if the api is offline, don't perform tests on this instance
-                if (!testApi) {
-                    logger.warn("Skipping " + api + " tests because it's offline.");
-                    continue;
-                }
-                // load the JSON from the api
                 JSONObject apiInfo = RequestUtil.requestJSON(api);
                 if (apiInfo == null) {
                     logger.warn("Skipping " + api + " tests because the API JSON returned null");
                     continue;
                 }
+                instance.setApiWorking(true);
                 // load the api information
                 getApiInfo(apiInfo, instance);
                 try {

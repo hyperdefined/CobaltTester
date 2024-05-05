@@ -1,7 +1,9 @@
 package lol.hyper.cobalttester;
 
-import lol.hyper.cobalttester.tools.FileUtil;
-import lol.hyper.cobalttester.tools.StringUtil;
+import lol.hyper.cobalttester.instance.Instance;
+import lol.hyper.cobalttester.instance.Tester;
+import lol.hyper.cobalttester.utils.FileUtil;
+import lol.hyper.cobalttester.utils.StringUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jgit.api.Git;
