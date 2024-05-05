@@ -2,7 +2,9 @@ package lol.hyper.cobalttester.instance;
 
 import org.json.JSONObject;
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.TreeMap;
 
 public class Instance {
 
@@ -18,6 +20,9 @@ public class Instance {
     private boolean apiWorking;
     private boolean frontEndWorking;
     private double score;
+    private String hash;
+
+    private final Map<String, Boolean> testResults = new TreeMap<>();
 
     public Instance(String frontEnd, String api, String protocol) {
         this.frontEnd = frontEnd;
@@ -125,5 +130,21 @@ public class Instance {
 
     public double getScore() {
         return score;
+    }
+
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
+    public String getHash() {
+        return hash;
+    }
+
+    public Map<String, Boolean> getTestResults() {
+        return testResults;
+    }
+
+    public void addResult(String service, boolean working) {
+        testResults.put(service, working);
     }
 }

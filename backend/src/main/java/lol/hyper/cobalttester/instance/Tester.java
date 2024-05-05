@@ -2,6 +2,7 @@ package lol.hyper.cobalttester.instance;
 
 import lol.hyper.cobalttester.utils.RequestResults;
 import lol.hyper.cobalttester.utils.RequestUtil;
+import lol.hyper.cobalttester.utils.Services;
 import lol.hyper.cobalttester.utils.StringUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -129,17 +130,20 @@ public class Tester implements Runnable {
         String api = instance.getProtocol() + "://" + instance.getApi() + "/api/json";
         // perform a POST request for each url
         for (String url : testUrls) {
+            String service = Services.makePretty(url);
             JSONObject postContents = new JSONObject();
             postContents.put("url", url);
             RequestResults testResponse = RequestUtil.sendPost(postContents, api);
             // if the URL did not return HTTP 200, it did not pass
             if (testResponse.responseCode() != 200) {
                 logger.warn("Test FAIL for " + api + " with code " + testResponse.responseCode() + " with " + url);
+                instance.addResult(service, false);
                 continue;
             }
             // since it returned HTTP 200, it passed
             logger.info("Test PASS for " + api + " with " + url);
             score++;
+            instance.addResult(service, true);
             Thread.sleep(5000);
         }
         // if the frontend exists, check it here

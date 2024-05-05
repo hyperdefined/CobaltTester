@@ -3,6 +3,7 @@ package lol.hyper.cobalttester;
 import lol.hyper.cobalttester.instance.Instance;
 import lol.hyper.cobalttester.instance.Tester;
 import lol.hyper.cobalttester.utils.FileUtil;
+import lol.hyper.cobalttester.utils.Services;
 import lol.hyper.cobalttester.utils.StringUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -108,6 +109,7 @@ public class CobaltTester {
             }
             // build the instance
             Instance newInstance = new Instance(frontEnd, api, protocol);
+            newInstance.setHash(StringUtil.makeHash(api));
             instances.add(newInstance);
             logger.info("Creating instance " + api);
         }
@@ -146,9 +148,36 @@ public class CobaltTester {
         }
         instances.sort(Comparator.comparingDouble(Instance::getScore).reversed());
 
-        // write to instances.json file
         for (Instance instance : instances) {
+            // write to instances.json file
             cacheArray.put(instance.toJSON());
+
+            if (instance.getTestResults().isEmpty()) {
+                continue;
+            }
+
+            // read the contents of template-score.md
+            String template = FileUtil.readFile(new File("../web", "template-score.md"));
+            if (template == null) {
+                logger.error("Unable to read template.md! Exiting...");
+                System.exit(1);
+            }
+
+            template = template.replace("<api>", instance.getApi());
+            template = template.replace("<hash>", instance.getHash());
+            if (instance.getFrontEnd() != null) {
+                String link = "<a href=\"" + instance.getProtocol() + "://" + instance.getFrontEnd() +"\">here</a>.";
+                template = template.replace("<frontend>", "You can use the frontend for this API here: " + link);
+            } else {
+                // there's an extra space here on purpose
+                template = template.replace(" <frontend>", "");
+            }
+
+            String scoreTable = StringUtil.buildScoreTable(instance);
+            template = template.replace("<scores>", scoreTable);
+            File scoreFile = new File("../web/scores", instance.getHash() + ".md");
+            FileUtil.writeFile(template, scoreFile);
+
         }
         FileUtil.writeFile(cacheArray, cacheFile);
 
@@ -159,8 +188,8 @@ public class CobaltTester {
             System.exit(1);
         }
         // create the domain and no domain tables
-        String domainTable = StringUtil.makeTable(new ArrayList<>(instances), "domain");
-        String ipTable = StringUtil.makeTable(new ArrayList<>(instances), "ip");
+        String domainTable = StringUtil.buildMainTables(new ArrayList<>(instances), "domain");
+        String ipTable = StringUtil.buildMainTables(new ArrayList<>(instances), "ip");
         // replace the placeholder with the tables
         template = template.replace("<TABLE>", domainTable);
         template = template.replace("<TABLE2>", ipTable);

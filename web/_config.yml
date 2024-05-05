@@ -45,6 +45,7 @@ exclude:
   - CobaltTester*
   - instances
   - template.md
+  - template-score.md
   - logs/
   - run.sh
   - feed.xml
