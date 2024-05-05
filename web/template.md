@@ -23,17 +23,17 @@ A score is the percentage of media that instance was able to download. The highe
 There can also be region blocking based on where the instance is.
 </details>
 
-Last updated (UTC): <TIME>
+Last updated (UTC): <time>
 
 ### With Domains
 These are instances that have a front facing domain.
 <details>
 <summary>Show List</summary>
-<TABLE>
+<main-table>
 </details>
 ## Without Domains
 These are instances that do not have a front facing domain.
 <details>
 <summary>Show List</summary>
-<TABLE2>
+<other-table>
 </details>

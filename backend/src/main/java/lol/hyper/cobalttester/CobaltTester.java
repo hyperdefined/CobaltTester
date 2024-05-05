@@ -148,6 +148,10 @@ public class CobaltTester {
         }
         instances.sort(Comparator.comparingDouble(Instance::getScore).reversed());
 
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
+        f.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String formattedDate = f.format(new Date());
+
         for (Instance instance : instances) {
             // write to instances.json file
             cacheArray.put(instance.toJSON());
@@ -165,6 +169,7 @@ public class CobaltTester {
 
             template = template.replace("<api>", instance.getApi());
             template = template.replace("<hash>", instance.getHash());
+            template = template.replace("<time", formattedDate);
             if (instance.getFrontEnd() != null) {
                 String link = "<a href=\"" + instance.getProtocol() + "://" + instance.getFrontEnd() +"\">here</a>.";
                 template = template.replace("<frontend>", "You can use the frontend for this API here: " + link);
@@ -191,12 +196,10 @@ public class CobaltTester {
         String domainTable = StringUtil.buildMainTables(new ArrayList<>(instances), "domain");
         String ipTable = StringUtil.buildMainTables(new ArrayList<>(instances), "ip");
         // replace the placeholder with the tables
-        template = template.replace("<TABLE>", domainTable);
-        template = template.replace("<TABLE2>", ipTable);
-        SimpleDateFormat f = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
-        f.setTimeZone(TimeZone.getTimeZone("UTC"));
+        template = template.replace("<main-table>", domainTable);
+        template = template.replace("<other-table>", ipTable);
         // update the time it was run
-        template = template.replace("<TIME>", f.format(new Date()));
+        template = template.replace("<time>", formattedDate);
         // write to index.md
         FileUtil.writeFile(template, new File("../web", "index.md"));
     }

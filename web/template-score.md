@@ -7,4 +7,6 @@ The instance ID is: <code><hash></code>. You can bookmark this page to see updat
 
 ### Score
 This table shows what services work for <code><api></code>. <frontend>
+
+Last updated (UTC): <time>
 <scores>
