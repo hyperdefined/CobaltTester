@@ -169,7 +169,7 @@ public class CobaltTester {
 
             template = template.replace("<api>", instance.getApi());
             template = template.replace("<hash>", instance.getHash());
-            template = template.replace("<time", formattedDate);
+            template = template.replace("<time>", formattedDate);
             if (instance.getFrontEnd() != null) {
                 String link = "<a href=\"" + instance.getProtocol() + "://" + instance.getFrontEnd() +"\">here</a>.";
                 template = template.replace("<frontend>", "You can use the frontend for this API here: " + link);
