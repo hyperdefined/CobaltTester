@@ -5,7 +5,7 @@ description: "an api to access the instance list"
 ---
 This is a simple API to access the list of instances. You don't need to scrap the page itself.
 
-To access it, you can use <code>https://instances.hyper.lol/instances.json</code>. This JSON file is created when the script runs.
+To access it, you can use <code>https://instances.hyper.lol/instances.json</code>. This JSON file is created when the script runs. The script runs at the top of every hour and completes within 20 minutes.
 
 Please set a proper user agent when making requests.
 
@@ -13,18 +13,38 @@ Please set a proper user agent when making requests.
 When calling the API, it will return a JSON array that contains all instances. Here is a snippet of what information an instance has:
 ```json
 {
-  "score": 85.71428571428571,
-  "api_online": true,
-  "protocol": "https",
-  "cors": 1,
-  "frontend_online": true,
-  "commit": "eaf88fe",
-  "name": "us3",
-  "startTime": 1714180992438,
-  "api": "co.wuk.sh",
-  "version": "7.12.6",
-  "branch": "temp-issues",
-  "frontEnd": "cobalt.tools"
+    "api_online": true,
+    "cors": 1,
+    "frontend_online": true,
+    "commit": "c3c4381",
+    "services": {
+      "youtube": true,
+      "rutube": true,
+      "tumblr": true,
+      "bilibili": true,
+      "pinterest": true,
+      "instagram": true,
+      "soundcloud": true,
+      "youtube_music": false,
+      "dailymotion": true,
+      "twitter": true,
+      "vimeo": true,
+      "streamable": true,
+      "tiktok": true,
+      "ok.ru": true,
+      "reddit": true,
+      "twitch_clips": true,
+      "youtube_shorts": true,
+      "vk.com": true
+    },
+    "version": "7.13",
+    "branch": "current",
+    "score": 94.73684210526315,
+    "protocol": "https",
+    "name": "nl4",
+    "startTime": 1714900598776,
+    "api": "co.wuk.sh",
+    "frontEnd": "cobalt.tools"
 }
 ```
 
@@ -44,3 +64,6 @@ Some of these keys are pulled directly from the API of an instance. You can view
 * `frontend_online`: Whether or not the frontend is online.
 * `protocol`: What protocol the instance uses (http/https).
 * `frontEnd`: The frontend URL of the instance.
+
+### Services
+In the services JSON, each service is listed. If it's able to download media for it, it's set to `true`. If it failed, it's set to `false`.
