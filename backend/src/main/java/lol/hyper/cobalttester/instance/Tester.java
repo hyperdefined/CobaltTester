@@ -53,6 +53,7 @@ public class Tester implements Runnable {
                 } catch (InterruptedException exception) {
                     logger.error("Unable to sleep thread", exception);
                 }
+                logger.info("Finished tests for " + instance.getApi());
             }
         } finally {
             latch.countDown();

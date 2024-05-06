@@ -1,5 +1,6 @@
 package lol.hyper.cobalttester.instance;
 
+import lol.hyper.cobalttester.utils.Services;
 import org.json.JSONObject;
 
 import java.util.Map;
@@ -44,6 +45,13 @@ public class Instance {
         instanceJSON.put("frontEnd", Objects.requireNonNullElse(frontEnd, "None"));
         instanceJSON.put("protocol", protocol);
         instanceJSON.put("score", score);
+        JSONObject workingServices = new JSONObject();
+        for (Map.Entry<String, Boolean> pair : testResults.entrySet()) {
+            String service = Services.makeUgly(pair.getKey());
+            boolean working = pair.getValue();
+            workingServices.put(service, working);
+        }
+        instanceJSON.put("services", workingServices);
         return instanceJSON;
     }
 

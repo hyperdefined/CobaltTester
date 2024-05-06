@@ -1,6 +1,7 @@
 package lol.hyper.cobalttester.utils;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class Services {
@@ -17,8 +18,8 @@ public class Services {
         servicesMap.put("reddit.com", "Reddit");
         servicesMap.put("soundcloud.com", "SoundCloud");
         servicesMap.put("bilibili.com", "BiliBili");
-        servicesMap.put("dailymotion.com", "OK.ru");
-        servicesMap.put("ok.ru", "Twitter");
+        servicesMap.put("dailymotion.com", "Dailymotion");
+        servicesMap.put("ok.ru", "OK.ru");
         servicesMap.put("streamable.com", "Streamable");
         servicesMap.put("tumblr.com", "Tumblr");
         servicesMap.put("twitch.tv", "Twitch Clips");
@@ -44,5 +45,11 @@ public class Services {
             }
         }
         return prettyName;
+    }
+
+    public static String makeUgly(String service) {
+        String result = service;
+        result = result.replace(" ", "_");
+        return result.toLowerCase(Locale.ROOT);
     }
 }
