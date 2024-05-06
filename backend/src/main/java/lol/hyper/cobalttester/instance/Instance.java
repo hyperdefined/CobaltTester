@@ -48,6 +48,10 @@ public class Instance {
         JSONObject workingServices = new JSONObject();
         for (Map.Entry<String, Boolean> pair : testResults.entrySet()) {
             String service = Services.makeUgly(pair.getKey());
+            // skip frontend here
+            if (service.equalsIgnoreCase("Frontend")) {
+                continue;
+            }
             boolean working = pair.getValue();
             workingServices.put(service, working);
         }

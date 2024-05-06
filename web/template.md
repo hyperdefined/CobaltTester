@@ -2,9 +2,9 @@
 title: "Instances"
 description: "a collection of community cobalt instances"
 ---
-This is a list of community cobalt instances. This list is generated every hour. All requests use the user agent `CobaltTester (+https://instances.hyper.lol)`.
+This is a list of community [cobalt](https://github.com/wukko/cobalt) instances.
 
-If you want to be added/removed, ping @hyperdefined on the [cobalt discord](https://discord.gg/pQPt8HBUPu) or create a pull request [here](https://github.com/hyperdefined/CobaltTester).
+See [FAQ]({{ site.url }}/faq) for common questions about this list.
 
 <details>
 <summary>How do I read these tables?</summary>

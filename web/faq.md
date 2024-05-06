@@ -13,3 +13,8 @@ Simple: if the main cobalt instance goes offline, you can still use another inst
 The frontend is the pretty homescreen you see when you visit a cobalt instance. The API is another module that handles any download requests sent by the frontend. It does the processing and handling. When you enter a URL and download it, the frontend sends a request to the API, and it returns the media back.
 
 If you're a regular user, you probably want to use the frontend.
+### How did you find these instances?
+I wrote a blog post about it [here](https://hyper.lol/post/4). Note, these are all public to the internet, anyone can find them.
+
+### I want to add/remove my instance!
+If you want to be added/removed, ping @hyperdefined on the [cobalt discord](https://discord.gg/pQPt8HBUPu) or create a pull request [here](https://github.com/hyperdefined/CobaltTester).

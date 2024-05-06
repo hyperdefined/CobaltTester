@@ -41,13 +41,11 @@ public class Tester implements Runnable {
                 String api = protocol + "://" + instance.getApi() + "/api/serverInfo";
                 // make sure the API works before testing
                 JSONObject apiInfo = RequestUtil.requestJSON(api);
-                if (apiInfo == null) {
-                    logger.warn("Skipping " + api + " tests because the API JSON returned null");
-                    continue;
-                }
-                instance.setApiWorking(true);
                 // load the api information
-                getApiInfo(apiInfo, instance);
+                if (apiInfo != null) {
+                    instance.setApiWorking(true);
+                    getApiInfo(apiInfo, instance);
+                }
                 try {
                     performTests(instance);
                 } catch (InterruptedException exception) {
@@ -126,29 +124,33 @@ public class Tester implements Runnable {
 
     private void performTests(Instance instance) throws InterruptedException {
         int score = 0;
-        int totalTests = testUrls.size();
+        int totalTests = 0;
         boolean checkFrontEnd = instance.getFrontEnd() != null;
         String api = instance.getProtocol() + "://" + instance.getApi() + "/api/json";
-        // perform a POST request for each url
-        for (String url : testUrls) {
-            String service = Services.makePretty(url);
-            JSONObject postContents = new JSONObject();
-            postContents.put("url", url);
-            RequestResults testResponse = RequestUtil.sendPost(postContents, api);
-            // if the URL did not return HTTP 200, it did not pass
-            if (testResponse.responseCode() != 200) {
-                logger.warn("Test FAIL for " + api + " with code " + testResponse.responseCode() + " with " + url);
-                instance.addResult(service, false);
-                continue;
+        // if the api is working, perform the tests
+        if (instance.isApiWorking()) {
+            // since we are going to test the services, count them for the score
+            totalTests = totalTests + testUrls.size();
+            // perform a POST request for each url
+            for (String url : testUrls) {
+                String service = Services.makePretty(url);
+                JSONObject postContents = new JSONObject();
+                postContents.put("url", url);
+                RequestResults testResponse = RequestUtil.sendPost(postContents, api);
+                // if the URL did not return HTTP 200, it did not pass
+                if (testResponse.responseCode() != 200) {
+                    logger.warn("Test FAIL for " + api + " with code " + testResponse.responseCode() + " with " + url);
+                    instance.addResult(service, false);
+                    continue;
+                }
+                // since it returned HTTP 200, it passed
+                logger.info("Test PASS for " + api + " with " + url);
+                score++;
+                instance.addResult(service, true);
+                Thread.sleep(5000);
             }
-            // since it returned HTTP 200, it passed
-            logger.info("Test PASS for " + api + " with " + url);
-            score++;
-            instance.addResult(service, true);
-            Thread.sleep(5000);
         }
-        // if the frontend exists, check it here
-        // add that to the tests as well
+        // if the frontend exists, add it to the tests
         if (checkFrontEnd) {
             totalTests++;
             String frontEnd = instance.getProtocol() + "://" + instance.getFrontEnd();
@@ -157,11 +159,17 @@ public class Tester implements Runnable {
                 score++;
                 instance.setFrontEndWorking(true);
                 logger.info("Test PASS for checking " + frontEnd);
+                instance.addResult("Frontend", true);
             } else {
                 logger.warn("Test FAILED for checking " + frontEnd);
             }
         }
-        double finalScore = (double) score / totalTests * 100.0;
+        double finalScore = 0;
+        if (totalTests == 0) {
+            instance.setScore(finalScore);
+        } else {
+            finalScore = (double) score / totalTests * 100.0;
+        }
         instance.setScore(finalScore);
     }
 }
