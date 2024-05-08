@@ -58,6 +58,7 @@ cobalt.misike.eu,None,https
 co.eepy.today,web.eepy.today,https
 cb.nyoom.fun,cobalt.nyoom.fun,https
 cobalt-api.schizo.city,cobalt.schizo.city,https
+coapi.nuxsys.ovh,cob.nuxsys.ovh,https
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http
@@ -80,3 +81,7 @@ cobalt-api.schizo.city,cobalt.schizo.city,https
 109.71.240.121:9000,109.71.240.121:9001,http
 144.76.76.6:9000,None,http
 194.163.167.46:9000,194.163.167.46:9001,http
+45.158.14.136:4444,None,http
+109.71.246.24:9000,None,http
+45.59.112.45:9000,None,http
+60.246.26.242:9000,None,http
