@@ -9,6 +9,9 @@ fi
 export GEM_HOME="$HOME/gems"
 export PATH="$HOME/gems/bin:$PATH"
 
+# Pull all changes first
+git pull
+
 # Move into backend folder, run the jar
 cd backend || exit
 echo Running backend jar...
