@@ -3,7 +3,6 @@ package lol.hyper.cobalttester;
 import lol.hyper.cobalttester.instance.Instance;
 import lol.hyper.cobalttester.instance.Tester;
 import lol.hyper.cobalttester.utils.FileUtil;
-import lol.hyper.cobalttester.utils.Services;
 import lol.hyper.cobalttester.utils.StringUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,6 +12,7 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +26,7 @@ public class CobaltTester {
 
     public static Logger logger;
     public static String USER_AGENT = "CobaltTester-<commit> (+https://instances.hyper.lol)";
+    public static JSONObject config;
 
     public static void main(String[] args) {
         System.setProperty("log4j.configurationFile", "log4j2config.xml");
@@ -48,21 +49,24 @@ public class CobaltTester {
         logger.info("CobaltTester running commit: " + commit);
         USER_AGENT = USER_AGENT.replace("<commit>", commit);
 
+        boolean buildWeb = false;
+        if (args.length != 0) {
+            if (args[0].equalsIgnoreCase("web")) {
+                buildWeb = true;
+            }
+        }
+
+        logger.info("Running with args: " + Arrays.toString(args));
+
         // Output how many threads we can use
         int availableThreads = Runtime.getRuntime().availableProcessors();
         logger.info("Total available threads: " + availableThreads);
 
-        // remove the old instance.json file
-        JSONArray cacheArray = new JSONArray();
-        File cacheFile = new File("../web", "instances.json");
-        // delete the file if it exists
-        if (cacheFile.exists()) {
-            boolean deleteStatus = cacheFile.delete();
-            if (deleteStatus) {
-                logger.info("Deleted instances.json");
-            } else {
-                logger.error("Unable to delete instances.json");
-            }
+        // load the config
+        config = getConfig();
+        if (config == null) {
+            logger.error("Unable to load config! Exiting...");
+            System.exit(1);
         }
 
         // load some files
@@ -152,6 +156,19 @@ public class CobaltTester {
         f.setTimeZone(TimeZone.getTimeZone("UTC"));
         String formattedDate = f.format(new Date());
 
+        // remove the old instance.json file
+        JSONArray cacheArray = new JSONArray();
+        File cacheFile = new File(config.getString("instances_json_output"));
+        // delete the file if it exists
+        if (cacheFile.exists()) {
+            boolean deleteStatus = cacheFile.delete();
+            if (deleteStatus) {
+                logger.info("Deleted instances.json");
+            } else {
+                logger.error("Unable to delete instances.json");
+            }
+        }
+
         for (Instance instance : instances) {
             // write to instances.json file
             cacheArray.put(instance.toJSON());
@@ -160,48 +177,52 @@ public class CobaltTester {
                 continue;
             }
 
-            // read the contents of template-score.md
-            String template = FileUtil.readFile(new File("../web", "template-score.md"));
-            if (template == null) {
-                logger.error("Unable to read template.md! Exiting...");
-                System.exit(1);
-            }
+            // build the score pages
+            if (buildWeb) {
+                String template = FileUtil.readFile(new File(config.getString("web_path"), "template-score.md"));
+                if (template == null) {
+                    logger.error("Unable to read template.md! Exiting...");
+                    System.exit(1);
+                }
 
-            template = template.replace("<api>", instance.getApi());
-            template = template.replace("<hash>", instance.getHash());
-            template = template.replace("<time>", formattedDate);
-            if (instance.getFrontEnd() != null) {
-                String link = "<a href=\"" + instance.getProtocol() + "://" + instance.getFrontEnd() +"\">here</a>.";
-                template = template.replace("<frontend>", "You can use the frontend for this API here: " + link);
-            } else {
-                // there's an extra space here on purpose
-                template = template.replace(" <frontend>", "");
-            }
+                template = template.replace("<api>", instance.getApi());
+                template = template.replace("<hash>", instance.getHash());
+                template = template.replace("<time>", formattedDate);
+                if (instance.getFrontEnd() != null) {
+                    String link = "<a href=\"" + instance.getProtocol() + "://" + instance.getFrontEnd() + "\">here</a>.";
+                    template = template.replace("<frontend>", "You can use the frontend for this API here: " + link);
+                } else {
+                    // there's an extra space here on purpose
+                    template = template.replace(" <frontend>", "");
+                }
 
-            String scoreTable = StringUtil.buildScoreTable(instance);
-            template = template.replace("<scores>", scoreTable);
-            File scoreFile = new File("../web/scores", instance.getHash() + ".md");
-            FileUtil.writeFile(template, scoreFile);
+                String scoreTable = StringUtil.buildScoreTable(instance);
+                template = template.replace("<scores>", scoreTable);
+                File scoreFile = new File(config.getString("web_path") + "scores", instance.getHash() + ".md");
+                FileUtil.writeFile(template, scoreFile);
+            }
 
         }
         FileUtil.writeFile(cacheArray, cacheFile);
 
-        // read the contents of template.md
-        String template = FileUtil.readFile(new File("../web", "template.md"));
-        if (template == null) {
-            logger.error("Unable to read template.md! Exiting...");
-            System.exit(1);
-        }
-        // create the domain and no domain tables
-        String domainTable = StringUtil.buildMainTables(new ArrayList<>(instances), "domain");
-        String ipTable = StringUtil.buildMainTables(new ArrayList<>(instances), "ip");
-        // replace the placeholder with the tables
-        template = template.replace("<main-table>", domainTable);
-        template = template.replace("<other-table>", ipTable);
-        // update the time it was run
-        template = template.replace("<time>", formattedDate);
         // write to index.md
-        FileUtil.writeFile(template, new File("../web", "index.md"));
+        if (buildWeb) {
+            String template = FileUtil.readFile(new File(config.getString("web_path"), "template.md"));
+            if (template == null) {
+                logger.error("Unable to read template.md! Exiting...");
+                System.exit(1);
+            }
+            // create the domain and no domain tables
+            String domainTable = StringUtil.buildMainTables(new ArrayList<>(instances), "domain");
+            String ipTable = StringUtil.buildMainTables(new ArrayList<>(instances), "ip");
+            // replace the placeholder with the tables
+            template = template.replace("<main-table>", domainTable);
+            template = template.replace("<other-table>", ipTable);
+            // update the time it was run
+            template = template.replace("<time>", formattedDate);
+            // write to index.md
+            FileUtil.writeFile(template, new File(config.getString("web_path"), "index.md"));
+        }
     }
 
     public static String getCommit() throws IOException, GitAPIException {
@@ -217,6 +238,20 @@ public class CobaltTester {
                 String fullCommitID = latestCommit.getId().getName();
                 return fullCommitID.substring(0, 7);
             }
+        }
+    }
+
+    private static JSONObject getConfig() {
+        File configFile = new File("config.json");
+        if (!configFile.exists() || FileUtil.readFile(configFile) == null) {
+            logger.error("Config file does not exist! Exiting...");
+            return null;
+        }
+        String contents = FileUtil.readFile(configFile);
+        if (contents != null) {
+            return new JSONObject(contents);
+        } else {
+            return null;
         }
     }
 }
