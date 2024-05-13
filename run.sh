@@ -15,7 +15,7 @@ git pull
 # Move into backend folder, run the jar
 cd backend || exit
 echo Running backend jar...
-java -jar CobaltTester-latest.jar
+java -jar CobaltTester-latest.jar web
 
 # Move into web folder, build the site
 cd ../web || exit
