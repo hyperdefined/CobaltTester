@@ -59,6 +59,7 @@ cb.nyoom.fun,cobalt.nyoom.fun,https
 cobalt-api.schizo.city,cobalt.schizo.city,https
 coapi.nuxsys.ovh,cob.nuxsys.ovh,https
 cobalt.enderman.ch,co.enderman.ch,https
+bot.codematter.am,None,https
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http
@@ -83,5 +84,7 @@ cobalt.enderman.ch,co.enderman.ch,https
 194.163.167.46:9000,194.163.167.46:9001,http
 45.158.14.136:4444,None,http
 109.71.246.24:9000,None,http
-45.59.112.45:9000,None,http
 60.246.26.242:9000,None,http
+154.17.229.38:9000,None,http
+148.135.107.237:9000,None,http
+13.213.191.84:9000,None,http
