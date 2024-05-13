@@ -19,11 +19,11 @@ public class Services {
         servicesMap.put("soundcloud.com", "SoundCloud");
         servicesMap.put("bilibili.com", "BiliBili");
         servicesMap.put("dailymotion.com", "Dailymotion");
-        servicesMap.put("ok.ru", "OK.ru");
+        servicesMap.put("ok.ru", "Odnoklassniki");
         servicesMap.put("streamable.com", "Streamable");
         servicesMap.put("tumblr.com", "Tumblr");
         servicesMap.put("twitch.tv", "Twitch Clips");
-        servicesMap.put("vk.com", "VK.com");
+        servicesMap.put("vk.com", "VK");
         servicesMap.put("vimeo.com", "Vimeo");
         servicesMap.put("pinterest.com", "Pinterest");
         servicesMap.put("rutube.ru", "RUTUBE");
