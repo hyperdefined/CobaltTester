@@ -41,10 +41,18 @@ footer > *:last-child {
 td, th {
     white-space: nowrap;
 }
-
 .navbar-icon {
     width: 155px;
     height: 155px;
     overflow: hidden;
     border-radius: 50%;
+}
+body {
+    max-width: 90%;
+}
+blockquote h4 {
+    padding-top: 0;
+}
+details[open] summary {
+    padding-bottom: 10px;
 }
