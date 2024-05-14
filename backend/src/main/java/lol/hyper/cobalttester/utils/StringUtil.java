@@ -63,7 +63,7 @@ public class StringUtil {
             String name = instance.getName();
             int cors = instance.getCors();
             String status = "Unknown";
-            int score = (int) instance.getScore();
+            String score = instance.getScore() + "%";
             // if both api and frontend online, report it online
             if (instance.isApiWorking() && instance.isFrontEndWorking()) {
                 status = "Online";
