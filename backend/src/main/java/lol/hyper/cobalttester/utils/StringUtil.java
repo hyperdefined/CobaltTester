@@ -152,7 +152,7 @@ public class StringUtil {
      * @return Partial section of the hash. Used as an ID system.
      */
     public static String makeHash(String input) {
-        String hash = DigestUtils.md5Hex(input).toLowerCase(Locale.ROOT);
+        String hash = DigestUtils.sha256Hex(input).toLowerCase(Locale.ROOT);
         return hash.substring(0, 10);
     }
 }
