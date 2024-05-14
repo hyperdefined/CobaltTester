@@ -124,13 +124,11 @@ public class Tester implements Runnable {
 
     private void performTests(Instance instance) throws InterruptedException {
         int score = 0;
-        int totalTests = 0;
+        int totalTests = testUrls.size();
         boolean checkFrontEnd = instance.getFrontEnd() != null;
         String api = instance.getProtocol() + "://" + instance.getApi() + "/api/json";
         // if the api is working, perform the tests
         if (instance.isApiWorking()) {
-            // since we are going to test the services, count them for the score
-            totalTests = totalTests + testUrls.size();
             // perform a POST request for each url
             for (String url : testUrls) {
                 String service = Services.makePretty(url);
