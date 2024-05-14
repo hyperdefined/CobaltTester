@@ -1,8 +1,8 @@
 ---
 title: "Instances"
-description: "a collection of community cobalt instances"
+description: "a collection of community cobalt instances. currently tracking <instance-count> instances."
 ---
-This is a list of community [cobalt](https://github.com/wukko/cobalt) instances.
+This is a list of community [cobalt](https://github.com/wukko/cobalt) instances. Currently tracking <instance-count> instances.
 
 See [FAQ]({{ site.url }}/faq) for common questions about this list.
 

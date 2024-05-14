@@ -218,6 +218,7 @@ public class CobaltTester {
             // replace the placeholder with the tables
             template = template.replace("<main-table>", domainTable);
             template = template.replace("<other-table>", ipTable);
+            template = template.replace("<instance-count>", String.valueOf(instances.size()));
             // update the time it was run
             template = template.replace("<time>", formattedDate);
             // write to index.md
