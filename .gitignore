@@ -43,7 +43,7 @@ web/index.md
 web/Gemfile.lock
 web/_site
 web/instances.json
-web/scores
+web/instance
 
 ### Backend Module ##
 logs/

@@ -202,7 +202,7 @@ public class CobaltTester {
 
                 String scoreTable = StringUtil.buildScoreTable(instance);
                 template = template.replace("<scores>", scoreTable);
-                File scoreFile = new File(config.getString("web_path") + "scores", instance.getHash() + ".md");
+                File scoreFile = new File(config.getString("web_path") + "instance", instance.getHash() + ".md");
                 FileUtil.writeFile(template, scoreFile);
             }
 
