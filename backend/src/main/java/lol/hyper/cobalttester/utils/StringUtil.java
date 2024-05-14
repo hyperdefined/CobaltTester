@@ -92,7 +92,7 @@ public class StringUtil {
             if (instance.getTestResults().isEmpty()) {
                 table.append("<td>").append(score).append("</td>");
             } else {
-                String scoreLink = "<a href=\"{{ site.url }}/scores/" + instance.getHash() + "\">" + score + "</a>";
+                String scoreLink = "<a href=\"{{ site.url }}/instance/" + instance.getHash() + "\">" + score + "</a>";
                 table.append("<td>").append(scoreLink).append("</td>");
             }
             table.append("<td>").append(status).append("</td></tr>");
