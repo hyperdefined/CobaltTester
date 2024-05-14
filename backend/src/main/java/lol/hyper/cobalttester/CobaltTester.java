@@ -86,6 +86,10 @@ public class CobaltTester {
             System.exit(1);
         }
 
+        // shuffle the lists here
+        Collections.shuffle(instanceFileContents);
+        Collections.shuffle(testUrlsContents);
+
         // load the instance file and build each instance
         List<Instance> instances = new ArrayList<>();
         for (String line : instanceFileContents) {
