@@ -60,6 +60,7 @@ cobalt-api.schizo.city,cobalt.schizo.city,https
 coapi.nuxsys.ovh,cob.nuxsys.ovh,https
 cobalt.enderman.ch,co.enderman.ch,https
 bot.codematter.am,None,https
+cobalt-test.canine.tools,None,https
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http
