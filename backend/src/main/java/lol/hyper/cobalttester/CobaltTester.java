@@ -173,13 +173,26 @@ public class CobaltTester {
             }
         }
 
+        // calculate the curve
+        int maxScore = 0;
+        Optional<Instance> maxInstanceScore = instances.stream().max(Comparator.comparingDouble(Instance::getScore));
+        if (maxInstanceScore.isPresent()) {
+            // make this an int, since we don't care about decimals
+            maxScore = (int) maxInstanceScore.get().getScore();
+        }
+        int curve = 100 - maxScore;
+
         for (Instance instance : instances) {
-            // write to instances.json file
-            cacheArray.put(instance.toJSON());
 
             if (instance.getTestResults().isEmpty()) {
                 continue;
             }
+
+            // curve the score
+            instance.addCurve(curve);
+
+            // write to instances.json file
+            cacheArray.put(instance.toJSON());
 
             // build the score pages
             if (buildWeb) {

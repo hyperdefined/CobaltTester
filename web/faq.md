@@ -40,7 +40,7 @@ On each list, it contains these columns:
 <li>Branch: The branch of the instance.</li>
 <li>Name: The "name" of the instance, which is set by the instance owner.</li>
 <li>CORS: If the instance has CORS enabled. (1 = enabled, 0 = false.)</li>
-<li>Score: The score result of the instance. The higher the percentage, the more services the instance supports.<ul><li>Not all services work on all instances. Some require special cookies/API keys to be set on their end. Some services also do not work in certain regions where the server is hosted.</li></ul></li>
+<li>Score: The score result of the instance. The higher the percentage, the more services the instance supports.<ul><li>Not all services work on all instances. Some require special cookies/API keys to be set on their end. Some services also do not work in certain regions where the server is hosted.</li><li>Scores are curved!</li></ul></li>
 <li>Status: The status of the instance.</li>
 <ul>
 <li>Online: Both frontend and API are online.</li>

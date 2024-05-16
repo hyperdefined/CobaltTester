@@ -159,4 +159,8 @@ public class Instance {
     public void addResult(String service, boolean working) {
         testResults.put(service, working);
     }
+
+    public void addCurve(int curve) {
+        score = score + curve;
+    }
 }
