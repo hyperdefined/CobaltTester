@@ -90,6 +90,11 @@
             <artifactId>org.eclipse.jgit</artifactId>
             <version>6.9.0.202403050737-r</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.12.0</version>
+        </dependency>
     </dependencies>
 
 </project>

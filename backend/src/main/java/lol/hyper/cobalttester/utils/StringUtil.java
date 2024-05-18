@@ -134,18 +134,6 @@ public class StringUtil {
     }
 
     /**
-     * Check if a string is a good string :)
-     * Thank you to @ihatespawn for reporting this :)
-     *
-     * @param input The string to check.
-     * @return True if the string is good.
-     */
-    public static boolean check(String input) {
-        String safePattern = "^[a-z0-9-_]+$";
-        return input.matches(safePattern);
-    }
-
-    /**
      * Generates the partial hash of a string.
      *
      * @param input The input.

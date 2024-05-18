@@ -4,6 +4,7 @@ import lol.hyper.cobalttester.utils.RequestResults;
 import lol.hyper.cobalttester.utils.RequestUtil;
 import lol.hyper.cobalttester.utils.Services;
 import lol.hyper.cobalttester.utils.StringUtil;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
@@ -62,12 +63,7 @@ public class Tester implements Runnable {
     private void getApiInfo(JSONObject apiJson, Instance instance) {
         if (apiJson.has("name")) {
             String name = apiJson.getString("name");
-            if (StringUtil.check(name)) {
-                instance.setName(name);
-            } else {
-                instance.setName("invalid-name");
-                logger.warn(instance.getApi() + " has an invalid name!");
-            }
+            instance.setName(StringEscapeUtils.escapeHtml4(name));
         }
         if (apiJson.has("version")) {
             String version = apiJson.getString("version");
@@ -75,32 +71,15 @@ public class Tester implements Runnable {
             if (version.contains("-dev")) {
                 version = version.replace("-dev", "");
             }
-            if (version.matches("^[0-9.]+$")) {
-                // use the version from the JSON itself
-                // just in case we replaced it
-                instance.setVersion(apiJson.getString("version"));
-            } else {
-                instance.setVersion("invalid-version");
-                logger.warn(instance.getApi() + " has an invalid version!");
-            }
+            StringEscapeUtils.escapeHtml4(version);
         }
         if (apiJson.has("commit")) {
             String commit = apiJson.getString("commit");
-            if (StringUtil.check(commit)) {
-                instance.setCommit(commit);
-            } else {
-                instance.setCommit("invalid-commit");
-                logger.warn(instance.getApi() + " has an invalid commit!");
-            }
+            StringEscapeUtils.escapeHtml4(commit);
         }
         if (apiJson.has("branch")) {
             String branch = apiJson.getString("branch");
-            if (StringUtil.check(branch)) {
-                instance.setBranch(branch);
-            } else {
-                instance.setBranch("invalid-branch");
-                logger.warn(instance.getApi() + " has an invalid branch!");
-            }
+            StringEscapeUtils.escapeHtml4(branch);
         }
         if (apiJson.has("cors")) {
             int cors = apiJson.getInt("cors");
