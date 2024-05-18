@@ -71,15 +71,15 @@ public class Tester implements Runnable {
             if (version.contains("-dev")) {
                 version = version.replace("-dev", "");
             }
-            StringEscapeUtils.escapeHtml4(version);
+            instance.setVersion(StringEscapeUtils.escapeHtml4(version));
         }
         if (apiJson.has("commit")) {
             String commit = apiJson.getString("commit");
-            StringEscapeUtils.escapeHtml4(commit);
+            instance.setCommit(StringEscapeUtils.escapeHtml4(commit));
         }
         if (apiJson.has("branch")) {
             String branch = apiJson.getString("branch");
-            StringEscapeUtils.escapeHtml4(branch);
+            instance.setBranch(StringEscapeUtils.escapeHtml4(branch));
         }
         if (apiJson.has("cors")) {
             int cors = apiJson.getInt("cors");
