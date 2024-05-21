@@ -60,7 +60,8 @@ cobalt-api.schizo.city,cobalt.schizo.city,https
 coapi.nuxsys.ovh,cob.nuxsys.ovh,https
 cobalt.enderman.ch,co.enderman.ch,https
 bot.codematter.am,None,https
-cobalt-test.canine.tools,None,https
+api.dl.ixhby.dev,dl.ixhby.dev,https
+dl-api.memorybouquet.com,dl.memorybouquet.com,https
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http
@@ -90,3 +91,7 @@ cobalt-test.canine.tools,None,https
 148.135.107.237:9000,None,http
 13.213.191.84:9000,None,http
 148.135.96.148:9000,148.135.96.148:9001,http
+38.165.33.117:9000,38.165.33.117:9001,http
+92.88.14.59:9000,92.88.14.59:9001,http
+46.4.82.108:9000,46.4.82.108:9001,http
+93.127.202.159:9000,None,http
