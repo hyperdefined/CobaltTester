@@ -16,7 +16,6 @@ api-dl.cgm.rs,dl.cgm.rs,https
 cobalt.synzr.space,cobalt.synzr.space,https
 co-api.mae.wtf,co.mae.wtf,https
 capi.oak.li,c.oak.li,https
-api-cobalt.boykisser.systems,cobalt.boykisser.systems,https
 co.tskau.team,co.tskau.team,https
 sea-downloadapi.stuff.solutions,sea-download.stuff.solutions,https
 cobalt.wither.ing,cobalt.wither.ing,https
@@ -62,6 +61,7 @@ cobalt.enderman.ch,co.enderman.ch,https
 bot.codematter.am,None,https
 api.dl.ixhby.dev,dl.ixhby.dev,https
 dl-api.memorybouquet.com,dl.memorybouquet.com,https
+cobalt-sillydevuk.programowanie.fun,None,https
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http
