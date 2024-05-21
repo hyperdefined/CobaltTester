@@ -108,6 +108,9 @@ public class StringUtil {
 
         for (Map.Entry<String, Boolean> pair : instance.getTestResults().entrySet()) {
             String service = pair.getKey();
+            switch (service) {
+                case "Reddit", "TikTok", "Instagram" -> service = service + "*";
+            }
             boolean result = pair.getValue();
             table.append("<tr><td>").append(service).append("</td>");
             if (result) {

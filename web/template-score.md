@@ -11,3 +11,5 @@ This table shows what services work for <code><api></code>. <frontend>
 Last updated (UTC): <time>
 
 <scores>
+
+\* TikTok, Instagram, and Reddit all require special setup on the instance to function. 
