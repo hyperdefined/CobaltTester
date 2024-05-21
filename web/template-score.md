@@ -12,4 +12,4 @@ Last updated (UTC): <time>
 
 <scores>
 
-\* TikTok, Instagram, and Reddit all require special setup on the instance to function. 
+\* Instagram and Reddit both require special setup on the instance to function. 
