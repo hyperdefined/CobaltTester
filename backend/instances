@@ -4,7 +4,7 @@
 # For protocol, it's either http or https, whatever the instance uses.
 
 # instances with domains
-co.wuk.sh,cobalt.tools,https
+api.cobalt.tools,cobalt.tools,https
 cobalt.canine.tools,cobalt.canine.tools,https
 coapi.selfstacked.com,co.selfstacked.com,https
 api.co.rooot.gay,co.rooot.gay,https

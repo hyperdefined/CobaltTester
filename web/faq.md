@@ -6,12 +6,12 @@ description: "questions and answers for the instance list"
 ### General
 <details>
 <summary>What is cobalt?</summary>
-cobalt is an open-source media downloader. It supports a wide range of social media websites. No ads, tracking, or paywalls. It was created by [imput](https://github.com/imputnet/).
+cobalt is an open-source media downloader. It supports a wide range of social media websites. No ads, tracking, or paywalls. It was created by <a href="https://github.com/imputnet/">imput</a>.
 </details>
 
 <details>
 <summary>What is an "instance"?</summary>
-An instance is simply another "copy" of cobalt. Because cobalt is open source, anyone can start up their own instance. However, the official cobalt instance is <code>cobalt.tools</code> and <code>co.wuk.sh</code>. All others on this list are community created.
+An instance is simply another "copy" of cobalt. Because cobalt is open source, anyone can start up their own instance. However, the official cobalt instance is <code>cobalt.tools</code> and <code>api.cobalt.tools</code>. All others on this list are community created.
 </details>
 
 <details>
