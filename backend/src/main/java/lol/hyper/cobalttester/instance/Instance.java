@@ -1,8 +1,11 @@
-package lol.hyper.cobalttester;
+package lol.hyper.cobalttester.instance;
 
+import lol.hyper.cobalttester.utils.Services;
 import org.json.JSONObject;
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.TreeMap;
 
 public class Instance {
 
@@ -18,6 +21,9 @@ public class Instance {
     private boolean apiWorking;
     private boolean frontEndWorking;
     private double score;
+    private String hash;
+
+    private final Map<String, Boolean> testResults = new TreeMap<>();
 
     public Instance(String frontEnd, String api, String protocol) {
         this.frontEnd = frontEnd;
@@ -39,6 +45,17 @@ public class Instance {
         instanceJSON.put("frontEnd", Objects.requireNonNullElse(frontEnd, "None"));
         instanceJSON.put("protocol", protocol);
         instanceJSON.put("score", score);
+        JSONObject workingServices = new JSONObject();
+        for (Map.Entry<String, Boolean> pair : testResults.entrySet()) {
+            String service = Services.makeUgly(pair.getKey());
+            // skip frontend here
+            if (service.equalsIgnoreCase("Frontend")) {
+                continue;
+            }
+            boolean working = pair.getValue();
+            workingServices.put(service, working);
+        }
+        instanceJSON.put("services", workingServices);
         return instanceJSON;
     }
 
@@ -125,5 +142,25 @@ public class Instance {
 
     public double getScore() {
         return score;
+    }
+
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
+    public String getHash() {
+        return hash;
+    }
+
+    public Map<String, Boolean> getTestResults() {
+        return testResults;
+    }
+
+    public void addResult(String service, boolean working) {
+        testResults.put(service, working);
+    }
+
+    public void addCurve(int curve) {
+        score = score + curve;
     }
 }

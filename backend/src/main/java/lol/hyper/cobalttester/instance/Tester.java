@@ -1,7 +1,10 @@
-package lol.hyper.cobalttester;
+package lol.hyper.cobalttester.instance;
 
-import lol.hyper.cobalttester.tools.RequestUtil;
-import lol.hyper.cobalttester.tools.StringUtil;
+import lol.hyper.cobalttester.utils.RequestResults;
+import lol.hyper.cobalttester.utils.RequestUtil;
+import lol.hyper.cobalttester.utils.Services;
+import lol.hyper.cobalttester.utils.StringUtil;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
@@ -38,26 +41,18 @@ public class Tester implements Runnable {
                 String protocol = instance.getProtocol();
                 String api = protocol + "://" + instance.getApi() + "/api/serverInfo";
                 // make sure the API works before testing
-                boolean testApi = RequestUtil.testUrl(api);
-                instance.setApiWorking(testApi);
-                // if the api is offline, don't perform tests on this instance
-                if (!testApi) {
-                    logger.warn("Skipping " + api + " tests because it's offline.");
-                    continue;
-                }
-                // load the JSON from the api
                 JSONObject apiInfo = RequestUtil.requestJSON(api);
-                if (apiInfo == null) {
-                    logger.warn("Skipping " + api + " tests because the API JSON returned null");
-                    continue;
-                }
                 // load the api information
-                getApiInfo(apiInfo, instance);
+                if (apiInfo != null) {
+                    instance.setApiWorking(true);
+                    getApiInfo(apiInfo, instance);
+                }
                 try {
                     performTests(instance);
                 } catch (InterruptedException exception) {
                     logger.error("Unable to sleep thread", exception);
                 }
+                logger.info("Finished tests for " + instance.getApi());
             }
         } finally {
             latch.countDown();
@@ -68,12 +63,7 @@ public class Tester implements Runnable {
     private void getApiInfo(JSONObject apiJson, Instance instance) {
         if (apiJson.has("name")) {
             String name = apiJson.getString("name");
-            if (StringUtil.check(name)) {
-                instance.setName(name);
-            } else {
-                instance.setName("invalid-name");
-                logger.warn(instance.getApi() + " has an invalid name!");
-            }
+            instance.setName(StringEscapeUtils.escapeHtml4(name));
         }
         if (apiJson.has("version")) {
             String version = apiJson.getString("version");
@@ -81,36 +71,19 @@ public class Tester implements Runnable {
             if (version.contains("-dev")) {
                 version = version.replace("-dev", "");
             }
-            if (version.matches("^[0-9.]+$")) {
-                // use the version from the JSON itself
-                // just in case we replaced it
-                instance.setVersion(apiJson.getString("version"));
-            } else {
-                instance.setVersion("invalid-version");
-                logger.warn(instance.getApi() + " has an invalid version!");
-            }
+            instance.setVersion(StringEscapeUtils.escapeHtml4(version));
         }
         if (apiJson.has("commit")) {
             String commit = apiJson.getString("commit");
-            if (StringUtil.check(commit)) {
-                instance.setCommit(commit);
-            } else {
-                instance.setCommit("invalid-commit");
-                logger.warn(instance.getApi() + " has an invalid commit!");
-            }
+            instance.setCommit(StringEscapeUtils.escapeHtml4(commit));
         }
         if (apiJson.has("branch")) {
             String branch = apiJson.getString("branch");
-            if (StringUtil.check(branch)) {
-                instance.setBranch(branch);
-            } else {
-                instance.setBranch("invalid-branch");
-                logger.warn(instance.getApi() + " has an invalid branch!");
-            }
+            instance.setBranch(StringEscapeUtils.escapeHtml4(branch));
         }
         if (apiJson.has("cors")) {
             int cors = apiJson.getInt("cors");
-            if (cors == 1 || cors == 2) {
+            if (cors == 0 || cors == 1) {
                 instance.setCors(cors);
             } else {
                 instance.setCors(-1);
@@ -133,23 +106,28 @@ public class Tester implements Runnable {
         int totalTests = testUrls.size();
         boolean checkFrontEnd = instance.getFrontEnd() != null;
         String api = instance.getProtocol() + "://" + instance.getApi() + "/api/json";
-        // perform a POST request for each url
-        for (String url : testUrls) {
-            JSONObject postContents = new JSONObject();
-            postContents.put("url", url);
-            RequestResults testResponse = RequestUtil.sendPost(postContents, api);
-            // if the URL did not return HTTP 200, it did not pass
-            if (testResponse.responseCode() != 200) {
-                logger.warn("Test FAIL for " + api + " with code " + testResponse.responseCode() + " with " + url);
-                continue;
+        // if the api is working, perform the tests
+        if (instance.isApiWorking()) {
+            // perform a POST request for each url
+            for (String url : testUrls) {
+                String service = Services.makePretty(url);
+                JSONObject postContents = new JSONObject();
+                postContents.put("url", url);
+                RequestResults testResponse = RequestUtil.sendPost(postContents, api);
+                // if the URL did not return HTTP 200, it did not pass
+                if (testResponse.responseCode() != 200) {
+                    logger.warn("Test FAIL for " + api + " with code " + testResponse.responseCode() + " with " + url);
+                    instance.addResult(service, false);
+                    continue;
+                }
+                // since it returned HTTP 200, it passed
+                logger.info("Test PASS for " + api + " with " + url);
+                score++;
+                instance.addResult(service, true);
+                Thread.sleep(5000);
             }
-            // since it returned HTTP 200, it passed
-            logger.info("Test PASS for " + api + " with " + url);
-            score++;
-            Thread.sleep(5000);
         }
-        // if the frontend exists, check it here
-        // add that to the tests as well
+        // if the frontend exists, add it to the tests
         if (checkFrontEnd) {
             totalTests++;
             String frontEnd = instance.getProtocol() + "://" + instance.getFrontEnd();
@@ -158,11 +136,17 @@ public class Tester implements Runnable {
                 score++;
                 instance.setFrontEndWorking(true);
                 logger.info("Test PASS for checking " + frontEnd);
+                instance.addResult("Frontend", true);
             } else {
                 logger.warn("Test FAILED for checking " + frontEnd);
             }
         }
-        double finalScore = (double) score / totalTests * 100.0;
+        double finalScore = 0;
+        if (totalTests == 0) {
+            instance.setScore(finalScore);
+        } else {
+            finalScore = (double) score / totalTests * 100.0;
+        }
         instance.setScore(finalScore);
     }
 }

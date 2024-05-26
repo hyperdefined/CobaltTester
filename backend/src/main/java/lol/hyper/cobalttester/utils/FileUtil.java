@@ -1,4 +1,4 @@
-package lol.hyper.cobalttester.tools;
+package lol.hyper.cobalttester.utils;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;

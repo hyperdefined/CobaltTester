@@ -1,9 +1,12 @@
-package lol.hyper.cobalttester.tools;
+package lol.hyper.cobalttester.utils;
 
-import lol.hyper.cobalttester.Instance;
+import lol.hyper.cobalttester.instance.Instance;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class StringUtil {
@@ -16,7 +19,7 @@ public class StringUtil {
      * @param type      "domain" OR "ip". If you want IPs only, use "ip". If you want domains only, use "domain"
      * @return The HTML table.
      */
-    public static String makeTable(List<Instance> instances, String type) {
+    public static String buildMainTables(List<Instance> instances, String type) {
         StringBuilder table = new StringBuilder();
         // build the table for output
         table.append("<div class=\"table-container\"><table>\n<tr><th>Frontend</th><th>API</th><th>Version</th><th>Commit</th><th>Branch</th><th>Name</th><th>CORS</th><th>Score</th><th>Status</th></tr>\n");
@@ -60,7 +63,7 @@ public class StringUtil {
             String name = instance.getName();
             int cors = instance.getCors();
             String status = "Unknown";
-            int score = (int) instance.getScore();
+            String score = Double.toString(instance.getScore()).split("\\.")[0] + "%";
             // if both api and frontend online, report it online
             if (instance.isApiWorking() && instance.isFrontEndWorking()) {
                 status = "Online";
@@ -85,8 +88,37 @@ public class StringUtil {
             table.append("<td>").append(branch).append("</td>");
             table.append("<td>").append(name).append("</td>");
             table.append("<td>").append(cors).append("</td>");
-            table.append("<td>").append(score).append("</td>");
+            // check if score is empty
+            if (instance.getTestResults().isEmpty()) {
+                table.append("<td>").append(score).append("</td>");
+            } else {
+                String scoreLink = "<a href=\"{{ site.url }}/instance/" + instance.getHash() + "\">" + score + "</a>";
+                table.append("<td>").append(scoreLink).append("</td>");
+            }
             table.append("<td>").append(status).append("</td></tr>");
+        }
+        table.append("</table></div>");
+        return table.toString();
+    }
+
+    public static String buildScoreTable(Instance instance) {
+        StringBuilder table = new StringBuilder();
+        // build the table for output
+        table.append("<div class=\"table-container\"><table>\n<tr><th>Service</th><th>Working?</th></tr>\n");
+
+        for (Map.Entry<String, Boolean> pair : instance.getTestResults().entrySet()) {
+            String service = pair.getKey();
+            switch (service) {
+                case "Reddit", "Instagram" -> service = service + "*";
+            }
+            boolean result = pair.getValue();
+            table.append("<tr><td>").append(service).append("</td>");
+            if (result) {
+                table.append("<td>").append("✅").append("</td>");
+            } else {
+                table.append("<td>").append("❌").append("</td>");
+            }
+            table.append("</tr>");
         }
         table.append("</table></div>");
         return table.toString();
@@ -105,14 +137,13 @@ public class StringUtil {
     }
 
     /**
-     * Check if a string is a good string :)
-     * Thank you to @ihatespawn for reporting this :)
+     * Generates the partial hash of a string.
      *
-     * @param input The string to check.
-     * @return True if the string is good.
+     * @param input The input.
+     * @return Partial section of the hash. Used as an ID system.
      */
-    public static boolean check(String input) {
-        String safePattern = "^[a-z0-9-]+$";
-        return input.matches(safePattern);
+    public static String makeHash(String input) {
+        String hash = DigestUtils.sha256Hex(input).toLowerCase(Locale.ROOT);
+        return hash.substring(0, 10);
     }
 }

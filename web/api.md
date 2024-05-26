@@ -5,29 +5,51 @@ description: "an api to access the instance list"
 ---
 This is a simple API to access the list of instances. You don't need to scrap the page itself.
 
-To access it, you can use <code>https://instances.hyper.lol/instances.json</code>. This JSON file is created when the script runs.
+To access it, you can call <code>https://instances.hyper.lol/instances.json</code>. This JSON file is created when the script runs. The script runs at the top of every hour and completes within 20 minutes.
 
-Please set a proper user agent when making requests.
+Please set a proper user agent when making requests!
 
 ### Example
 When calling the API, it will return a JSON array that contains all instances. Here is a snippet of what information an instance has:
-```json
+<details>
+<summary>Show Example</summary>
+{% highlight json %}
 {
-  "score": 85.71428571428571,
   "api_online": true,
-  "protocol": "https",
   "cors": 1,
   "frontend_online": true,
-  "commit": "eaf88fe",
-  "name": "us3",
-  "startTime": 1714180992438,
+  "commit": "e44927e",
+  "services": {
+    "youtube": true,
+    "rutube": true,
+    "tumblr": true,
+    "bilibili": true,
+    "pinterest": true,
+    "instagram": true,
+    "soundcloud": true,
+    "youtube_music": true,
+    "odnoklassniki": true,
+    "dailymotion": true,
+    "twitter": true,
+    "vimeo": true,
+    "streamable": true,
+    "vk": true,
+    "tiktok": true,
+    "reddit": true,
+    "twitch_clips": true,
+    "youtube_shorts": true
+  },
+  "version": "7.13.3",
+  "branch": "freebind",
+  "score": 100,
+  "protocol": "https",
+  "name": "kityune",
+  "startTime": 1715712320491,
   "api": "co.wuk.sh",
-  "version": "7.12.6",
-  "branch": "temp-issues",
   "frontEnd": "cobalt.tools"
 }
-```
-
+{% endhighlight %}
+</details>
 ### What are each keys?
 This section explains what each key in the JSON mean for an instance.
 
@@ -44,3 +66,6 @@ Some of these keys are pulled directly from the API of an instance. You can view
 * `frontend_online`: Whether or not the frontend is online.
 * `protocol`: What protocol the instance uses (http/https).
 * `frontEnd`: The frontend URL of the instance.
+
+### Services
+In the services JSON, each service is listed. If it's able to download media for it, it's set to `true`. If it failed, it's set to `false`.

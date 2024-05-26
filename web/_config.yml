@@ -28,6 +28,9 @@ defaults:
 
 livereload: true
 
+markdown: kramdown
+highlighter: rouge
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
@@ -45,6 +48,7 @@ exclude:
   - CobaltTester*
   - instances
   - template.md
+  - template-score.md
   - logs/
   - run.sh
   - feed.xml
