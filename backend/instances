@@ -52,11 +52,8 @@ dl09.yt-dl.click,None,https
 cobalt-jp.programowanie.fun,cobalt-jp.axolotl.top,https
 cobalt-pl.programowanie.fun,cobalt-pl.axolotl.top,https
 cobalt-us.programowanie.fun,cobalt-us.axolotl.top,https
-
 cobalt-in.programowanie.fun,cobalt-in.axolotl.top,https
-
 cobalt-sillydevuk.programowanie.fun,cobalt-sillydevuk.axolotl.top,https
-
 api-cobalt.boykisser.systems,co.cock.ceo,https
 cobalt.misike.eu,None,https
 co.eepy.today,web.eepy.today,https
@@ -68,6 +65,8 @@ bot.codematter.am,None,https
 api.dl.ixhby.dev,dl.ixhby.dev,https
 dl-api.memorybouquet.com,dl.memorybouquet.com,https
 cobapi.fly.dev,None,https
+api.sacreations.me,md.sacreations.me,https
+cobapi.imanity.de,cobalt.imanity.de,https
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http
@@ -102,3 +101,7 @@ cobapi.fly.dev,None,https
 46.4.82.108:9000,46.4.82.108:9001,http
 93.127.202.159:9000,None,http
 148.135.94.13:9000,148.135.94.13:9001,http
+47.237.95.38:9666,None,https
+81.49.80.195:9000,81.49.80.195:9001,http
+45.153.48.229:9000,45.153.48.229:9001,http
+20.117.188.93:9000,20.117.188.93:9001,http
