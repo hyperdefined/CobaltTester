@@ -7,7 +7,7 @@ This is a simple API to access the list of instances. You don't need to scrap th
 
 To access it, you can call <code>https://instances.hyper.lol/instances.json</code>. This JSON file is created when the script runs. The script runs at the top of every hour and completes within 20 minutes.
 
-Please set a proper user agent when making requests!
+Please set a proper user agent when making requests! I block common user agents (like `curl`, `python-requests`, `Go-http-client` etc) due to many bots hitting this server. I want to know what project or who is using this API!
 
 ### Example
 When calling the API, it will return a JSON array that contains all instances. Here is a snippet of what information an instance has:
@@ -18,7 +18,7 @@ When calling the API, it will return a JSON array that contains all instances. H
   "api_online": true,
   "cors": 1,
   "frontend_online": true,
-  "commit": "e44927e",
+  "commit": "abd9f2e",
   "services": {
     "youtube": true,
     "rutube": true,
@@ -39,13 +39,13 @@ When calling the API, it will return a JSON array that contains all instances. H
     "twitch_clips": true,
     "youtube_shorts": true
   },
-  "version": "7.13.3",
-  "branch": "freebind",
+  "version": "7.14.2",
+  "branch": "current",
   "score": 100,
   "protocol": "https",
   "name": "kityune",
-  "startTime": 1715712320491,
-  "api": "co.wuk.sh",
+  "startTime": 1716834847977,
+  "api": "api.cobalt.tools",
   "frontEnd": "cobalt.tools"
 }
 {% endhighlight %}
