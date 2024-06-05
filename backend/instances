@@ -57,6 +57,8 @@ cobapi.fly.dev,None,https
 api.sacreations.me,md.sacreations.me,https
 cobapi.imanity.de,cobalt.imanity.de,https
 cobaltapi-oracle-bbb-arm-01.thetech.network,cobalt.thetech.network,https
+api.cobalt.kerichuu.space,cobalt.kerichuu.space,https
+api.cobalt.hoshinagi.top,cobalt.hoshinagi.top,https
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http
@@ -84,3 +86,11 @@ cobaltapi-oracle-bbb-arm-01.thetech.network,cobalt.thetech.network,https
 81.49.80.195:9000,81.49.80.195:9001,http
 45.153.48.229:9000,45.153.48.229:9001,http
 20.117.188.93:9000,20.117.188.93:9001,http
+47.106.153.201:9000,47.106.153.201:9001,http
+54.65.40.206:9000,54.65.40.206:9001,http
+35.206.212.42:9000,35.206.212.42:9001,http
+142.171.170.148:9000,142.171.170.148:9001,http
+120.245.57.41:9000,120.245.57.41:9001,http
+161.35.66.210:9000,None,http
+147.45.252.42:9000,None,http
+119.91.251.51:9000,119.91.251.51:9001,http
