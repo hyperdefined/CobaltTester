@@ -60,6 +60,8 @@ cobaltapi-oracle-bbb-arm-01.thetech.network,cobalt.thetech.network,https
 bazinca.kerichuu.space,zinc.kerichuu.space,https
 api.cobalt.hoshinagi.top,cobalt.hoshinagi.top,https
 d-api.huln.cc,d.huln.cc,https
+api.cobalt.witd.in,cobalt.witd.in,https
+apicloud9.filsfkwtlfjas.xyz,None,https
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http
@@ -95,5 +97,8 @@ d-api.huln.cc,d.huln.cc,https
 161.35.66.210:9000,None,http
 147.45.252.42:9000,None,http
 119.91.251.51:9000,119.91.251.51:9001,http
-43.207.216.247:9000,None,http
+43.207.216.247:9000,43.207.216.247:9001,http
 116.199.110.194:9000,None,http
+154.221.29.217:9000,None,http
+168.138.42.10:9000,None,http
+149.102.135.144:9000,None,http
