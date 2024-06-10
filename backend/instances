@@ -70,7 +70,7 @@ apicloud8.filsfkwtlfjas.xyz,None,https
 apicloud9.filsfkwtlfjas.xyz,None,https
 api.savexvid.com,None,https
 songfinderapi.ddns.net:9000,songfinderapi.ddns.net:9001,http
-dl.polyg.online,dl-api.polyg.online,https
+dl-api.polyg.online,dl.polyg.online,https
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http
