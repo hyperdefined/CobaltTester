@@ -61,7 +61,16 @@ bazinca.kerichuu.space,zinc.kerichuu.space,https
 api.cobalt.hoshinagi.top,cobalt.hoshinagi.top,https
 d-api.huln.cc,d.huln.cc,https
 api.cobalt.witd.in,cobalt.witd.in,https
+apicloud2.filsfkwtlfjas.xyz,None,https
+apicloud3.filsfkwtlfjas.xyz,None,https
+apicloud4.filsfkwtlfjas.xyz,None,https
+apicloud5.filsfkwtlfjas.xyz,None,https
+apicloud6.filsfkwtlfjas.xyz,None,https
+apicloud8.filsfkwtlfjas.xyz,None,https
 apicloud9.filsfkwtlfjas.xyz,None,https
+api.savexvid.com,None,https
+songfinderapi.ddns.net:9000,songfinderapi.ddns.net:9001,http
+dl.polyg.online,dl-api.polyg.online,https
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http
@@ -102,3 +111,8 @@ apicloud9.filsfkwtlfjas.xyz,None,https
 154.221.29.217:9000,None,http
 168.138.42.10:9000,None,http
 149.102.135.144:9000,None,http
+108.61.180.174:9000,None,http
+176.169.191.51:9000,None,http
+89.208.245.91:9000,None,http
+156.236.71.205:8011,None,http
+74.48.64.31:9000,None,http
