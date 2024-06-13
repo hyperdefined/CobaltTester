@@ -12,4 +12,4 @@ Last updated (UTC): <time>
 
 <scores>
 
-\* Instagram and Reddit both require special setup on the instance to function. 
+\* Instagram and Reddit both require special setup on the instance to function. YouTube might not work due to their API changing.
