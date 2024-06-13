@@ -72,6 +72,7 @@ api.savexvid.com,None,https
 songfinderapi.ddns.net:9000,songfinderapi.ddns.net:9001,http
 dl-api.polyg.online,dl.polyg.online,https
 api.down.vipvtt.cn,down.vipvtt.cn,https
+dl.khyernet.xyz,co.khyernet.xyz,https
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http
