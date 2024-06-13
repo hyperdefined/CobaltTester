@@ -84,7 +84,8 @@ public class StringUtil {
             table.append("<td>").append(frontEnd).append("</td>");
             table.append("<td>").append(api).append("</td>");
             table.append("<td>").append(version).append("</td>");
-            table.append("<td>").append(commit).append("</td>");
+            String commitLink = "<a href=\"https://github.com/imputnet/cobalt/commit/" + commit + "\">" + commit + "</a>";
+            table.append("<td>").append(commitLink).append("</td>");
             table.append("<td>").append(branch).append("</td>");
             table.append("<td>").append(name).append("</td>");
             table.append("<td>").append(cors).append("</td>");
@@ -109,7 +110,7 @@ public class StringUtil {
         for (Map.Entry<String, Boolean> pair : instance.getTestResults().entrySet()) {
             String service = pair.getKey();
             switch (service) {
-                case "Reddit", "Instagram" -> service = service + "*";
+                case "Reddit", "Instagram", "YouTube", "YouTube Music", "YouTube Shorts" -> service = service + "*";
             }
             boolean result = pair.getValue();
             table.append("<tr><td>").append(service).append("</td>");
