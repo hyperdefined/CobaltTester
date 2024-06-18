@@ -58,7 +58,6 @@ public class StringUtil {
             // get basic information
             String api = "<a href=\"" + instance.getProtocol() + "://" + instance.getApi() + "/api/serverInfo\">" + instance.getApi() + "</a>";
             String version = instance.getVersion();
-            String commit = instance.getCommit();
             String branch = instance.getBranch();
             String name = instance.getName();
             int cors = instance.getCors();
@@ -84,8 +83,13 @@ public class StringUtil {
             table.append("<td>").append(frontEnd).append("</td>");
             table.append("<td>").append(api).append("</td>");
             table.append("<td>").append(version).append("</td>");
-            String commitLink = "<a href=\"https://github.com/imputnet/cobalt/commit/" + commit + "\">" + commit + "</a>";
-            table.append("<td>").append(commitLink).append("</td>");
+            String commit;
+            if (instance.isApiWorking()) {
+                commit = "<a href=\"https://github.com/imputnet/cobalt/commit/" + instance.getCommit() + "\">" + instance.getCommit() + "</a>";
+            } else {
+                commit = instance.getCommit();
+            }
+            table.append("<td>").append(commit).append("</td>");
             table.append("<td>").append(branch).append("</td>");
             table.append("<td>").append(name).append("</td>");
             table.append("<td>").append(cors).append("</td>");
