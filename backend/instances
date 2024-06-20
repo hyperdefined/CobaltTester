@@ -65,8 +65,9 @@ dl-api.polyg.online,dl.polyg.online,https
 api.down.vipvtt.cn,down.vipvtt.cn,https
 dl.khyernet.xyz,co.khyernet.xyz,https
 apicb.tigaultraman.com,cb.tigaultraman.com,https
-cobalt.decrystalfan.app,None,https
+cobalt.decrystalfan.app,video.decrystalfan.app,https
 api.lcsq.top:9000,api.lcsq.top:9001,http
+cobalt.misike.eu,None,https
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http
@@ -100,7 +101,7 @@ api.lcsq.top:9000,api.lcsq.top:9001,http
 154.221.29.217:9000,None,http
 149.102.135.144:9000,None,http
 108.61.180.174:9000,None,http
-89.208.245.91:9000,None,http
+89.208.245.91:9000,89.208.245.91:9001,http
 156.236.71.205:8011,None,http
 60.47.215.246:9000,60.47.215.246:9001,http
 120.27.151.229:9000,None,http
@@ -118,3 +119,6 @@ api.lcsq.top:9000,api.lcsq.top:9001,http
 120.245.57.247:9000,120.245.57.247:9001,http
 122.96.82.245:9000,None,http
 213.165.251.214:9000,None,http
+112.86.171.249:9000,None,http
+142.171.131.246:9000,142.171.131.246:9001,http
+159.75.120.46:19000,159.75.120.46:19001,http
