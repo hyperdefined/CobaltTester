@@ -36,11 +36,24 @@ public class StringUtil {
             }
         }
         // if type is domain, remove all IPs and keep domains only
-        if (type.equalsIgnoreCase("domain")) {
+        if (type.equalsIgnoreCase("mainlist")) {
             while (copyIterator.hasNext()) {
                 Instance instance = copyIterator.next();
                 // remove if it's an IP
                 if (isIP(instance.getApi())) {
+                    copyIterator.remove();
+                }
+                if (instance.getApi().equals("api.cobalt.tools")) {
+                    copyIterator.remove();
+                }
+            }
+        }
+        // sort out the main one
+        if (type.equalsIgnoreCase("official")) {
+            while (copyIterator.hasNext()) {
+                Instance instance = copyIterator.next();
+                if (!instance.getApi().equals("api.cobalt.tools")) {
+                    // remove everything but this one
                     copyIterator.remove();
                 }
             }

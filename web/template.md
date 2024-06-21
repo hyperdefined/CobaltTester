@@ -8,6 +8,12 @@ See [FAQ]({{ site.url }}/faq) for common questions about this list.
 
 Last updated (UTC): <time>
 
+### Official Instance
+This is the official cobalt instance.
+<details>
+<summary>Show Instance</summary>
+<official-table>
+</details>
 ### With Domains
 These are instances that have a front facing domain.
 <details>

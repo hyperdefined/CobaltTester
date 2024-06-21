@@ -230,10 +230,12 @@ public class CobaltTester {
                 System.exit(1);
             }
             // create the domain and no domain tables
-            String domainTable = StringUtil.buildMainTables(new ArrayList<>(instances), "domain");
+            String mainTable = StringUtil.buildMainTables(new ArrayList<>(instances), "mainlist");
             String ipTable = StringUtil.buildMainTables(new ArrayList<>(instances), "ip");
+            String officialTable = StringUtil.buildMainTables(new ArrayList<>(instances), "official");
             // replace the placeholder with the tables
-            template = template.replace("<main-table>", domainTable);
+            template = template.replace("<official-table>", officialTable);
+            template = template.replace("<main-table>", mainTable);
             template = template.replace("<other-table>", ipTable);
             template = template.replace("<instance-count>", String.valueOf(instances.size()));
             // update the time it was run
