@@ -20,7 +20,7 @@ These are instances that have a front facing domain.
 <summary>Show List</summary>
 <main-table>
 </details>
-## Community (no domain)
+### Community (no domain)
 These are instances that do not have a front facing domain.
 <details>
 <summary>Show List</summary>
