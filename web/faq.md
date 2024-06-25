@@ -11,12 +11,17 @@ cobalt is an open-source media downloader. It supports a wide range of social me
 
 <details>
 <summary>What is an "instance"?</summary>
-An instance is simply another "copy" of cobalt. Because cobalt is open source, anyone can start up their own instance. However, the official cobalt instance is <code>cobalt.tools</code> and <code>api.cobalt.tools</code>. All others on this list are community created.
+An instance is simply another "copy" of cobalt. Because cobalt is open source, anyone can start up their own instance.
 </details>
 
 <details>
 <summary>Why are multiple instances needed?</summary>
 Simple: if the main cobalt instance goes offline, you can still use another instance. Decentralization is good. Servers can be located in different regions to bypass different region limits for media.
+</details>
+
+<details>
+<summary>What is the difference between official and community instances?</summary>
+Official instance is the main cobalt instance by the developers. This instance is <code>cobalt.tools</code>, and the API is <code>api.cobalt.tools</code>. All others on this list are community hosted and might have their own quirks.
 </details>
 
 <details>

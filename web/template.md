@@ -15,13 +15,13 @@ This is the official cobalt instance.
 <official-table>
 </details>
 ### Community (with domain)
-These are instances that have a front facing domain.
+Community instances that have a domain.
 <details>
 <summary>Show List</summary>
 <main-table>
 </details>
 ### Community (no domain)
-These are instances that do not have a front facing domain.
+Community instances that do not have a domain.
 <details>
 <summary>Show List</summary>
 <other-table>
