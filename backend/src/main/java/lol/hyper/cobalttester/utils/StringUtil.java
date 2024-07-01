@@ -128,7 +128,8 @@ public class StringUtil {
         for (Map.Entry<Instance, Boolean> pair : workingInstances.entrySet()) {
             Instance instance = pair.getKey();
             boolean working = pair.getValue();
-            table.append("<tr><td>").append(instance.getApi()).append("</td>");
+            String link = "<a href=\"../../instance/" + instance.getHash() + "\">" + instance.getApi() + "</a>";
+            table.append("<tr><td>").append(link).append("</td>");
             if (working) {
                 table.append("<td>").append("✅").append("</td>");
             } else {
