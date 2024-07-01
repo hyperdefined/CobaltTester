@@ -44,6 +44,7 @@ web/_site
 web/instances.json
 web/instance
 web/service
+web/instances.md
 
 ### Backend Module ##
 logs/
