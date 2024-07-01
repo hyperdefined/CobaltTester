@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
 
-public class Instance {
+public class Instance implements Comparable<Instance> {
 
     private final String frontEnd;
     private final String api;
@@ -162,5 +162,10 @@ public class Instance {
 
     public void addCurve(int curve) {
         score = score + curve;
+    }
+
+    @Override
+    public int compareTo(Instance instance) {
+        return this.api.compareTo(instance.api);
     }
 }

@@ -124,7 +124,7 @@ public class Tester implements Runnable {
                 logger.info("Test PASS for " + api + " with " + url);
                 score++;
                 instance.addResult(service, true);
-                Thread.sleep(5000);
+                Thread.sleep(2000);
             }
         }
         // if the frontend exists, add it to the tests

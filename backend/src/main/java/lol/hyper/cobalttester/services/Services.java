@@ -12,6 +12,7 @@ public class Services {
         servicesMap = new HashMap<>();
         servicesMap.put("music.youtube.com", "YouTube Music");
         servicesMap.put("youtube.com", "YouTube");
+        servicesMap.put("youtube.com/shorts/", "YouTube Shorts");
         servicesMap.put("tiktok.com", "TikTok");
         servicesMap.put("instagram.com", "Instagram");
         servicesMap.put("twitter.com", "Twitter");
@@ -27,6 +28,8 @@ public class Services {
         servicesMap.put("vimeo.com", "Vimeo");
         servicesMap.put("pinterest.com", "Pinterest");
         servicesMap.put("rutube.ru", "RUTUBE");
+        servicesMap.put("vine.co", "Vine");
+        servicesMap.put("loom.com", "Loom");
     }
 
     public static String makePretty(String url) {
@@ -35,12 +38,12 @@ public class Services {
         }
         String prettyName = null;
         for (String key : servicesMap.keySet()) {
+            // hardcode YouTube Shorts
+            if (url.contains("youtube.com/shorts")) {
+                return "YouTube Shorts";
+            }
             if (url.startsWith("https://" + key) || url.startsWith("http://" + key)) {
                 prettyName = servicesMap.get(key);
-                break;
-            } else if (url.contains("/shorts/")) {
-                // hardcode youtube shorts
-                prettyName = "YouTube Shorts";
                 break;
             }
         }
@@ -51,5 +54,14 @@ public class Services {
         String result = service;
         result = result.replace(" ", "_");
         return result.toLowerCase(Locale.ROOT);
+    }
+
+    public static String makeSlug(String service) {
+        String slug = service.toLowerCase(Locale.ROOT);
+        return slug.replace(" ", "-");
+    }
+
+    public static Map<String, String> getServicesMap() {
+        return servicesMap;
     }
 }

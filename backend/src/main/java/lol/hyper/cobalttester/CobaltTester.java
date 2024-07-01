@@ -2,8 +2,10 @@ package lol.hyper.cobalttester;
 
 import lol.hyper.cobalttester.instance.Instance;
 import lol.hyper.cobalttester.requests.Tester;
+import lol.hyper.cobalttester.services.Services;
 import lol.hyper.cobalttester.utils.FileUtil;
 import lol.hyper.cobalttester.utils.StringUtil;
+import lol.hyper.cobalttester.web.WebBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jgit.api.Git;
@@ -183,7 +185,6 @@ public class CobaltTester {
         int curve = 100 - maxScore;
 
         for (Instance instance : instances) {
-
             if (instance.getTestResults().isEmpty()) {
                 continue;
             }
@@ -191,57 +192,25 @@ public class CobaltTester {
             // curve the score
             instance.addCurve(curve);
 
-            // write to instances.json file
+            // add to instances.json file
             cacheArray.put(instance.toJSON());
 
             // build the score pages
             if (buildWeb) {
-                String template = FileUtil.readFile(new File(config.getString("web_path"), "template-score.md"));
-                if (template == null) {
-                    logger.error("Unable to read template.md! Exiting...");
-                    System.exit(1);
-                }
-
-                template = template.replace("<api>", instance.getApi());
-                template = template.replace("<hash>", instance.getHash());
-                template = template.replace("<time>", formattedDate);
-                if (instance.getFrontEnd() != null) {
-                    String link = "<a href=\"" + instance.getProtocol() + "://" + instance.getFrontEnd() + "\">here</a>.";
-                    template = template.replace("<frontend>", "You can use the frontend for this API here: " + link);
-                } else {
-                    // there's an extra space here on purpose
-                    template = template.replace(" <frontend>", "");
-                }
-
-                String scoreTable = StringUtil.buildScoreTable(instance);
-                template = template.replace("<scores>", scoreTable);
-                File scoreFile = new File(config.getString("web_path") + "instance", instance.getHash() + ".md");
-                FileUtil.writeFile(template, scoreFile);
+                WebBuilder.buildInstancePage(instance, formattedDate);
             }
 
         }
+        // write instances.json file
         FileUtil.writeFile(cacheArray, cacheFile);
 
-        // write to index.md
+        // write to index.md and make service pages
         if (buildWeb) {
-            String template = FileUtil.readFile(new File(config.getString("web_path"), "template.md"));
-            if (template == null) {
-                logger.error("Unable to read template.md! Exiting...");
-                System.exit(1);
+            WebBuilder.buildIndex(instances, formattedDate);
+            for (String service : Services.getServicesMap().values()) {
+                String slug = Services.makeSlug(service);
+                WebBuilder.buildServicePage(instances, formattedDate, service, slug);
             }
-            // create the domain and no domain tables
-            String mainTable = StringUtil.buildMainTables(new ArrayList<>(instances), "mainlist");
-            String ipTable = StringUtil.buildMainTables(new ArrayList<>(instances), "ip");
-            String officialTable = StringUtil.buildMainTables(new ArrayList<>(instances), "official");
-            // replace the placeholder with the tables
-            template = template.replace("<official-table>", officialTable);
-            template = template.replace("<main-table>", mainTable);
-            template = template.replace("<other-table>", ipTable);
-            template = template.replace("<instance-count>", String.valueOf(instances.size()));
-            // update the time it was run
-            template = template.replace("<time>", formattedDate);
-            // write to index.md
-            FileUtil.writeFile(template, new File(config.getString("web_path"), "index.md"));
         }
     }
 

@@ -3,11 +3,7 @@ package lol.hyper.cobalttester.utils;
 import lol.hyper.cobalttester.instance.Instance;
 import org.apache.commons.codec.digest.DigestUtils;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.regex.Pattern;
+import java.util.*;
 
 public class StringUtil {
 
@@ -16,7 +12,7 @@ public class StringUtil {
      * Make an instance table.
      *
      * @param instances The instances to use.
-     * @param type      "domain" OR "ip". If you want IPs only, use "ip". If you want domains only, use "domain"
+     * @param type      domain, ip, or official.
      * @return The HTML table.
      */
     public static String buildMainTables(List<Instance> instances, String type) {
@@ -24,43 +20,10 @@ public class StringUtil {
         // build the table for output
         table.append("<div class=\"table-container\"><table>\n<tr><th>Frontend</th><th>API</th><th>Version</th><th>Commit</th><th>Branch</th><th>Name</th><th>CORS</th><th>Score</th><th>Status</th></tr>\n");
 
-        Iterator<Instance> copyIterator = instances.iterator();
-        // if type is IP, remove all domains and keep IPs only
-        if (type.equalsIgnoreCase("ip")) {
-            while (copyIterator.hasNext()) {
-                Instance instance = copyIterator.next();
-                // remove if it's a domain
-                if (!isIP(instance.getApi())) {
-                    copyIterator.remove();
-                }
-            }
-        }
-        // if type is domain, remove all IPs and keep domains only
-        if (type.equalsIgnoreCase("mainlist")) {
-            while (copyIterator.hasNext()) {
-                Instance instance = copyIterator.next();
-                // remove if it's an IP
-                if (isIP(instance.getApi())) {
-                    copyIterator.remove();
-                }
-                if (instance.getApi().equals("api.cobalt.tools")) {
-                    copyIterator.remove();
-                }
-            }
-        }
-        // sort out the main one
-        if (type.equalsIgnoreCase("official")) {
-            while (copyIterator.hasNext()) {
-                Instance instance = copyIterator.next();
-                if (!instance.getApi().equals("api.cobalt.tools")) {
-                    // remove everything but this one
-                    copyIterator.remove();
-                }
-            }
-        }
+        List<Instance> filtered = FilterUtils.filter(instances, type);
 
         // build each element for the table
-        for (Instance instance : instances) {
+        for (Instance instance : filtered) {
             // does not have a front end
             String frontEnd;
             if (instance.getFrontEnd() == null) {
@@ -142,16 +105,39 @@ public class StringUtil {
         return table.toString();
     }
 
-    /**
-     * Check if a given string is an IP or not.
-     *
-     * @param domain The string to test.
-     * @return true/false if it's an IP.
-     */
-    public static boolean isIP(String domain) {
-        String ipv4Pattern = "(?<![\\d.])(?:(?:[1-9]?\\d|1\\d\\d|2[0-4]\\d|25[0-5])\\.){3}(?:[1-9]?\\d|1\\d\\d|2[0-4]\\d|25[0-5])(?![\\d.])";
-        String ipv4WithPortPattern = ipv4Pattern + "(:\\d{1,5})?";
-        return Pattern.matches(ipv4WithPortPattern, domain);
+    public static String makeServiceTable(List<Instance> instances, String service, String type) {
+        List<Instance> filtered = FilterUtils.filter(instances, type);
+        // Make them in alphabetical order
+        Collections.sort(filtered);
+        // Store which instance works with this service
+        Map<Instance, Boolean> workingInstances = new HashMap<>();
+        for (Instance instance : filtered) {
+            Boolean working = instance.getTestResults().get(service);
+            // if the API is offline, this will return null.
+            // force set this service to be false.
+            if (working == null) {
+                working = false;
+            }
+            workingInstances.put(instance, working);
+        }
+
+        StringBuilder table = new StringBuilder();
+        // build the table for output
+        table.append("<div class=\"table-container\"><table>\n<tr><th>Instance</th><th>Working?</th></tr>\n");
+
+        for (Map.Entry<Instance, Boolean> pair : workingInstances.entrySet()) {
+            Instance instance = pair.getKey();
+            boolean working = pair.getValue();
+            table.append("<tr><td>").append(instance.getApi()).append("</td>");
+            if (working) {
+                table.append("<td>").append("✅").append("</td>");
+            } else {
+                table.append("<td>").append("❌").append("</td>");
+            }
+            table.append("</tr>");
+        }
+        table.append("</table></div>");
+        return table.toString();
     }
 
     /**

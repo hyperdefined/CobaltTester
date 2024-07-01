@@ -44,6 +44,7 @@ web/Gemfile.lock
 web/_site
 web/instances.json
 web/instance
+web/service
 
 ### Backend Module ##
 logs/

@@ -49,6 +49,7 @@ exclude:
   - instances
   - template.md
   - template-score.md
+  - template-service.md
   - logs/
   - run.sh
   - feed.xml

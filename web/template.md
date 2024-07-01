@@ -12,17 +12,17 @@ Last updated (UTC): <time>
 This is the official cobalt instance.
 <details>
 <summary>Show Instance</summary>
-<official-table>
+<main-table-official>
 </details>
 ### Community (with domain)
 Community instances that have a domain.
 <details>
 <summary>Show List</summary>
-<main-table>
+<main-table-domain>
 </details>
 ### Community (no domain)
 Community instances that do not have a domain.
 <details>
 <summary>Show List</summary>
-<other-table>
+<main-table-nodomain>
 </details>

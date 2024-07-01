@@ -1,4 +1,6 @@
 {
   "web_path": "../web/",
+  "score_path": "../web/instance",
+  "service_path": "../web/service",
   "instances_json_output": "../web/instances.json"
 }
