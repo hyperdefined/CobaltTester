@@ -3,7 +3,7 @@ CobaltTester is a simple tool to test and track cobalt instances. It uses a scor
 
 ## How does it work?
 It loads a list of instances, then performs various tests to see if they work. It then calculates a score on how many tests were successful.
-You can see what tests it runs [here](https://github.com/hyperdefined/CobaltTester/blob/master/backend/test_urls).
+You can see what tests it runs [here](https://github.com/hyperdefined/CobaltTester/blob/master/backend/tests.json).
 
 Load instances -> Make sure API/frontend exist -> Perform tests -> Output results to `web/index.md` -> Build site via Jekyll.
 
