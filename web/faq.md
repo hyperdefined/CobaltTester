@@ -1,7 +1,7 @@
 ---
 permalink: /faq/
 title: "FAQ"
-description: "questions and answers for the instance list"
+description: "questions and answers for the instance list."
 ---
 ### General
 <details>
@@ -34,8 +34,23 @@ If you're a regular user, you probably want to use the frontend.
 ### Instance List
 <details>
 <summary>How do I read the instance list?</summary>
-There are 2 primary lists: with and without domains. They simply separate which instances have a domain attached to them.
+There's a few ways to see the instances, by the master list or by service.
 
+<ul>
+<li><a href="{{ site.url }}/instances/">Master list</a>: see all cobalt instances.</li>
+<li><a href="{{ site.url }}/service/">By service</a>: see what services work on what instances.</li>
+</ul>
+
+When viewing each list, there are 3 categories: official, domain, and no domain.
+<ul>
+<li>Official - the main official cobalt instance by the developers.</li>
+<li>Domain - instances that have a domain.</li>
+<li>No domain - instances that do not have a domain, and just use an IP to connect. These are not secure.</li>
+</ul>
+</details>
+
+<details>
+<summary>What does each column mean on the master list?</summary>
 On each list, it contains these columns:
 <ul>
 <li>Frontend: The frontend domain of the instance, the one you probably want to use. Not all have frontends.</li>

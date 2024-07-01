@@ -16,9 +16,9 @@ public class WebBuilder {
     private static final Logger logger = LogManager.getLogger(WebBuilder.class);
 
     public static void buildIndex(List<Instance> instances, String formattedDate) {
-        String indexTemplate = FileUtil.readFile(new File(CobaltTester.config.getString("web_path"), "template.md"));
-        if (indexTemplate == null) {
-            logger.error("Unable to read template.md! Exiting...");
+        String mainListTemplate = FileUtil.readFile(new File(CobaltTester.config.getString("web_path"), "template-mainlist.md"));
+        if (mainListTemplate == null) {
+            logger.error("Unable to read template-mainlist.md! Exiting...");
             System.exit(1);
         }
         // create the official, domain, and no domain tables
@@ -26,14 +26,14 @@ public class WebBuilder {
         String mainTable = StringUtil.buildMainTables(new ArrayList<>(instances), "domain");
         String ipTable = StringUtil.buildMainTables(new ArrayList<>(instances), "ip");
         // replace the placeholder with the tables
-        indexTemplate = indexTemplate.replaceAll("<main-table-official>", officialTable);
-        indexTemplate = indexTemplate.replaceAll("<main-table-domain>", mainTable);
-        indexTemplate = indexTemplate.replaceAll("<main-table-nodomain>", ipTable);
-        indexTemplate = indexTemplate.replaceAll("<instance-count>", String.valueOf(instances.size()));
+        mainListTemplate = mainListTemplate.replaceAll("<main-table-official>", officialTable);
+        mainListTemplate = mainListTemplate.replaceAll("<main-table-domain>", mainTable);
+        mainListTemplate = mainListTemplate.replaceAll("<main-table-nodomain>", ipTable);
+        mainListTemplate = mainListTemplate.replaceAll("<instance-count>", String.valueOf(instances.size()));
         // update the time it was run
-        indexTemplate = indexTemplate.replaceAll("<time>", formattedDate);
+        mainListTemplate = mainListTemplate.replaceAll("<time>", formattedDate);
         // write to index.md
-        FileUtil.writeFile(indexTemplate, new File(CobaltTester.config.getString("web_path"), "index.md"));
+        FileUtil.writeFile(mainListTemplate, new File(CobaltTester.config.getString("web_path"), "instances.md"));
     }
 
     public static void buildInstancePage(Instance instance, String formattedDate) {

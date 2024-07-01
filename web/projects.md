@@ -1,7 +1,7 @@
 ---
 permalink: /projects/
 title: "Projects"
-description: "a collection of community cobalt projects"
+description: "a collection of community cobalt projects."
 ---
 This is a collection of community projects that use cobalt!
 

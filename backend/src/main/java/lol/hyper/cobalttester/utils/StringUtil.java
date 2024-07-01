@@ -94,7 +94,7 @@ public class StringUtil {
                 case "Reddit", "Instagram", "YouTube", "YouTube Music", "YouTube Shorts" -> service = service + "*";
             }
             boolean result = pair.getValue();
-            String serviceLink = "<a href=\"../../service/" + Services.makeSlug(service) + "\">" + service + "</a>";
+            String serviceLink = "<a href=\"{{ site.url }}/service/" + Services.makeSlug(service) + "\">" + service + "</a>";
             table.append("<tr><td>").append(serviceLink).append("</td>");
             if (result) {
                 table.append("<td>").append("✅").append("</td>");
@@ -130,7 +130,7 @@ public class StringUtil {
         for (Map.Entry<Instance, Boolean> pair : workingInstances.entrySet()) {
             Instance instance = pair.getKey();
             boolean working = pair.getValue();
-            String link = "<a href=\"../../instance/" + instance.getHash() + "\">" + instance.getApi() + "</a>";
+            String link = "<a href=\"{{ site.url }}/instance/" + instance.getHash() + "\">" + instance.getApi() + "</a>";
             table.append("<tr><td>").append(link).append("</td>");
             if (working) {
                 table.append("<td>").append("✅").append("</td>");
