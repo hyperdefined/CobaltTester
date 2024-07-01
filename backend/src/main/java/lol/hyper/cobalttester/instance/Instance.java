@@ -1,6 +1,6 @@
 package lol.hyper.cobalttester.instance;
 
-import lol.hyper.cobalttester.utils.Services;
+import lol.hyper.cobalttester.services.Services;
 import org.json.JSONObject;
 
 import java.util.Map;

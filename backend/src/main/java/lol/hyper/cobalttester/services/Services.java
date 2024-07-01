@@ -1,4 +1,4 @@
-package lol.hyper.cobalttester.utils;
+package lol.hyper.cobalttester.services;
 
 import java.util.HashMap;
 import java.util.Locale;

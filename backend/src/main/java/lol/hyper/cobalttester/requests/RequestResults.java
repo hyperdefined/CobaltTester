@@ -1,4 +1,4 @@
-package lol.hyper.cobalttester.utils;
+package lol.hyper.cobalttester.requests;
 
 public record RequestResults(String responseContent, int responseCode) {
 

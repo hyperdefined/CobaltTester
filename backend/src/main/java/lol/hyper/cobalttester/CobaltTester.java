@@ -1,7 +1,7 @@
 package lol.hyper.cobalttester;
 
 import lol.hyper.cobalttester.instance.Instance;
-import lol.hyper.cobalttester.instance.Tester;
+import lol.hyper.cobalttester.requests.Tester;
 import lol.hyper.cobalttester.utils.FileUtil;
 import lol.hyper.cobalttester.utils.StringUtil;
 import org.apache.logging.log4j.LogManager;
@@ -250,7 +250,7 @@ public class CobaltTester {
         FileRepositoryBuilder repositoryBuilder = new FileRepositoryBuilder();
         try (Repository repository = repositoryBuilder.setGitDir(root).readEnvironment().findGitDir().build()) {
             if (repository == null) {
-                System.out.println("Not inside a Git repository.");
+                logger.error("Unable to find git information. Did you fork this correctly?");
                 return null;
             }
             try (Git git = new Git(repository)) {

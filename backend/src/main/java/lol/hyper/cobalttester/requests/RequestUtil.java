@@ -1,4 +1,4 @@
-package lol.hyper.cobalttester.utils;
+package lol.hyper.cobalttester.requests;
 
 import lol.hyper.cobalttester.CobaltTester;
 import org.apache.logging.log4j.LogManager;

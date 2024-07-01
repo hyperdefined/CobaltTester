@@ -1,9 +1,9 @@
-package lol.hyper.cobalttester.instance;
+package lol.hyper.cobalttester.requests;
 
-import lol.hyper.cobalttester.utils.RequestResults;
-import lol.hyper.cobalttester.utils.RequestUtil;
-import lol.hyper.cobalttester.utils.Services;
-import lol.hyper.cobalttester.utils.StringUtil;
+import lol.hyper.cobalttester.instance.Instance;
+import lol.hyper.cobalttester.requests.RequestResults;
+import lol.hyper.cobalttester.requests.RequestUtil;
+import lol.hyper.cobalttester.services.Services;
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -147,6 +147,7 @@ public class Tester implements Runnable {
         } else {
             finalScore = (double) score / totalTests * 100.0;
         }
+        logger.info("Final score is " + finalScore);
         instance.setScore(finalScore);
     }
 }
