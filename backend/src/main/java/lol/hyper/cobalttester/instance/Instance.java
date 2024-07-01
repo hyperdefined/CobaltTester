@@ -3,6 +3,7 @@ package lol.hyper.cobalttester.instance;
 import lol.hyper.cobalttester.services.Services;
 import org.json.JSONObject;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
@@ -47,7 +48,7 @@ public class Instance implements Comparable<Instance> {
         instanceJSON.put("score", score);
         JSONObject workingServices = new JSONObject();
         for (Map.Entry<String, Boolean> pair : testResults.entrySet()) {
-            String service = Services.makeUgly(pair.getKey());
+            String service = pair.getKey().toLowerCase(Locale.ROOT).replace(" ", "_");
             // skip frontend here
             if (service.equalsIgnoreCase("Frontend")) {
                 continue;

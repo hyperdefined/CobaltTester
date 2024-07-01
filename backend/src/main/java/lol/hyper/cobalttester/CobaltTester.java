@@ -74,10 +74,15 @@ public class CobaltTester {
         // load some files
         File instancesFile = new File("instances");
         File blockedInstances = new File("blocked_instances");
-        File testUrlsFile = new File("test_urls");
+        File testUrlsFile = new File("tests.json");
         List<String> instanceFileContents = FileUtil.readRawFile(instancesFile);
         List<String> blockedInstancesContents = FileUtil.readRawFile(blockedInstances);
-        List<String> testUrlsContents = FileUtil.readRawFile(testUrlsFile);
+        String testUrlContents = FileUtil.readFile(testUrlsFile);
+        if (testUrlContents == null) {
+            logger.error("tests.json failed to load!");
+            System.exit(1);
+        }
+        JSONObject testUrlsContents = new JSONObject(testUrlContents);
         // make sure all files exist
         if (instanceFileContents.isEmpty()) {
             logger.error("Instance file returned empty. Does it exist?");
@@ -88,9 +93,12 @@ public class CobaltTester {
             System.exit(1);
         }
 
+        // load the tests into services
+        Services services = new Services(testUrlsContents);
+        services.importTests();
+
         // shuffle the lists here
         Collections.shuffle(instanceFileContents);
-        Collections.shuffle(testUrlsContents);
 
         // load the instance file and build each instance
         List<Instance> instances = new ArrayList<>();
@@ -144,7 +152,7 @@ public class CobaltTester {
         for (int i = 0; i < threads; i++) {
             int extraTask = (i < remainderTasks) ? 1 : 0;
             int endTask = startTask + tasksPerThread + extraTask;
-            executor.submit(new Tester(startTask, endTask, latch, instances, i, testUrlsContents));
+            executor.submit(new Tester(startTask, endTask, latch, instances, i, services));
             startTask = endTask;
         }
 
@@ -207,7 +215,7 @@ public class CobaltTester {
         // write to index.md and make service pages
         if (buildWeb) {
             WebBuilder.buildIndex(instances, formattedDate);
-            for (String service : Services.getServicesMap().values()) {
+            for (String service : services.getTests().keySet()) {
                 String slug = Services.makeSlug(service);
                 WebBuilder.buildServicePage(instances, formattedDate, service, slug);
             }

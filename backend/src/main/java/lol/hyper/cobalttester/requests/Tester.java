@@ -1,8 +1,6 @@
 package lol.hyper.cobalttester.requests;
 
 import lol.hyper.cobalttester.instance.Instance;
-import lol.hyper.cobalttester.requests.RequestResults;
-import lol.hyper.cobalttester.requests.RequestUtil;
 import lol.hyper.cobalttester.services.Services;
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
@@ -10,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
 public class Tester implements Runnable {
@@ -19,16 +18,16 @@ public class Tester implements Runnable {
     private final CountDownLatch latch;
     private final List<Instance> instances;
     private final int threadNumber;
-    private final List<String> testUrls;
+    private final Services services;
     private final Logger logger = LogManager.getLogger(this);
 
-    public Tester(int startTask, int endTask, CountDownLatch latch, List<Instance> instances, int threadNumber, List<String> testUrls) {
+    public Tester(int startTask, int endTask, CountDownLatch latch, List<Instance> instances, int threadNumber, Services services) {
         this.startTask = startTask;
         this.endTask = endTask;
         this.latch = latch;
         this.instances = instances;
         this.threadNumber = threadNumber;
-        this.testUrls = testUrls;
+        this.services = services;
     }
 
     @Override
@@ -103,25 +102,26 @@ public class Tester implements Runnable {
 
     private void performTests(Instance instance) throws InterruptedException {
         int score = 0;
-        int totalTests = testUrls.size();
+        int totalTests = services.getTests().size();
         boolean checkFrontEnd = instance.getFrontEnd() != null;
         String api = instance.getProtocol() + "://" + instance.getApi() + "/api/json";
         // if the api is working, perform the tests
         if (instance.isApiWorking()) {
             // perform a POST request for each url
-            for (String url : testUrls) {
-                String service = Services.makePretty(url);
+            for (Map.Entry<String, String> testPair : services.getTests().entrySet()) {
+                String service = testPair.getKey();
+                String serviceUrl = testPair.getValue();
                 JSONObject postContents = new JSONObject();
-                postContents.put("url", url);
+                postContents.put("url", serviceUrl);
                 RequestResults testResponse = RequestUtil.sendPost(postContents, api);
                 // if the URL did not return HTTP 200, it did not pass
                 if (testResponse.responseCode() != 200) {
-                    logger.warn("Test FAIL for " + api + " with code " + testResponse.responseCode() + " with " + url);
+                    logger.warn("Test FAIL for " + api + " with code " + testResponse.responseCode() + " with " + serviceUrl);
                     instance.addResult(service, false);
                     continue;
                 }
                 // since it returned HTTP 200, it passed
-                logger.info("Test PASS for " + api + " with " + url);
+                logger.info("Test PASS for " + api + " with " + serviceUrl);
                 score++;
                 instance.addResult(service, true);
                 Thread.sleep(2000);
