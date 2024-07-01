@@ -18,6 +18,7 @@ echo Running backend jar...
 java -jar CobaltTester-latest.jar web
 
 # Move into web folder, build the site
+export JEKYLL_ENV=production
 cd ../web || exit
 echo Building site...
 bundle exec jekyll build
