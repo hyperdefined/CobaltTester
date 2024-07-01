@@ -94,7 +94,7 @@ public class StringUtil {
                 case "Reddit", "Instagram", "YouTube", "YouTube Music", "YouTube Shorts" -> service = service + "*";
             }
             boolean result = pair.getValue();
-            String serviceLink = "<a href=\"{{ site.url }}/service/" + Services.makeSlug(service) + "\">" + service + "</a>";
+            String serviceLink = "<a href=\"{{ site.url }}/service/" + Services.makeSlug(service).replace("*", "") + "\">" + service + "</a>";
             table.append("<tr><td>").append(serviceLink).append("</td>");
             if (result) {
                 table.append("<td>").append("✅").append("</td>");
