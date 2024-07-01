@@ -1,6 +1,7 @@
 package lol.hyper.cobalttester.utils;
 
 import lol.hyper.cobalttester.instance.Instance;
+import lol.hyper.cobalttester.services.Services;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.*;
@@ -93,7 +94,8 @@ public class StringUtil {
                 case "Reddit", "Instagram", "YouTube", "YouTube Music", "YouTube Shorts" -> service = service + "*";
             }
             boolean result = pair.getValue();
-            table.append("<tr><td>").append(service).append("</td>");
+            String serviceLink = "<a href=\"../../service/" + Services.makeSlug(service) + "\">" + service + "</a>";
+            table.append("<tr><td>").append(serviceLink).append("</td>");
             if (result) {
                 table.append("<td>").append("✅").append("</td>");
             } else {
