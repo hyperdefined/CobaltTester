@@ -50,5 +50,5 @@ web/instances.md
 logs/
 backend/target
 backend/instances.json
-backend/blocked_instances
+backend/removed_instances
 CobaltTester-*.jar

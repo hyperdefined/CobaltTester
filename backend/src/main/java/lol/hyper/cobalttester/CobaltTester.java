@@ -73,7 +73,7 @@ public class CobaltTester {
 
         // load some files
         File instancesFile = new File("instances");
-        File blockedInstances = new File("blocked_instances");
+        File blockedInstances = new File("removed_instances");
         File testUrlsFile = new File("tests.json");
         List<String> instanceFileContents = FileUtil.readRawFile(instancesFile);
         List<String> blockedInstancesContents = FileUtil.readRawFile(blockedInstances);
@@ -98,11 +98,13 @@ public class CobaltTester {
         services.importTests();
 
         // shuffle the lists here
-        Collections.shuffle(instanceFileContents);
+        //Collections.shuffle(instanceFileContents);
 
         // load the instance file and build each instance
         List<Instance> instances = new ArrayList<>();
-        for (String line : instanceFileContents) {
+        for (int i = 0; i < instanceFileContents.size(); i++) {
+            String line = instanceFileContents.get(i);
+            logger.info(i + " " + line);
             // each line is formatted api,frontend,protocol
             // we can split this and get each part
             List<String> lineFix = Arrays.asList(line.split(","));

@@ -53,7 +53,7 @@ public class FileUtil {
     }
 
     /**
-     * Read the "raw" files. Mainly for instances, blocked_instances, and test_urls.
+     * Read the "raw" files. Mainly for instances, removed_instances, and test_urls.
      *
      * @param file The file to read.
      * @return The contents. If the size is zero, it was not able to read it.
