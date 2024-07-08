@@ -73,10 +73,8 @@ public class CobaltTester {
 
         // load some files
         File instancesFile = new File("instances");
-        File blockedInstances = new File("removed_instances");
         File testUrlsFile = new File("tests.json");
         List<String> instanceFileContents = FileUtil.readRawFile(instancesFile);
-        List<String> blockedInstancesContents = FileUtil.readRawFile(blockedInstances);
         String testUrlContents = FileUtil.readFile(testUrlsFile);
         if (testUrlContents == null) {
             logger.error("tests.json failed to load!");
@@ -111,17 +109,6 @@ public class CobaltTester {
             String api = lineFix.get(0);
             String frontEnd = lineFix.get(1);
             String protocol = lineFix.get(2);
-
-            // make sure the instance is not in the blocked file
-            if (!blockedInstancesContents.isEmpty()) {
-                boolean apiBlocked = blockedInstancesContents.stream().anyMatch(api::contains);
-                boolean frontEndBlocked = blockedInstancesContents.stream().anyMatch(frontEnd::contains);
-                // if it is, remove it
-                if (apiBlocked || frontEndBlocked) {
-                    logger.warn("Skipping instance " + api + " because it's blocked.");
-                    continue;
-                }
-            }
 
             // if the instance has "None" set for the frontend
             if (frontEnd.equals("None")) {
