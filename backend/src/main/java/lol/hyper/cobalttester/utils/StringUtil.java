@@ -125,13 +125,20 @@ public class StringUtil {
 
         StringBuilder table = new StringBuilder();
         // build the table for output
-        table.append("<div class=\"table-container\"><table>\n<tr><th>Instance</th><th>Working?</th></tr>\n");
+        table.append("<div class=\"table-container\"><table>\n<tr><th>Frontend</th><th>API</th><th>Working?</th></tr>\n");
 
         for (Map.Entry<Instance, Boolean> pair : workingInstances.entrySet()) {
             Instance instance = pair.getKey();
             boolean working = pair.getValue();
-            String link = "<a href=\"{{ site.url }}/instance/" + instance.getHash() + "\">" + instance.getApi() + "</a>";
-            table.append("<tr><td>").append(link).append("</td>");
+            String frontEnd;
+            if (instance.getFrontEnd() == null) {
+                frontEnd = "None";
+            } else {
+                frontEnd = "<a href=\"" + instance.getProtocol() + "://" + instance.getFrontEnd() + "\">" + instance.getFrontEnd() + "</a>";
+            }
+            table.append("<tr><td>").append(frontEnd).append("</td>");
+            String api = "<a href=\"" + instance.getProtocol() + "://" + instance.getApi() + "/api/serverInfo\">" + instance.getApi() + "</a>";
+            table.append("<tr><td>").append(api).append("</td>");
             if (working) {
                 table.append("<td>").append("✅").append("</td>");
             } else {
