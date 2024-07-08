@@ -100,9 +100,7 @@ public class CobaltTester {
 
         // load the instance file and build each instance
         List<Instance> instances = new ArrayList<>();
-        for (int i = 0; i < instanceFileContents.size(); i++) {
-            String line = instanceFileContents.get(i);
-            logger.info(i + " " + line);
+        for (String line : instanceFileContents) {
             // each line is formatted api,frontend,protocol
             // we can split this and get each part
             List<String> lineFix = Arrays.asList(line.split(","));
