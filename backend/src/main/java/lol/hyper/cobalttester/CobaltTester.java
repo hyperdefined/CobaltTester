@@ -96,7 +96,7 @@ public class CobaltTester {
         services.importTests();
 
         // shuffle the lists here
-        //Collections.shuffle(instanceFileContents);
+        Collections.shuffle(instanceFileContents);
 
         // load the instance file and build each instance
         List<Instance> instances = new ArrayList<>();
