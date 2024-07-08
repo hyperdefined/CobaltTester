@@ -73,6 +73,9 @@ dl02.yt-dl.click,None,https
 dl03.yt-dl.click,None,https
 co.otomir23.me,co.otomir23.me,https
 sealdownloader.site,None,https
+api-cobalt.isnubi.fr,cobalt.isnubi.fr,https
+cobalt-api.hayper.xyz,cobalt.hayper.xyz,https
+c.suika.pw,None,https
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http
@@ -117,3 +120,11 @@ sealdownloader.site,None,https
 87.249.58.75:9000,87.249.58.75:9001,http
 86.195.21.136:8018,None,http
 66.112.209.209:9000,66.112.209.209:9001,http
+58.240.46.116,58.240.46.116:9001,http
+117.82.109.73:9000,None,http
+38.148.249.53:9000,38.148.249.53:9001,http
+154.9.242.186:9000,154.9.242.186:9001,http
+154.9.249.23:9000,154.9.249.23:9001,http
+74.48.82.224:9000,74.48.82.224:9001,http
+34.127.106.196:9000,34.127.106.196:9001,http
+35.223.255.155:9000,None,http
