@@ -138,7 +138,7 @@ public class StringUtil {
             }
             table.append("<tr><td>").append(frontEnd).append("</td>");
             String api = "<a href=\"" + instance.getProtocol() + "://" + instance.getApi() + "/api/serverInfo\">" + instance.getApi() + "</a>";
-            table.append("<tr><td>").append(api).append("</td>");
+            table.append("<td>").append(api).append("</td>");
             if (working) {
                 table.append("<td>").append("✅").append("</td>");
             } else {
