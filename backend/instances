@@ -77,6 +77,8 @@ c.suika.pw,None,https
 cobaltapi.cyclingweb.top,cobalt.cyclingweb.top,https
 media.api.detail.co,None,https
 api-cobalt.7050.com:9100,None,https
+cobaltapi.laidoulaile.icu,cobalt.laidoulaile.icu,https
+api.knap.cc:8888,None,https
 
 # instances without domains
 46.101.212.64:9000,46.101.212.64:9001,http
