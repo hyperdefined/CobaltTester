@@ -12,6 +12,9 @@ export PATH="$HOME/gems/bin:$PATH"
 # Pull all changes first
 git pull
 
+# Kill hanging processes
+pkill -f "java -jar CobaltTester-latest.jar web"
+
 # Move into backend folder, run the jar
 cd backend || exit
 echo Running backend jar...
