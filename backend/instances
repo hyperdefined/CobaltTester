@@ -33,9 +33,6 @@ dl01.spotifyloader.com,None,https
 cobalt-api.luver.pw,cobalt.stun.services,https
 social.mohsentaleb.com,social.mohsentaleb.com,http
 capi.tieren.men,cob.tieren.men,https
-api-pl.cobalt.best,pl.cobalt.best,https
-api-us.cobalt.best,us.cobalt.best,https
-api-jp.cobalt.best,jp.cobalt.best,https
 api-cobalt.boykisser.systems,co.cock.ceo,https
 co.eepy.today,web.eepy.today,https
 cb.nyoom.fun,cobalt.nyoom.fun,https
@@ -73,9 +70,7 @@ dl04.yt-dl.click,None,https
 co.otomir23.me,co.otomir23.me,https
 api-cobalt.isnubi.fr,cobalt.isnubi.fr,https
 cobalt-api.hayper.xyz,cobalt.hayper.xyz,https
-c.suika.pw,None,https
 cobaltapi.cyclingweb.top,cobalt.cyclingweb.top,https
-media.api.detail.co,None,https
 api-cobalt.7050.com:9100,None,https
 cobaltapi.laidoulaile.icu,cobalt.laidoulaile.icu,https
 api.knap.cc:8888,None,https
@@ -84,7 +79,6 @@ api.tubidi.buzz,None,https
 # instances without domains
 46.101.212.64:9000,46.101.212.64:9001,http
 31.220.77.64:9000,31.220.77.64:9001,http
-168.119.212.145:1010,None,http
 2.56.214.74:9000,None,http
 92.51.47.196:9000,None,http
 195.15.242.243:9000,195.15.242.243:9001,http
@@ -125,12 +119,8 @@ api.tubidi.buzz,None,https
 154.9.242.186:9000,154.9.242.186:9001,http
 74.48.82.224:9000,74.48.82.224:9001,http
 34.127.106.196:9000,34.127.106.196:9001,http
-35.223.255.155:9000,None,http
 157.245.26.157:9000,157.245.26.157:9001,http
 128.140.36.48:9000,128.140.36.48:9001,http
 223.240.69.157:9002,223.240.69.157:9003,http
-120.245.57.171:9000,120.245.57.171:9001,http
 139.185.52.159:9000,None,http
 120.245.57.142:9000,None,http
-49.64.80.38:9000,None,http
-121.227.120.187:9000,None,http
