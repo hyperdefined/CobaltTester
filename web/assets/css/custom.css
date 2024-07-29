@@ -59,10 +59,9 @@ details[open] summary {
 .banner {
     text-align: center;
     background-color: darkred;
-    width: fit-content;
     padding: 10px;
 }
 .banner p {
     margin: 0;
-    padding: 0;
+    padding: 5px;
   }
