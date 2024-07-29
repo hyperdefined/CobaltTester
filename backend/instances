@@ -68,7 +68,6 @@ dl04.yt-dl.click,None,https
 dl05.yt-dl.click,None,https
 co.otomir23.me,co.otomir23.me,https
 api-cobalt.isnubi.fr,cobalt.isnubi.fr,https
-cobalt-api.hayper.xyz,cobalt.hayper.xyz,https
 cobaltapi.cyclingweb.top,cobalt.cyclingweb.top,https
 api-cobalt.7050.com:9100,None,https
 cobaltapi.laidoulaile.icu,cobalt.laidoulaile.icu,https
@@ -89,6 +88,10 @@ api.top1savetube.com,top1savetube.com,https
 cobalt.flaskjoy.us.kg,None,https
 cobalt.yuntae.in,None,https
 cobaltapi.hnplz.top,cobalt.hnplz.top,https
+media.miona.cc,None,https
+dl-api.polyg.online,dl.polyg.online,https
+api.cobalt.xinchen.io,cobalt.xinchen.io,https
+api-dl.tan.my.id,dl.tan.my.id,https
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http
@@ -96,15 +99,11 @@ cobaltapi.hnplz.top,cobalt.hnplz.top,https
 92.51.47.196:9000,None,http
 195.15.242.243:9000,195.15.242.243:9001,http
 185.170.213.63:9000,185.170.213.63:9001,http
-144.76.76.6:9000,144.76.76.6:10001,http
 194.163.167.46:9000,194.163.167.46:9001,http
 109.71.246.24:9000,None,http
 13.213.191.84:9000,13.213.191.84:9001,http
 148.135.96.148:9000,148.135.96.148:9001,http
-46.4.82.108:9000,46.4.82.108:9001,http
 93.127.202.159:9000,93.127.202.159:9001,http
-148.135.94.13:9000,148.135.94.13:9001,http
-142.171.170.148:9000,142.171.170.148:9001,http
 161.35.66.210:9000,None,http
 119.91.251.51:9000,119.91.251.51:9001,http
 116.199.110.194:9000,116.199.110.194:9001,http
@@ -130,7 +129,6 @@ cobaltapi.hnplz.top,cobalt.hnplz.top,https
 34.127.106.196:9000,34.127.106.196:9001,http
 128.140.36.48:9000,128.140.36.48:9001,http
 223.240.69.157:9002,223.240.69.157:9003,http
-139.185.52.159:9000,None,http
 176.169.191.51:9000,176.169.191.51:9001,http
 34.107.254.11,None,http
 152.70.197.156:9000,152.70.197.156:9001,http
@@ -143,8 +141,17 @@ cobaltapi.hnplz.top,cobalt.hnplz.top,https
 193.123.56.138:9000,None,http
 185.208.172.11:9000,185.208.172.11:9001,http
 157.173.195.144:9000,None,http
-165.22.214.251:9000,None,http
 107.175.136.189:9000,107.175.136.189:9001,http
-45.8.98.193:9001,None,http
+45.8.98.193:9000,45.8.98.193:9001,http
 223.240.69.157:9002,223.240.69.157:9003,http
 154.9.242.186:9000,154.9.242.186:9001,http
+107.174.246.175:9000,107.174.246.175:9001,http
+23.224.49.16:9000,23.224.49.16:9001,http
+120.245.57.223:9000,120.245.57.223:9001,http
+156.254.114.3:9000,156.254.114.3:9001,http
+157.245.46.145:9000,157.245.46.145:9001,http
+156.254.114.3:9000,156.254.114.3:9001,http
+185.208.172.11:9000,185.208.172.11:9001,http
+74.48.24.225:9000,74.48.24.225:9001,http
+23.94.158.104:9000,23.94.158.104:9001,http
+142.132.213.169:9000,142.132.213.169:9001,http
