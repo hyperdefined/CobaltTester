@@ -2,7 +2,7 @@
 permalink: "/instances/"
 title: "Instances"
 description: "the master list of community cobalt instances. currently tracking <instance-count> instances."
-layout: mainlist
+layout: banner-included
 ---
 This is the master list of instances. Currently tracking <instance-count> instances.
 

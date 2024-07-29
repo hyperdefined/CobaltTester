@@ -2,6 +2,7 @@
 permalink: "/service/<service-slug>/"
 title: "<service>"
 description: "service status for <service> on all instances."
+layout: banner-included
 ---
 Service status for <service> on all instances.
 
