@@ -1,8 +1,10 @@
 package lol.hyper.cobalttester;
 
 import lol.hyper.cobalttester.instance.Instance;
-import lol.hyper.cobalttester.requests.Tester;
+import lol.hyper.cobalttester.requests.Test;
 import lol.hyper.cobalttester.services.Services;
+import lol.hyper.cobalttester.tasks.TestQueue;
+import lol.hyper.cobalttester.tasks.Worker;
 import lol.hyper.cobalttester.utils.FileUtil;
 import lol.hyper.cobalttester.utils.StringUtil;
 import lol.hyper.cobalttester.web.WebBuilder;
@@ -20,9 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class CobaltTester {
 
@@ -31,6 +31,7 @@ public class CobaltTester {
     public static JSONObject config;
 
     public static void main(String[] args) {
+        long startTime = System.nanoTime();
         System.setProperty("log4j.configurationFile", "log4j2config.xml");
         logger = LogManager.getLogger(CobaltTester.class);
 
@@ -95,6 +96,8 @@ public class CobaltTester {
         Services services = new Services(testUrlsContents);
         services.importTests();
 
+        List<Test> testsToRun = new ArrayList<>();
+
         // shuffle the lists here
         Collections.shuffle(instanceFileContents);
 
@@ -117,41 +120,64 @@ public class CobaltTester {
             newInstance.setHash(StringUtil.makeHash(api));
             instances.add(newInstance);
             logger.info("Creating instance {}", api);
+            newInstance.loadApiJSON();
+
+            for (Map.Entry<String, String> tests : services.getTests().entrySet()) {
+                String service = tests.getKey();
+                String url = tests.getValue();
+                Test test = new Test(newInstance, service, url);
+                testsToRun.add(test);
+            }
         }
 
-        int totalTasks = instances.size();
-        logger.info("Total tasks to process: {}", totalTasks);
+        Collections.shuffle(testsToRun);
+        int totalTests = testsToRun.size();
+        int threads = Runtime.getRuntime().availableProcessors();
+        logger.info("Total tests to process: {}", totalTests);
 
-        // calculate how many tasks per thread
-        // a task is a group of instances to test
-        int maxThreads = 10;
-        int threads = Math.min(maxThreads, totalTasks);
-        int tasksPerThread = totalTasks / threads;
-        int remainderTasks = totalTasks % threads;
-        logger.info("Using {} threads", threads);
-        logger.info("Putting {} tasks on each thread", tasksPerThread);
-        logger.info("Left over: {}", remainderTasks);
+        List<TestQueue> taskQueues = new ArrayList<>();
+        List<Worker> workers = new ArrayList<>();
 
-        CountDownLatch latch = new CountDownLatch(threads);
-        ExecutorService executor = Executors.newFixedThreadPool(threads);
-        int startTask = 0;
-        // distribute each group of tasks on a thread and run them
         for (int i = 0; i < threads; i++) {
-            int extraTask = (i < remainderTasks) ? 1 : 0;
-            int endTask = startTask + tasksPerThread + extraTask;
-            executor.submit(new Tester(startTask, endTask, latch, instances, i, services));
-            startTask = endTask;
+            TestQueue taskQueue = new TestQueue();
+            taskQueues.add(taskQueue);
+            Worker worker = new Worker(taskQueue);
+            workers.add(worker);
+            worker.start();
         }
 
-        try {
-            // wait for all threads to end
-            latch.await();
-            logger.info("All threads have completed!!!!");
-            executor.shutdown();
-        } catch (InterruptedException exception) {
-            logger.error("Thread interrupted!", exception);
+        // distribute tests across queues
+        int queueIndex = 0;
+        for (Test test : testsToRun) {
+            TestQueue taskQueue = taskQueues.get(queueIndex);
+            taskQueue.addTask(() -> {
+                test.run();
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException exception) {
+                    logger.error("Unable to sleep!!", exception);
+                }
+            });
+            queueIndex = (queueIndex + 1) % threads;
         }
-        instances.sort(Comparator.comparingDouble(Instance::getScore).reversed());
+
+        // tell the queue to stop
+        for (TestQueue taskQueue : taskQueues) {
+            taskQueue.addTask(null);
+        }
+
+        // wait for all workers to stop
+        for (Thread worker : workers) {
+            try {
+                worker.join();
+                logger.info("Finished worker {}", worker.getId());
+            } catch (InterruptedException exception) {
+                logger.info("Thread interrupted!!!!");
+                Thread.currentThread().interrupt();
+            }
+        }
+
+        logger.info("All threads have completed!!!!");
 
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
         f.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -170,22 +196,21 @@ public class CobaltTester {
             }
         }
 
-        // calculate the curve
-        int maxScore = 0;
+        // calculate the scores for all instances
+        instances.forEach(Instance::calculateScore);
+        // find the highest score
+        int highestScore;
         Optional<Instance> maxInstanceScore = instances.stream().max(Comparator.comparingDouble(Instance::getScore));
-        if (maxInstanceScore.isPresent()) {
-            // make this an int, since we don't care about decimals
-            maxScore = (int) maxInstanceScore.get().getScore();
-        }
-        int curve = 100 - maxScore;
+        highestScore = maxInstanceScore.map(instance -> (int) instance.getScore()).orElse(0);
 
         for (Instance instance : instances) {
-            if (instance.getTestResults().isEmpty()) {
+            if (!instance.isApiWorking()) {
+                instance.setScore(-1.0);
                 continue;
             }
 
             // curve the score
-            instance.addCurve(curve);
+            instance.addCurve(100 - highestScore);
 
             // add to instances.json file
             cacheArray.put(instance.toJSON());
@@ -196,6 +221,10 @@ public class CobaltTester {
             }
 
         }
+
+        // sort the instances by score
+        instances.sort(Comparator.comparingDouble(Instance::getScore).reversed());
+
         // write instances.json file
         FileUtil.writeFile(cacheArray, cacheFile);
 
@@ -207,6 +236,11 @@ public class CobaltTester {
                 WebBuilder.buildServicePage(instances, formattedDate, service, slug);
             }
         }
+
+        long endTime = System.nanoTime();
+        long duration = endTime - startTime;
+        long minutesTaken = TimeUnit.MINUTES.convert(duration, TimeUnit.NANOSECONDS);
+        logger.info("Completed run in {} minutes.", minutesTaken);
     }
 
     public static String getCommit() throws IOException, GitAPIException {

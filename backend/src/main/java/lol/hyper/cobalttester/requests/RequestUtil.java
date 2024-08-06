@@ -51,6 +51,7 @@ public class RequestUtil {
             content = stringBuilder.toString();
             connection.disconnect();
         } catch (Exception exception) {
+            logger.warn("Post failed for {} because of {}", url, exception.getMessage());
             return new RequestResults(null, responseCode);
         }
         return new RequestResults(content, responseCode);

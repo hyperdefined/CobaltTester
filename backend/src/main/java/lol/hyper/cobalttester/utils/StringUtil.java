@@ -19,7 +19,7 @@ public class StringUtil {
     public static String buildMainTables(List<Instance> instances, String type) {
         StringBuilder table = new StringBuilder();
         // build the table for output
-        table.append("<div class=\"table-container\"><table>\n<tr><th>Frontend</th><th>API</th><th>Version</th><th>Commit</th><th>Branch</th><th>Name</th><th>CORS</th><th>Score</th><th>Status</th></tr>\n");
+        table.append("<div class=\"table-container\"><table>\n<tr><th>Frontend</th><th>API</th><th>Version</th><th>Commit</th><th>Branch</th><th>Name</th><th>CORS</th><th>Score</th></tr>\n");
 
         List<Instance> filtered = FilterUtils.filter(instances, type);
 
@@ -38,26 +38,9 @@ public class StringUtil {
             String branch = instance.getBranch();
             String name = instance.getName();
             int cors = instance.getCors();
-            String status = "Unknown";
             String score = Double.toString(instance.getScore()).split("\\.")[0] + "%";
-            // if both api and frontend online, report it online
-            if (instance.isApiWorking() && instance.isFrontEndWorking()) {
-                status = "Online";
-                table.append("\n<tr class=\"status-online\">");
-            }
-            // if either api or frontend are offline, report it partial status
-            if (!instance.isApiWorking() || !instance.isFrontEndWorking()) {
-                status = "Partial";
-                // if both api and frontend are offline, report it offline status
-                if (!instance.isApiWorking() && !instance.isFrontEndWorking()) {
-                    status = "Offline";
-                    table.append("\n<tr class=\"status-offline\">\n");
-                } else {
-                    table.append("\n<tr class=\"status-partial\">");
-                }
-            }
             // add the instance elements
-            table.append("<td>").append(frontEnd).append("</td>");
+            table.append("<tr><td>").append(frontEnd).append("</td>");
             table.append("<td>").append(api).append("</td>");
             table.append("<td>").append(version).append("</td>");
             String commit;
@@ -77,7 +60,7 @@ public class StringUtil {
                 String scoreLink = "<a href=\"{{ site.url }}/instance/" + instance.getHash() + "\">" + score + "</a>";
                 table.append("<td>").append(scoreLink).append("</td>");
             }
-            table.append("<td>").append(status).append("</td></tr>");
+            table.append("</tr>");
         }
         table.append("</table></div>");
         return table.toString();
@@ -107,7 +90,7 @@ public class StringUtil {
         return table.toString();
     }
 
-    public static String makeServiceTable(List<Instance> instances, String service, String type) {
+    public static String buildServiceTable(List<Instance> instances, String service, String type) {
         List<Instance> filtered = FilterUtils.filter(instances, type);
         // Make them in alphabetical order
         Collections.sort(filtered);

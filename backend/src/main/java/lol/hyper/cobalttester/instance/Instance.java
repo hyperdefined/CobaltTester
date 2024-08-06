@@ -1,5 +1,9 @@
 package lol.hyper.cobalttester.instance;
 
+import lol.hyper.cobalttester.requests.RequestUtil;
+import org.apache.commons.text.StringEscapeUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.util.Locale;
@@ -22,6 +26,7 @@ public class Instance implements Comparable<Instance> {
     private boolean frontEndWorking;
     private double score;
     private String hash;
+    private final Logger logger = LogManager.getLogger(this);
 
     private final Map<String, Boolean> testResults = new TreeMap<>();
 
@@ -162,6 +167,66 @@ public class Instance implements Comparable<Instance> {
 
     public void addCurve(int curve) {
         score = score + curve;
+    }
+
+    public void calculateScore() {
+        long workingServices = testResults.values().stream().filter(Boolean::booleanValue).count();
+        int totalTestsRan = testResults.size();
+        if (totalTestsRan > 0) {
+            score = ((double) workingServices / totalTestsRan) * 100;
+        } else {
+            score = 0;
+        }
+    }
+
+    /**
+     * Save the API's information.
+     */
+    public void loadApiJSON() {
+        JSONObject apiJson = RequestUtil.requestJSON(protocol + "://" + api + "/api/serverInfo");
+        if (apiJson == null) {
+            this.setApiWorking(false);
+            return;
+        }
+        this.setApiWorking(true);
+        if (apiJson.has("name")) {
+            String name = apiJson.getString("name");
+            this.setName(StringEscapeUtils.escapeHtml4(name));
+        }
+        if (apiJson.has("version")) {
+            String version = apiJson.getString("version");
+            // older instances had -dev in the version
+            if (version.contains("-dev")) {
+                version = version.replace("-dev", "");
+            }
+            this.setVersion(StringEscapeUtils.escapeHtml4(version));
+        }
+        if (apiJson.has("commit")) {
+            String commit = apiJson.getString("commit");
+            this.setCommit(StringEscapeUtils.escapeHtml4(commit));
+        }
+        if (apiJson.has("branch")) {
+            String branch = apiJson.getString("branch");
+            this.setBranch(StringEscapeUtils.escapeHtml4(branch));
+        }
+        if (apiJson.has("cors")) {
+            int cors = apiJson.getInt("cors");
+            if (cors == 0 || cors == 1) {
+                this.setCors(cors);
+            } else {
+                this.setCors(-1);
+                logger.warn("{} has an invalid cors!", this.getApi());
+            }
+        }
+        if (apiJson.has("startTime")) {
+            String startTimeString = String.valueOf(apiJson.getLong("startTime"));
+            if (startTimeString.matches("[0-9]+")) {
+                this.setStartTime(apiJson.getLong("startTime"));
+            } else {
+                this.setStartTime(0L);
+                logger.warn("{} has an invalid startTime!", this.getApi());
+            }
+        }
     }
 
     @Override

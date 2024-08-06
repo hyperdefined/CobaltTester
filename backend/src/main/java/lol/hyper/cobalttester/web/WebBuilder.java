@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class WebBuilder {
@@ -62,6 +63,9 @@ public class WebBuilder {
     }
 
     public static void buildServicePage(List<Instance> instances, String formattedDate, String service, String slug) {
+        // sort into alphabetical order
+        Collections.sort(instances);
+
         String serviceTemplate = FileUtil.readFile(new File(CobaltTester.config.getString("web_path"), "template-service.md"));
         if (serviceTemplate == null) {
             logger.error("Unable to read template-service.md! Exiting...");
@@ -69,9 +73,9 @@ public class WebBuilder {
         }
 
         // create the official, domain, and no domain tables
-        String officialTable = StringUtil.makeServiceTable(new ArrayList<>(instances), service, "official");
-        String mainTable = StringUtil.makeServiceTable(new ArrayList<>(instances), service, "domain");
-        String ipTable = StringUtil.makeServiceTable(new ArrayList<>(instances), service, "ip");
+        String officialTable = StringUtil.buildServiceTable(new ArrayList<>(instances), service, "official");
+        String mainTable = StringUtil.buildServiceTable(new ArrayList<>(instances), service, "domain");
+        String ipTable = StringUtil.buildServiceTable(new ArrayList<>(instances), service, "ip");
 
         serviceTemplate = serviceTemplate.replaceAll("<time>", formattedDate);
         serviceTemplate = serviceTemplate.replaceAll("<service>", service);
