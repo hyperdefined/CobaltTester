@@ -32,7 +32,7 @@ public class Tester implements Runnable {
 
     @Override
     public void run() {
-        logger.info("Starting thread for instances: " + instances.subList(startTask, endTask));
+        logger.info("Starting thread for instances: {}", instances.subList(startTask, endTask));
         // process the range ot tests to do
         try {
             for (int i = startTask; i < endTask; i++) {
@@ -51,11 +51,11 @@ public class Tester implements Runnable {
                 } catch (InterruptedException exception) {
                     logger.error("Unable to sleep thread", exception);
                 }
-                logger.info("Finished tests for " + instance.getApi());
+                logger.info("Finished tests for {}", instance.getApi());
             }
         } finally {
             latch.countDown();
-            logger.info("Tasks finished for thread " + threadNumber + ". There are " + latch.getCount() + " threads left to process.");
+            logger.info("Tasks finished for thread {}. There are {} threads left to process.", threadNumber, latch.getCount());
         }
     }
 
@@ -86,7 +86,7 @@ public class Tester implements Runnable {
                 instance.setCors(cors);
             } else {
                 instance.setCors(-1);
-                logger.warn(instance.getApi() + " has an invalid cors!");
+                logger.warn("{} has an invalid cors!", instance.getApi());
             }
         }
         if (apiJson.has("startTime")) {
@@ -95,7 +95,7 @@ public class Tester implements Runnable {
                 instance.setStartTime(apiJson.getLong("startTime"));
             } else {
                 instance.setStartTime(0L);
-                logger.warn(instance.getApi() + " has an invalid startTime!");
+                logger.warn("{} has an invalid startTime!", instance.getApi());
             }
         }
     }
@@ -116,12 +116,12 @@ public class Tester implements Runnable {
                 RequestResults testResponse = RequestUtil.sendPost(postContents, api);
                 // if the URL did not return HTTP 200, it did not pass
                 if (testResponse.responseCode() != 200) {
-                    logger.warn("Test FAIL for " + api + " with code " + testResponse.responseCode() + " with " + serviceUrl);
+                    logger.warn("Test FAIL for {} with code {} with {}", api, testResponse.responseCode(), serviceUrl);
                     instance.addResult(service, false);
                     continue;
                 }
                 // since it returned HTTP 200, it passed
-                logger.info("Test PASS for " + api + " with " + serviceUrl);
+                logger.info("Test PASS for {} with {}", api, serviceUrl);
                 score++;
                 instance.addResult(service, true);
                 Thread.sleep(2000);
@@ -135,10 +135,10 @@ public class Tester implements Runnable {
             if (testFrontEnd) {
                 score++;
                 instance.setFrontEndWorking(true);
-                logger.info("Test PASS for checking " + frontEnd);
+                logger.info("Test PASS for checking {}", frontEnd);
                 instance.addResult("Frontend", true);
             } else {
-                logger.warn("Test FAILED for checking " + frontEnd);
+                logger.warn("Test FAILED for checking {}", frontEnd);
             }
         }
         double finalScore = 0;
@@ -147,7 +147,7 @@ public class Tester implements Runnable {
         } else {
             finalScore = (double) score / totalTests * 100.0;
         }
-        logger.info("Final score is " + finalScore);
+        logger.info("Final score is {}", finalScore);
         instance.setScore(finalScore);
     }
 }

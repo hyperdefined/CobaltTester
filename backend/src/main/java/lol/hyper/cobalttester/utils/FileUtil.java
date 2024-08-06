@@ -25,13 +25,13 @@ public class FileUtil {
      * @param file    The file to write to.
      */
     public static void writeFile(Object content, File file) {
-        logger.info("Writing to file " + file.getAbsolutePath());
+        logger.info("Writing to file {}", file.getAbsolutePath());
         try {
             FileWriter writer = new FileWriter(file);
             writer.write(content.toString());
             writer.close();
         } catch (IOException exception) {
-            logger.error("Unable to write file " + file, exception);
+            logger.error("Unable to write file {}", file, exception);
         }
     }
 
@@ -46,7 +46,7 @@ public class FileUtil {
         try {
             encoded = Files.readAllBytes(file.toPath());
         } catch (IOException exception) {
-            logger.error("Unable to read file " + file, exception);
+            logger.error("Unable to read file {}", file, exception);
             return null;
         }
         return new String(encoded, StandardCharsets.UTF_8);
@@ -60,7 +60,7 @@ public class FileUtil {
      */
     public static List<String> readRawFile(File file) {
         List<String> contents = new ArrayList<>();
-        try (LineIterator it = FileUtils.lineIterator(file, "UTF-8");) {
+        try (LineIterator it = FileUtils.lineIterator(file, "UTF-8")) {
             while (it.hasNext()) {
                 String line = it.nextLine();
                 // skip lines that have comment/whitespace

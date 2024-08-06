@@ -48,7 +48,7 @@ public class CobaltTester {
         }
 
         logger.info("CobaltTester starting up.");
-        logger.info("CobaltTester running commit: " + commit);
+        logger.info("CobaltTester running commit: {}", commit);
         USER_AGENT = USER_AGENT.replace("<commit>", commit);
 
         boolean buildWeb = false;
@@ -58,11 +58,11 @@ public class CobaltTester {
             }
         }
 
-        logger.info("Running with args: " + Arrays.toString(args));
+        logger.info("Running with args: {}", Arrays.toString(args));
 
         // Output how many threads we can use
         int availableThreads = Runtime.getRuntime().availableProcessors();
-        logger.info("Total available threads: " + availableThreads);
+        logger.info("Total available threads: {}", availableThreads);
 
         // load the config
         config = getConfig();
@@ -116,11 +116,11 @@ public class CobaltTester {
             Instance newInstance = new Instance(frontEnd, api, protocol);
             newInstance.setHash(StringUtil.makeHash(api));
             instances.add(newInstance);
-            logger.info("Creating instance " + api);
+            logger.info("Creating instance {}", api);
         }
 
         int totalTasks = instances.size();
-        logger.info("Total tasks to process: " + totalTasks);
+        logger.info("Total tasks to process: {}", totalTasks);
 
         // calculate how many tasks per thread
         // a task is a group of instances to test
@@ -128,9 +128,9 @@ public class CobaltTester {
         int threads = Math.min(maxThreads, totalTasks);
         int tasksPerThread = totalTasks / threads;
         int remainderTasks = totalTasks % threads;
-        logger.info("Using " + threads + " threads");
-        logger.info("Putting " + tasksPerThread + " tasks on each thread");
-        logger.info("Left over: " + remainderTasks);
+        logger.info("Using {} threads", threads);
+        logger.info("Putting {} tasks on each thread", tasksPerThread);
+        logger.info("Left over: {}", remainderTasks);
 
         CountDownLatch latch = new CountDownLatch(threads);
         ExecutorService executor = Executors.newFixedThreadPool(threads);
@@ -148,8 +148,8 @@ public class CobaltTester {
             latch.await();
             logger.info("All threads have completed!!!!");
             executor.shutdown();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (InterruptedException exception) {
+            logger.error("Thread interrupted!", exception);
         }
         instances.sort(Comparator.comparingDouble(Instance::getScore).reversed());
 

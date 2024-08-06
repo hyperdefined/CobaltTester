@@ -73,11 +73,11 @@ public class RequestUtil {
             rawJSON = reader.lines().collect(Collectors.joining(System.lineSeparator()));
             reader.close();
         } catch (IOException exception) {
-            logger.error("Unable to read contents of " + url, exception);
+            logger.error("Unable to read contents of {}", url, exception);
             return null;
         }
         if (rawJSON.isEmpty()) {
-            logger.error("Read JSON from " + url + " returned an empty string!");
+            logger.error("Read JSON from {} returned an empty string!", url);
             return null;
         }
         try {
@@ -103,7 +103,7 @@ public class RequestUtil {
             connection.connect();
             response = connection.getResponseCode();
         } catch (IOException exception) {
-            logger.error("Unable to read URL " + url, exception);
+            logger.error("Unable to read URL {}", url, exception);
             return false;
         }
         return response == 200;
