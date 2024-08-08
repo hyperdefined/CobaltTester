@@ -5,6 +5,9 @@ description: "a collection of community cobalt projects."
 ---
 This is a collection of community projects that use cobalt!
 
+### Websites
+* [playlist.spawn.best](https://playlist.spawn.best) - YouTube playlist downloader.
+
 ### Command-Line
 * [tcobalt](https://github.com/khyerdev/tcobalt) - Command-line interface wrapper written in Rust.
 * [cobalt-cli](https://github.com/lostdusty/cobalt) - Command-line interface wrapper written in go.
@@ -13,8 +16,9 @@ This is a collection of community projects that use cobalt!
 * [tobalt](https://github.com/tskau/tobalt) - cobalt API client in TypeScript.
 * [gobalt](https://github.com/lostdusty/gobalt) - cobalt API client in go.
 
-### GUIs
+### Apps
 * [Gualto](https://github.com/lostdusty/gualto) - GUI frontend written in go. Supports desktop and Android.
+* [retrobalt](https://github.com/lostdusty/retrobalt) - App for using cobalt on older systems, written in go.
 
 ### Bots
 * [cobold](https://github.com/tskau/cobold) - Telegram bot for downloading media.
