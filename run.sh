@@ -18,7 +18,7 @@ pkill -f "java -jar CobaltTester-latest.jar web"
 # Move into backend folder, run the jar
 cd backend || exit
 echo Running backend jar...
-java -jar CobaltTester-latest.jar web
+#java -jar CobaltTester-latest.jar web
 
 # Move into web folder, build the site
 export JEKYLL_ENV=production
@@ -30,9 +30,9 @@ bundle exec jekyll build
 echo Copying instances.json to site output...
 cp ../web/instances.json _site
 # Remove the old location
-echo Deleting $1...
-sudo rm -r $1
+echo Deleting $1 contents...
+rm -r $1/*
 
 echo Moving _site to $1
 # Move output folder to final location
-sudo mv _site/ $1
+mv _site/* $1
