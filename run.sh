@@ -18,7 +18,7 @@ pkill -f "java -jar CobaltTester-latest.jar web"
 # Move into backend folder, run the jar
 cd backend || exit
 echo Running backend jar...
-#java -jar CobaltTester-latest.jar web
+java -jar CobaltTester-latest.jar web
 
 # Move into web folder, build the site
 export JEKYLL_ENV=production
