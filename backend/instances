@@ -35,7 +35,6 @@ capi.tieren.men,cob.tieren.men,https
 api-cobalt.boykisser.systems,co.cock.ceo,https
 co.eepy.today,web.eepy.today,https
 cobalt-fi.schizo.city,cobalt-fi.schizo.city,https
-cobalt-us.schizo.city,cobalt-us.schizo.city,https
 cobalt.enderman.ch,co.enderman.ch,https
 bot.codematter.am,None,https
 api.dl.ixhby.dev,dl.ixhby.dev,https
@@ -66,7 +65,6 @@ dl04.yt-dl.click,None,https
 dl05.yt-dl.click,None,https
 co.otomir23.me,co.otomir23.me,https
 api-cobalt.isnubi.fr,cobalt.isnubi.fr,https
-cobaltapi.cyclingweb.top,cobalt.cyclingweb.top,https
 dl.hep.gg,co.hep.gg,https
 cobaltapi.laidoulaile.icu,cobalt.laidoulaile.icu,https
 api.knap.cc:8888,None,https
@@ -77,16 +75,12 @@ node02.dlapi.app,None,https
 node03.dlapi.app,None,https
 node04.dlapi.app,None,https
 node05.dlapi.app,None,https
-node06.dlapi.app,None,https
-node07.dlapi.app,None,https
-node08.dlapi.app,None,https
 api.xdm.plus,dl.xdm.plus,https
 video.runapps.org,video.runapps.org,https
 api.top1savetube.com,top1savetube.com,https
 cobalt.flaskjoy.us.kg,None,https
 cobalt.yuntae.in,None,https
 cobaltapi.hnplz.top,cobalt.hnplz.top,https
-media.miona.cc,None,https
 dl-api.polyg.online,dl.polyg.online,https
 api.cobalt.xinchen.io,cobalt.xinchen.io,https
 api-dl.tan.my.id,dl.tan.my.id,https
@@ -95,6 +89,12 @@ vidown.chensao.cc:9000,vidown.chensao.cc:9001,http
 pve.sily.cc:6003,pve.sily.cc:6004,https
 social.mohsentaleb.com,social.mohsentaleb.com,http
 api.digi-follower.com,None,https
+cobalt.aicover.ai,None,https
+cobalt2.aicover.ai,None,https
+cobalt5.aicover.ai,None,https
+media.miona.bot,None,https
+cobaltapi.yjasmine.com,cobalt.yjasmine.com,https
+api.cnvmp3.com,None,https
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http
@@ -134,7 +134,6 @@ api.digi-follower.com,None,https
 152.67.111.114:9000,None,http
 107.151.247.195:9000,107.151.247.195:9001,http
 43.135.145.225:9000,43.135.145.225:9001,http
-188.225.31.27:9000,None,http
 185.196.117.66:9000,None,http
 193.123.56.138:9000,None,http
 157.173.195.144:9000,None,http
@@ -156,8 +155,15 @@ api.digi-follower.com,None,https
 150.230.151.194:9000,150.230.151.194:9001,http
 47.94.89.239:9000,47.94.89.239:9001,http
 93.177.103.28:4444,None,http
-120.245.57.174:9000,120.245.57.174:9001,http
-116.22.83.219:9090,None,http
 148.135.90.3:9000,148.135.90.3:9001,http
 20.11.64.79:9000,20.11.64.79:9001,http
 123.202.99.111:9000,123.202.99.111:9001,http
+192.248.189.244:30000,None,http
+116.22.80.128:9090,None,http
+8.138.101.232:9000,8.138.101.232:9001,http
+119.29.247.111:9000,119.29.247.111:9001,http
+120.245.57.38:9000,120.245.57.38:9001,http
+45.140.188.136:9000,45.140.188.136:9001,http
+107.173.35.126:9000,107.173.35.126:9001,http
+139.84.196.47:9000,139.84.196.47:9001,http
+43.143.164.67:9000,43.143.164.67:9001,http
