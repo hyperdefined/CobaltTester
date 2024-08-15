@@ -87,26 +87,4 @@ public class RequestUtil {
             return null;
         }
     }
-
-    /**
-     * Test to see if a URL returns HTTP 200.
-     *
-     * @param url The url to test.
-     * @return true/false if it works.
-     */
-    public static boolean testUrl(String url) {
-        int response;
-        try {
-            URL connectUrl = new URL(url);
-            HttpURLConnection connection = (HttpURLConnection) connectUrl.openConnection();
-            connection.setRequestProperty("User-Agent", CobaltTester.USER_AGENT);
-            connection.setRequestMethod("GET");
-            connection.connect();
-            response = connection.getResponseCode();
-        } catch (IOException exception) {
-            logger.error("Unable to read URL {}", url, exception);
-            return false;
-        }
-        return response == 200;
-    }
 }

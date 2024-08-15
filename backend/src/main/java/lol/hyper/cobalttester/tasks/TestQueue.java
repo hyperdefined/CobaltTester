@@ -1,8 +1,6 @@
 package lol.hyper.cobalttester.tasks;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 public class TestQueue {
@@ -18,9 +16,5 @@ public class TestQueue {
             wait();
         }
         return queue.poll();
-    }
-
-    public synchronized List<Runnable> listTasks() {
-        return new ArrayList<>(queue);
     }
 }

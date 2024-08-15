@@ -128,18 +128,9 @@ public class Instance implements Comparable<Instance> {
         return apiWorking;
     }
 
-    public boolean isFrontEndWorking() {
-        return frontEndWorking;
-    }
-
     public void setApiWorking(boolean apiWorking) {
         this.apiWorking = apiWorking;
     }
-
-    public void setFrontEndWorking(boolean frontEndWorking) {
-        this.frontEndWorking = frontEndWorking;
-    }
-
 
     public void setScore(double score) {
         this.score = score;
