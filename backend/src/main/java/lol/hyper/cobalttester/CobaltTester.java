@@ -110,16 +110,17 @@ public class CobaltTester {
             String api = lineFix.get(0);
             String frontEnd = lineFix.get(1);
             String protocol = lineFix.get(2);
+            String trustStatus = lineFix.get(3);
 
             // if the instance has "None" set for the frontend
             if (frontEnd.equals("None")) {
                 frontEnd = null;
             }
             // build the instance
-            Instance newInstance = new Instance(frontEnd, api, protocol);
+            logger.info("Building instance {}", api);
+            Instance newInstance = new Instance(frontEnd, api, protocol, trustStatus);
             newInstance.setHash(StringUtil.makeHash(api));
             instances.add(newInstance);
-            logger.info("Creating instance {}", api);
             newInstance.loadApiJSON();
 
             for (Map.Entry<String, String> tests : services.getTests().entrySet()) {

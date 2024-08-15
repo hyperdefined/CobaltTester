@@ -64,4 +64,32 @@ details[open] summary {
 .banner p {
     margin: 0;
     padding: 5px;
-  }
+}
+.banner.safe {
+    background-color: green;
+}
+.banner.unknown {
+    background-color: darkorange;
+    color: white;
+}
+.banner h3, .banner.unknown h3, .banner.safe h3, .banner.not-safe h3 {
+    border-bottom: 1px solid white;
+}
+.safe {
+    background-color: green !important;
+}
+.safe a {
+    color: white;
+}
+.unknown {
+    background-color: darkorange !important;
+}
+.unknown a {
+    color: white;
+}
+.not-safe {
+    background-color: darkred !important;
+}
+.not-safe a {
+    color: white;
+}

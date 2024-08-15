@@ -16,6 +16,7 @@ public class Instance implements Comparable<Instance> {
     private final String frontEnd;
     private final String api;
     private final String protocol;
+    private String trustStatus;
     private String version;
     private String commit;
     private String branch;
@@ -23,17 +24,17 @@ public class Instance implements Comparable<Instance> {
     private int cors;
     private long startTime;
     private boolean apiWorking;
-    private boolean frontEndWorking;
     private double score;
     private String hash;
     private final Logger logger = LogManager.getLogger(this);
 
     private final Map<String, Boolean> testResults = new TreeMap<>();
 
-    public Instance(String frontEnd, String api, String protocol) {
+    public Instance(String frontEnd, String api, String protocol, String trustStatus) {
         this.frontEnd = frontEnd;
         this.api = api;
         this.protocol = protocol;
+        this.trustStatus = trustStatus;
     }
 
     public JSONObject toJSON() {
@@ -46,10 +47,10 @@ public class Instance implements Comparable<Instance> {
         instanceJSON.put("cors", this.cors);
         instanceJSON.put("startTime", Long.valueOf(this.startTime));
         instanceJSON.put("api_online", this.apiWorking);
-        instanceJSON.put("frontend_online", this.frontEndWorking);
         instanceJSON.put("frontEnd", Objects.requireNonNullElse(frontEnd, "None"));
         instanceJSON.put("protocol", protocol);
         instanceJSON.put("score", score);
+        instanceJSON.put("trust", trustStatus);
         JSONObject workingServices = new JSONObject();
         for (Map.Entry<String, Boolean> pair : testResults.entrySet()) {
             String service = pair.getKey().toLowerCase(Locale.ROOT).replace(" ", "_");
@@ -160,6 +161,14 @@ public class Instance implements Comparable<Instance> {
         score = score + curve;
     }
 
+    public String getTrustStatus() {
+        return trustStatus;
+    }
+
+    public void setTrustStatus(String trustStatus) {
+        this.trustStatus = trustStatus;
+    }
+
     public void calculateScore() {
         long workingServices = testResults.values().stream().filter(Boolean::booleanValue).count();
         int totalTestsRan = testResults.size();
@@ -174,9 +183,12 @@ public class Instance implements Comparable<Instance> {
      * Save the API's information.
      */
     public void loadApiJSON() {
-        JSONObject apiJson = RequestUtil.requestJSON(protocol + "://" + api + "/api/serverInfo");
+        String url = protocol + "://" + api + "/api/serverInfo";
+        logger.info("Reading API information for {}", url);
+        JSONObject apiJson = RequestUtil.requestJSON(url);
         if (apiJson == null) {
             this.setApiWorking(false);
+            this.setTrustStatus("offline");
             return;
         }
         this.setApiWorking(true);

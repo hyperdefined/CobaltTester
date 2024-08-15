@@ -68,12 +68,14 @@ public class RequestUtil {
         try {
             URLConnection connection = new URL(url).openConnection();
             connection.setRequestProperty("User-Agent", CobaltTester.USER_AGENT);
+            connection.setConnectTimeout(20000);
+            connection.setReadTimeout(20000);
             connection.connect();
             InputStream in = connection.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             rawJSON = reader.lines().collect(Collectors.joining(System.lineSeparator()));
             reader.close();
-        } catch (IOException exception) {
+        } catch (Exception exception) {
             logger.error("Unable to read contents of {}", url, exception);
             return null;
         }

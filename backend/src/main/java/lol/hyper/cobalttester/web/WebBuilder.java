@@ -47,6 +47,7 @@ public class WebBuilder {
         scoreTemplate = scoreTemplate.replaceAll("<api>", instance.getApi());
         scoreTemplate = scoreTemplate.replaceAll("<hash>", instance.getHash());
         scoreTemplate = scoreTemplate.replaceAll("<time>", formattedDate);
+        scoreTemplate = scoreTemplate.replaceAll("<trust>", instance.getTrustStatus());
         if (instance.getFrontEnd() != null) {
             String link = "<a href=\"" + instance.getProtocol() + "://" + instance.getFrontEnd() + "\">here</a>.";
             scoreTemplate = scoreTemplate.replaceAll("<frontend>", "You can use the frontend for this API here: " + link);

@@ -5,7 +5,18 @@
     </head>
     <body>
         {% include navbar.html %}
-        {% include banner.html %}
+        {% if page.trust == "trusted" %}
+        {% include trusted.html %}
+        {% endif %}
+        {% if page.trust == "unknown" %}
+        {% include unknown.html %}
+        {% endif %}
+        {% if page.trust == "not_safe" %}
+        {% include not-safe.html %}
+        {% endif %}
+        {% unless page.trust %}
+            {% include main-banner.html %}
+        {% endunless %}
         <h2>{{ page.title }}</h2>
         {{ content }}
         {% include footer.html %}

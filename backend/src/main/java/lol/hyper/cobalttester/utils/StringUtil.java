@@ -40,7 +40,25 @@ public class StringUtil {
             int cors = instance.getCors();
             String score = Double.toString(instance.getScore()).split("\\.")[0] + "%";
             // add the instance elements
-            table.append("<tr><td>").append(frontEnd).append("</td>");
+            switch (instance.getTrustStatus()) {
+                case "safe": {
+                    table.append("<tr class=\"safe\">");
+                    break;
+                }
+                case "unknown": {
+                    table.append("<tr class=\"unknown\">");
+                    break;
+                }
+                case "not_safe": {
+                    table.append("<tr class=\"not-safe\">");
+                    break;
+                }
+                case "offline": {
+                    table.append("<tr>");
+                    break;
+                }
+            }
+            table.append("<td>").append(frontEnd).append("</td>");
             table.append("<td>").append(api).append("</td>");
             table.append("<td>").append(version).append("</td>");
             String commit;
@@ -119,7 +137,25 @@ public class StringUtil {
             } else {
                 frontEnd = "<a href=\"" + instance.getProtocol() + "://" + instance.getFrontEnd() + "\">" + instance.getFrontEnd() + "</a>";
             }
-            table.append("<tr><td>").append(frontEnd).append("</td>");
+            switch (instance.getTrustStatus()) {
+                case "safe": {
+                    table.append("<tr class=\"safe\">");
+                    break;
+                }
+                case "unknown": {
+                    table.append("<tr class=\"unknown\">");
+                    break;
+                }
+                case "not_safe": {
+                    table.append("<tr class=\"not-safe\">");
+                    break;
+                }
+                case "offline": {
+                    table.append("<tr>");
+                    break;
+                }
+            }
+            table.append("<td>").append(frontEnd).append("</td>");
             String api = "<a href=\"" + instance.getProtocol() + "://" + instance.getApi() + "/api/serverInfo\">" + instance.getApi() + "</a>";
             table.append("<td>").append(api).append("</td>");
             if (working) {
