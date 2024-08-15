@@ -24,6 +24,7 @@ ca.haloz.at,dl.haloz.at,https,unknown
 nyc1.coapi.ggtyler.dev,nyc1.co.ggtyler.dev,https,safe
 cal1.coapi.ggtyler.dev,cal1.co.ggtyler.dev,https,safe
 par1.coapi.ggtyler.dev,par1.co.ggtyler.dev,https,safe
+pol1.coapi.ggtyler.dev,pol1.co.ggtyler.dev,https,safe
 cobalt-api.ayo.tf,cobalt.ayo.tf,https,unknown
 cobalt.minaev.su,cobalt.minaev.su,https,unknown
 dlapi.miichelle.moe,dl.miichelle.moe,https,unknown
@@ -171,3 +172,4 @@ api.sssyoutube.net,None,https,unknown
 171.120.183.171:9000,171.120.183.171:9001,http,unknown
 45.95.234.29:9000,45.95.234.29:9001,http,unknown
 54.149.216.115:9000,None,http,unknown
+147.45.111.84:9000,None,http,unknown
