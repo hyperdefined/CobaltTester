@@ -3,8 +3,6 @@ package lol.hyper.cobalttester;
 import lol.hyper.cobalttester.instance.Instance;
 import lol.hyper.cobalttester.requests.Test;
 import lol.hyper.cobalttester.services.Services;
-import lol.hyper.cobalttester.tasks.TestQueue;
-import lol.hyper.cobalttester.tasks.Worker;
 import lol.hyper.cobalttester.utils.FileUtil;
 import lol.hyper.cobalttester.utils.StringUtil;
 import lol.hyper.cobalttester.web.WebBuilder;
@@ -22,6 +20,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class CobaltTester {
@@ -29,6 +29,7 @@ public class CobaltTester {
     public static Logger logger;
     public static String USER_AGENT = "CobaltTester-<commit> (+https://instances.hyper.lol)";
     public static JSONObject config;
+    public static ExecutorService executorService;
 
     public static void main(String[] args) {
         long startTime = System.nanoTime();
@@ -110,7 +111,12 @@ public class CobaltTester {
             String api = lineFix.get(0);
             String frontEnd = lineFix.get(1);
             String protocol = lineFix.get(2);
-            String trustStatus = lineFix.get(3);
+            String trustStatus;
+            if (lineFix.size() == 4) {
+                trustStatus = lineFix.get(3);
+            } else {
+                trustStatus = "unknown";
+            }
 
             // if the instance has "None" set for the frontend
             if (frontEnd.equals("None")) {
@@ -123,59 +129,36 @@ public class CobaltTester {
             instances.add(newInstance);
             newInstance.loadApiJSON();
 
-            for (Map.Entry<String, String> tests : services.getTests().entrySet()) {
-                String service = tests.getKey();
-                String url = tests.getValue();
-                Test test = new Test(newInstance, service, url);
-                testsToRun.add(test);
+            if (newInstance.isApiWorking()) {
+                for (Map.Entry<String, String> tests : services.getTests().entrySet()) {
+                    String service = tests.getKey();
+                    String url = tests.getValue();
+                    Test test = new Test(newInstance, service, url);
+                    testsToRun.add(test);
+                }
             }
         }
 
         Collections.shuffle(testsToRun);
         int totalTests = testsToRun.size();
-        int threads = Runtime.getRuntime().availableProcessors();
+        int cores = Runtime.getRuntime().availableProcessors();
         logger.info("Total tests to process: {}", totalTests);
 
-        List<TestQueue> taskQueues = new ArrayList<>();
-        List<Worker> workers = new ArrayList<>();
+        executorService = Executors.newFixedThreadPool(cores * 2);
 
-        for (int i = 0; i < threads; i++) {
-            TestQueue taskQueue = new TestQueue();
-            taskQueues.add(taskQueue);
-            Worker worker = new Worker(taskQueue);
-            workers.add(worker);
-            worker.start();
-        }
-
-        // distribute tests across queues
-        int queueIndex = 0;
+        // queue all tests
         for (Test test : testsToRun) {
-            TestQueue taskQueue = taskQueues.get(queueIndex);
-            taskQueue.addTask(() -> {
-                test.run();
-                try {
-                    Thread.sleep(1500);
-                } catch (InterruptedException exception) {
-                    logger.error("Unable to sleep!!", exception);
-                }
-            });
-            queueIndex = (queueIndex + 1) % threads;
+            executorService.submit(test::run);
         }
+        executorService.shutdown();
 
-        // tell the queue to stop
-        for (TestQueue taskQueue : taskQueues) {
-            taskQueue.addTask(null);
-        }
-
-        // wait for all workers to stop
-        for (Thread worker : workers) {
-            try {
-                worker.join();
-                logger.info("Finished worker {}", worker.getId());
-            } catch (InterruptedException exception) {
-                logger.info("Thread interrupted!!!!");
-                Thread.currentThread().interrupt();
+        // Wait until all tasks are finished
+        try {
+            if (!executorService.awaitTermination(1, TimeUnit.HOURS)) {
+                logger.error("ExecutorService did not terminate properly!!!!!");
             }
+        } catch (InterruptedException exception) {
+            logger.error(exception);
         }
 
         logger.info("All threads have completed!!!!");
