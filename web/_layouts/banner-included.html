@@ -5,8 +5,8 @@
     </head>
     <body>
         {% include navbar.html %}
-        {% if page.trust == "trusted" %}
-        {% include trusted.html %}
+        {% if page.trust == "safe" %}
+        {% include safe.html %}
         {% endif %}
         {% if page.trust == "unknown" %}
         {% include unknown.html %}
