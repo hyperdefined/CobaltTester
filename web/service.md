@@ -6,6 +6,7 @@ description: "all services cobalt can download."
 You can see what instances work on what service below.
 * [BiliBili]({{ site.url}}/service/bilibili)
 * [Dailymotion]({{ site.url}}/service/dailymotion)
+* [Facebook]({{ site.url}}/service/facebook)
 * [Instagram]({{ site.url}}/service/instagram)
 * [Loom]({{ site.url}}/service/loom)
 * [Odnoklassniki]({{ site.url}}/service/odnoklassniki)
@@ -13,6 +14,7 @@ You can see what instances work on what service below.
 * [RUTUBE]({{ site.url}}/service/rutube)
 * [Reddit]({{ site.url}}/service/reddit)
 * [SoundCloud]({{ site.url}}/service/soundcloud)
+* [Snapchat]({{ site.url}}/service/snapchat)
 * [Streamable]({{ site.url}}/service/streamable)
 * [TikTok]({{ site.url}}/service/tiktok)
 * [Tumblr]({{ site.url}}/service/tumblr)
