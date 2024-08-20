@@ -13,6 +13,7 @@ public class Test {
     private final String service;
     private final String testUrl;
     private final Logger logger = LogManager.getLogger(this);
+    private int attempts = 0;
 
     public Test(Instance instance, String service, String testUrl) {
         this.instance = instance;
@@ -62,6 +63,8 @@ public class Test {
             return;
         }
         String status = getStatus(testResponse.responseContent());
+        // count the attempts
+        attempts++;
         // if the API's response was HTTP 200, it most likely worked
         if (testResponse.responseCode() == 200) {
             // if we couldn't get the status from the response, it failed
@@ -85,10 +88,15 @@ public class Test {
             }
             // if we got rate limited, rerun the test in a few seconds
             if (status.equalsIgnoreCase("rate-limit")) {
-                logger.warn("Test RATE-LIMITED for {} with {} - trying again in 3 seconds...", api, testUrl);
+                if (attempts >= 5) {
+                    logger.warn("Test FAIL for {} with {} - attempts limit REACHED with {} tries", api, testUrl, attempts);
+                    return;
+                }
+                long secondsToWait = 3 + (attempts);
+                logger.warn("Test RATE-LIMITED for {} with {} - trying again in {} seconds, attempts={}", api, testUrl, secondsToWait, attempts);
                 try {
-                    Thread.sleep(3000);
-                    CobaltTester.executorService.submit(this::run);
+                    Thread.sleep(secondsToWait * 1000);
+                    runApiTest();
                 } catch (InterruptedException exception) {
                     logger.error("Rate-limit retry interrupted for {} with {}", api, testUrl, exception);
                 }
