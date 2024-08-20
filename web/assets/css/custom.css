@@ -109,13 +109,37 @@ a {
 a:hover {
     color: black;
 }
-table a {
+td a {
     background: unset;
     color: white;
     text-decoration: underline;
 }
-table a:hover {
+td a:hover {
     background: unset;
-    color: rgb(30, 30, 30);
+    color: gray;
     text-decoration: underline;
+}
+.safe a {
+    background: unset;
+    color: white;
+    text-decoration: underline;
+}
+.safe a:hover {
+    color: white;
+}
+.unknown a {
+    background: unset;
+    color: white;
+    text-decoration: underline;
+}
+.unknown a:hover {
+    color: white;
+}
+.not-safe a {
+    background: unset;
+    color: white;
+    text-decoration: underline;
+}
+.not-safe a:hover {
+    color: white;
 }
