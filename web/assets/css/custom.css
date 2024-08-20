@@ -101,3 +101,21 @@ a button {
 a button:hover {
     background-color: rgb(30, 30, 30);
 }
+a {
+    background: rgb(225, 225, 225);
+    color: black;
+    text-decoration: underline;
+}
+a:hover {
+    color: black;
+}
+table a {
+    background: unset;
+    color: white;
+    text-decoration: underline;
+}
+table a:hover {
+    background: unset;
+    color: rgb(30, 30, 30);
+    text-decoration: underline;
+}
