@@ -195,6 +195,7 @@ public class CobaltTester {
         for (Instance instance : instances) {
             if (!instance.isApiWorking()) {
                 instance.setScore(-1.0);
+                cacheArray.put(instance.toJSON());
                 continue;
             }
 

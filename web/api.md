@@ -15,39 +15,43 @@ When calling the API, it will return a JSON array that contains all instances. H
 <summary>Show Example</summary>
 {% highlight json %}
 {
+  "trust": "safe",
   "api_online": true,
   "cors": 1,
-  "frontend_online": true,
-  "commit": "abd9f2e",
+  "commit": "05ba1f0",
   "services": {
     "youtube": true,
+    "facebook": false,
     "rutube": true,
     "tumblr": true,
-    "bilibili": true,
+    "bilibili": false,
     "pinterest": true,
     "instagram": true,
     "soundcloud": true,
     "youtube_music": true,
     "odnoklassniki": true,
     "dailymotion": true,
+    "snapchat": true,
     "twitter": true,
+    "loom": true,
     "vimeo": true,
     "streamable": true,
     "vk": true,
     "tiktok": true,
     "reddit": true,
     "twitch_clips": true,
-    "youtube_shorts": true
+    "youtube_shorts": true,
+    "vine": true
   },
-  "version": "7.14.2",
+  "version": "7.15",
   "branch": "current",
-  "score": 100,
+  "score": 90.9090909090909,
   "protocol": "https",
   "name": "kityune",
-  "startTime": 1716834847977,
+  "startTime": 1724088311229,
   "api": "api.cobalt.tools",
   "frontEnd": "cobalt.tools"
-}
+},
 {% endhighlight %}
 </details>
 ### What are each keys?
@@ -63,9 +67,9 @@ Some of these keys are pulled directly from the API of an instance. You can view
 * `startTime`: The time the instance started up.
 * `score`: The test score of the instance. This is a percentage.
 * `api_online`: Whether or not the API is online.
-* `frontend_online`: Whether or not the frontend is online.
 * `protocol`: What protocol the instance uses (http/https).
 * `frontEnd`: The frontend URL of the instance.
+* `trust`: If the instance is considered "trusted" or not.
 
 ### Services
 In the services JSON, each service is listed. If it's able to download media for it, it's set to `true`. If it failed, it's set to `false`.
