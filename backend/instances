@@ -32,7 +32,6 @@ api.seventyhost.net,d.seventyhost.net,https,safe
 api.cobalt.tacohitbox.com,cobalt.tacohitbox.com,https,safe
 api.snaptik.so,None,https,unknown
 dl01.spotifyloader.com,None,https,unknown
-cobalt-api.luver.pw,cobalt.stun.services,https,unknown
 capi.tieren.men,cob.tieren.men,https,unknown
 api-cobalt.boykisser.systems,co.cock.ceo,https,safe
 co.eepy.today,web.eepy.today,https,safe
@@ -96,8 +95,8 @@ cobalt2.aicover.ai,None,https,unknown
 cobalt5.aicover.ai,None,https,unknown
 media.miona.bot,None,https,unknown
 cobaltapi.yjasmine.com,cobalt.yjasmine.com,https,unknown
-api.cnvmp3.com,None,https,unknown
-api.quizmovies.com,None,https,unknown
+api.cnvmp3.com,None,https,not_safe
+api.quizmovies.com,None,https,not_safe
 api.sssyoutube.net,None,https,unknown
 cobalt.kwiatekmiki.com,cobalt.kwiatekmiki.com,https,safe
 
