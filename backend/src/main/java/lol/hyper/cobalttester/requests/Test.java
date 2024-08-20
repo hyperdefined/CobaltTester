@@ -21,6 +21,33 @@ public class Test {
     }
 
     public void run() {
+        if (service.equalsIgnoreCase("Frontend")) {
+            runFrontEndTest();
+        } else {
+            runApiTest();
+        }
+    }
+
+    private String getStatus(String response) {
+        JSONObject json;
+        try {
+            json = new JSONObject(response);
+        } catch (JSONException exception) {
+            return null;
+        }
+        if (json.has("status")) {
+            return json.getString("status");
+        } else {
+            return null;
+        }
+    }
+
+    private void runFrontEndTest() {
+        boolean validFrontEnd = RequestUtil.testFrontEnd(testUrl);
+        instance.addResult(service, validFrontEnd);
+    }
+
+    private void runApiTest() {
         String protocol = instance.getProtocol();
         String api = protocol + "://" + instance.getApi() + "/api/json";
         // if the api is down, don't run this test
@@ -69,20 +96,6 @@ public class Test {
             }
             logger.warn("Test FAIL for {} with {} - HTTP {}, status={}", api, testUrl, testResponse.responseCode(), status);
             instance.addResult(service, false);
-        }
-    }
-
-    private String getStatus(String response) {
-        JSONObject json;
-        try {
-            json = new JSONObject(response);
-        } catch (JSONException exception) {
-            return null;
-        }
-        if (json.has("status")) {
-            return json.getString("status");
-        } else {
-            return null;
         }
     }
 }

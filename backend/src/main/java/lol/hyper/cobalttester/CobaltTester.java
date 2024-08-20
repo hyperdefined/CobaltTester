@@ -136,6 +136,11 @@ public class CobaltTester {
                     Test test = new Test(newInstance, service, url);
                     testsToRun.add(test);
                 }
+                // if the frontend is not null, add it to the tests
+                if (newInstance.getFrontEnd() != null) {
+                    Test frontEndTest = new Test(newInstance, "Frontend", protocol + "://" + frontEnd);
+                    testsToRun.add(frontEndTest);
+                }
             }
         }
 

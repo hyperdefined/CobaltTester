@@ -6,19 +6,19 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class RequestUtil {
 
     public static final Logger logger = LogManager.getLogger(RequestUtil.class);
+    private static final Pattern TITLE_PATTERN = Pattern.compile("<title>(.*?)</title>", Pattern.CASE_INSENSITIVE);
 
     /**
      * Send a POST request.
@@ -107,5 +107,48 @@ public class RequestUtil {
         } catch (JSONException exception) {
             return null;
         }
+    }
+
+    /**
+     * Test a coablt's frontend. It will match the HTML title "cobalt".
+     *
+     * @param url The url to test.
+     * @return true/false if it works and is valid..
+     */
+    public static boolean testFrontEnd(String url) {
+        int response;
+        try {
+            URL connectUrl = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) connectUrl.openConnection();
+            connection.setRequestProperty("User-Agent", CobaltTester.USER_AGENT);
+            connection.setRequestMethod("GET");
+            connection.connect();
+            response = connection.getResponseCode();
+
+            if (response == 200) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String inputLine;
+                StringBuilder content = new StringBuilder();
+
+                while ((inputLine = in.readLine()) != null) {
+                    content.append(inputLine);
+                }
+                in.close();
+
+                Matcher matcher = TITLE_PATTERN.matcher(content.toString());
+                if (matcher.find()) {
+                    String title = matcher.group(1).trim();
+                    if (title.equalsIgnoreCase("cobalt")) {
+                        return true;
+                    } else {
+                        logger.warn("{} frontend is alive, but title does NOT match to cobalt. Please manually check this!", url);
+                    }
+                }
+            }
+        } catch (IOException exception) {
+            logger.error("Unable to read URL {}", url, exception);
+            return false;
+        }
+        return false;
     }
 }
