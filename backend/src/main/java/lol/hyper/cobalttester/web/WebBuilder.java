@@ -48,12 +48,12 @@ public class WebBuilder {
         scoreTemplate = scoreTemplate.replaceAll("<hash>", instance.getHash());
         scoreTemplate = scoreTemplate.replaceAll("<time>", formattedDate);
         scoreTemplate = scoreTemplate.replaceAll("<trust>", instance.getTrustStatus());
+        scoreTemplate = scoreTemplate.replaceAll("<api-button>", "<a href=\"" + instance.getProtocol() + "://" + instance.getApi() + "\"><button>Access API</button></a>");
         if (instance.getFrontEnd() != null) {
-            String link = "<a href=\"" + instance.getProtocol() + "://" + instance.getFrontEnd() + "\">here</a>.";
-            scoreTemplate = scoreTemplate.replaceAll("<frontend>", "You can use the frontend for this API here: " + link);
+            String frontEnd = "<a href=\"" + instance.getProtocol() + "://" + instance.getFrontEnd() + "\"><button>Access Frontend</button></a>";
+            scoreTemplate = scoreTemplate.replaceAll("<frontend-button>", frontEnd);
         } else {
-            // there's an extra space here on purpose
-            scoreTemplate = scoreTemplate.replaceAll(" <frontend>", "");
+            scoreTemplate = scoreTemplate.replaceAll("<frontend-button>", "");
         }
 
         String scoreTable = StringUtil.buildScoreTable(instance);
