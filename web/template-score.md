@@ -7,8 +7,11 @@ layout: banner-included
 ---
 The instance ID is: <code><hash></code>. You can bookmark this page to see updates in the future for this instance.
 
+<frontend-button>
+<api-button>
+
 ### Available Services
-This table shows what services work for <code><api></code>. <frontend>
+This table shows what services work for <code><api></code>.
 
 Last updated (UTC): <time>
 
