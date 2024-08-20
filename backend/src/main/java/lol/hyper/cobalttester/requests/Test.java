@@ -45,6 +45,11 @@ public class Test {
 
     private void runFrontEndTest() {
         boolean validFrontEnd = RequestUtil.testFrontEnd(testUrl);
+        if (validFrontEnd) {
+            logger.info("Test PASS for checking frontend {} ", testUrl);
+        } else {
+            logger.info("Test FAIL for checking frontend {} ", testUrl);
+        }
         instance.addResult(service, validFrontEnd);
     }
 
