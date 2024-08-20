@@ -94,3 +94,10 @@ details[open] summary {
 .not-safe a {
     color: white;
 }
+a button {
+    background-color: rgb(25, 25, 25);
+    border: 0.5px solid white;
+}
+a button:hover {
+    background-color: rgb(30, 30, 30);
+}
