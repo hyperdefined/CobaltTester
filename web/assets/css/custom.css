@@ -49,6 +49,7 @@ td, th {
 }
 body {
     max-width: 90%;
+    font-family: "Noto Sans Mono", Consolas, "SF Mono", monospace;
 }
 blockquote h4 {
     padding-top: 0;
