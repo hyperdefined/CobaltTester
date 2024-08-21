@@ -69,7 +69,6 @@ api-cobalt.isnubi.fr,cobalt.isnubi.fr,https,unknown
 dl.hep.gg,co.hep.gg,https,safe
 cobaltapi.laidoulaile.icu,cobalt.laidoulaile.icu,https,unknown
 api.knap.cc:8888,None,https,unknown
-api.tubidi.buzz,None,https,unknown
 co-api.vulpine.network,co.vulpine.network,https,unknown
 node01.dlapi.app,None,https,unknown
 node02.dlapi.app,None,https,unknown
@@ -99,6 +98,11 @@ api.cnvmp3.com,None,https,not_safe
 api.quizmovies.com,None,https,not_safe
 api.sssyoutube.net,None,https,unknown
 cobalt.kwiatekmiki.com,cobalt.kwiatekmiki.com,https,safe
+api.oj-code.com,None,https,unknown
+cobalt-api.veblr.com,cobalt.veblr.com,https,unknown
+api.cobalt.meanii.dev,cobalt.meanii.dev,https,unknown
+trashtrack.chickenkiller.com:9000,trashtrack.chickenkiller.com:9001,http,unknown
+dwndld-api.nichind.dev,None,https,unknown
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http,unknown
@@ -173,3 +177,11 @@ cobalt.kwiatekmiki.com,cobalt.kwiatekmiki.com,https,safe
 45.95.234.29:9000,45.95.234.29:9001,http,unknown
 54.149.216.115:9000,None,http,unknown
 147.45.111.84:9000,None,http,unknown
+194.99.81.200,None,http,unknown
+150.109.70.210:9000,None,http,unknown
+216.83.45.14:9000,216.83.45.14:9001,http,unknown
+209.141.52.36:9000,None,http,unknown
+144.126.131.132:9000,144.126.131.132:9001,http,unknown
+109.107.189.229:9000,109.107.189.229:9001,http,unknown
+171.116.224.131:9000,171.116.224.131:9001,http,unknown
+147.45.187.78:9000,None,http,unknown
