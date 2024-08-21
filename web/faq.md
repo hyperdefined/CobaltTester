@@ -15,8 +15,10 @@ An instance is simply another "copy" of cobalt. Because cobalt is open source, a
 </details>
 
 <details>
-<summary>Why are multiple instances needed?</summary>
-Simple: if the main cobalt instance goes offline, you can still use another instance. Decentralization is good. Servers can be located in different regions to bypass different region limits for media. The main instance sometimes gets blocked due to some services being strict, so having multiple instances helps if there are issues.
+<summary>What is this tracker used for?</summary>
+This site is used to track these instances. It uses a score system to determine which community instance (and official one) are the best. It allows users to use other instances if the official one goes offline or has issues.
+<br><br>
+The official instance sees <i>a lot</i> of traffic, so some services may be blocked. Using other instances until the official is fixed is the idea.
 </details>
 
 <details>
@@ -26,9 +28,9 @@ Official instance is the main cobalt instance by the developers. This instance i
 
 <details>
 <summary>What is the difference between API and frontend?</summary>
-The frontend is the pretty homescreen you see when you visit a cobalt instance. The API is another module that handles any download requests sent by the frontend. It does the processing and handling. When you enter a URL and download it, the frontend sends a request to the API, and it returns the media back.
-
-If you're a regular user, you want to use the frontend.
+The frontend is the web app you see when you visit a cobalt instance. The API is another module that handles any download requests sent by the frontend. It does the processing and handling. When you enter a URL and download it, the frontend sends a request to the API, and it returns the media back.
+<br><br>
+If you're a regular user, you want to use the frontend. If you want to use the API for your own reasons, you then would use the API of an instance.
 </details>
 
 ### Instance List
@@ -50,11 +52,6 @@ When viewing each list, there are 3 categories: official, domain, and no domain.
 </details>
 
 <details>
-<summary>Why are some different colors on the list?</summary>
-Each color simply refers to what trust level the instance is. There is a key at the top of the page of instances and on the instance page itself. A trust level helps users know which instances are "good" or "bad."
-</details>
-
-<details>
 <summary>What does each column mean on the master list?</summary>
 On each list, it contains these columns:
 <ul>
@@ -67,6 +64,13 @@ On each list, it contains these columns:
 <li>CORS: If the instance has CORS enabled. (1 = enabled, 0 = false.)</li>
 <li>Score: The score result of the instance. The higher the percentage, the more services the instance supports.<ul><li>Not all services work on all instances. Some require special cookies/API keys to be set on their end. Some services also do not work in certain regions where the server is hosted.</li><li>Scores are curved!</li></ul></li>
 </ul>
+</details>
+
+<details>
+<summary>Why are some different colors on the list?</summary>
+Each color simply refers to what trust level the instance is. There is a key at the top of the page of instances and on the instance page itself. A trust level helps users know which instances are "good" or "bad."
+<br><br>
+Safe instances are generally better to use, as they don't contain malicious code, tracking, or break the cobalt license itself. These are selected by the owner of this site based on the community.
 </details>
 
 <details>

@@ -159,4 +159,7 @@ header, footer {
     .unknown a, .unknown td {
         color: white;
     }
+    pre {
+        background: rgb(25, 25, 25);
+    }
 }

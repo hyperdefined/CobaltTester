@@ -3,11 +3,11 @@ permalink: /api/
 title: "API Usage"
 description: "an api to access the instance list"
 ---
-This is a simple API to access the list of instances. You don't need to scrap the page itself.
+This is a simple API to access the list of instances. Please don't scrape this site, you can parse the API and make our lives both easier.
 
-To access it, you can call <code>https://instances.hyper.lol/instances.json</code>. This JSON file is created when the script runs. The script runs at the top of every hour and completes within 20 minutes.
+To access it, you can call <code>https://instances.hyper.lol/instances.json</code>. This JSON file is created when the script runs. The script runs at the top of every hour and completes within 20-30 minutes.
 
-Please set a proper user agent when making requests! I block common user agents (like `curl`, `python-requests`, `Go-http-client` etc) due to many bots hitting this server. I want to know what project or who is using this API!
+<strong>Please set a proper user agent when making requests!</strong> I block common user agents (like `curl`, `python-requests`, `Go-http-client` etc) due to many bots hitting this server. I want to know who uses this API!
 
 ### Example
 When calling the API, it will return a JSON array that contains all instances. Here is a snippet of what information an instance has:
@@ -51,13 +51,13 @@ When calling the API, it will return a JSON array that contains all instances. H
   "startTime": 1724088311229,
   "api": "api.cobalt.tools",
   "frontEnd": "cobalt.tools"
-},
+}
 {% endhighlight %}
 </details>
 ### What are each keys?
 This section explains what each key in the JSON mean for an instance.
 
-Some of these keys are pulled directly from the API of an instance. You can view them yourself at `<API URL>/api/serverInfo`.
+Some of these keys are pulled directly from the API of an instance. You can see an example [here](https://api.cobalt.tools/api/serverInfo).
 * `version`: The version the instance is running.
 * `commit`: The commit the instance is running.
 * `branch`: This the branch the instance is running.
@@ -65,11 +65,11 @@ Some of these keys are pulled directly from the API of an instance. You can view
 * `api`: The API URL of the instance.
 * `cors`: If the instance has CORS enabled/disabled.
 * `startTime`: The time the instance started up.
-* `score`: The test score of the instance. This is a percentage.
+* `score`: The test score of the instance. This is a percentage. The closer to 100%, the more services that work with the instance.
 * `api_online`: Whether or not the API is online.
 * `protocol`: What protocol the instance uses (http/https).
 * `frontEnd`: The frontend URL of the instance.
-* `trust`: If the instance is considered "trusted" or not.
+* `trust`: If the instance is considered "trusted" or not. These will be `safe/unknown/not_safe`.
 
 ### Services
 In the services JSON, each service is listed. If it's able to download media for it, it's set to `true`. If it failed, it's set to `false`.
