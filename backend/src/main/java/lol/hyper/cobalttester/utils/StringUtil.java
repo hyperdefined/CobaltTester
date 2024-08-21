@@ -71,12 +71,13 @@ public class StringUtil {
             table.append("<td>").append(branch).append("</td>");
             table.append("<td>").append(name).append("</td>");
             table.append("<td>").append(cors).append("</td>");
-            // check if score is empty
-            if (instance.getTestResults().isEmpty()) {
-                table.append("<td>").append(score).append("</td>");
-            } else {
+            // if the score is at least 0, that means we ran tests, link these tests
+            if (instance.getScore() >= 0) {
                 String scoreLink = "<a href=\"{{ site.url }}/instance/" + instance.getHash() + "\">" + score + "</a>";
                 table.append("<td>").append(scoreLink).append("</td>");
+            } else {
+                // score was -1, which means we did not run any tests, so do not link the instance page
+                table.append("<td>").append("Offline").append("</td>");
             }
             table.append("</tr>");
         }

@@ -189,6 +189,10 @@ public class Instance implements Comparable<Instance> {
         if (apiJson == null) {
             this.setApiWorking(false);
             this.setTrustStatus("offline");
+            this.setName("Offline");
+            this.setCommit("Offline");
+            this.setBranch("Offline");
+            this.setName("Offline");
             return;
         }
         this.setApiWorking(true);
