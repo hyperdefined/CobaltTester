@@ -3,17 +3,7 @@ footer {
     background: var(--nc-bg-2);
     border-top: 1px solid var(--nc-bg-3);
     padding: 2rem 1.5rem;
-
-    /* This sets the right and left margins to cancel out the body's margins. It's width is still the same, but the background stretches across the page's width. */
-
     margin: 2rem calc(0px - (50vw - 50%)) -2rem;
-
-    /* Shorthand for:
-	margin-top: -2rem;
-	margin-bottom: 2rem;
-	margin-left: calc(0px - (50vw - 50%));
-	margin-right: calc(0px - (50vw - 50%)); */
-
     padding-left: calc(50vw - 50%);
     padding-right: calc(50vw - 50%);
 }
@@ -66,10 +56,10 @@ details[open] summary {
     margin: 0;
     padding: 5px;
 }
-.banner.safe {
+.banner .safe {
     background-color: green;
 }
-.banner.unknown {
+.banner .unknown {
     background-color: darkorange;
     color: white;
 }
@@ -142,4 +132,31 @@ td a:hover {
 }
 .not-safe a:hover {
     color: white;
+}
+header, footer {
+    background-color: rgb(25, 25, 25)
+}
+/* Lightmode things */
+@media (prefers-color-scheme: light) {
+    header, footer {
+        background-color: rgb(255, 255, 255)
+    }
+    .banner {
+        color: white;
+    }
+    .banner h3, .banner.unknown h3, .banner.safe h3, .banner.not-safe h3 {
+        border-bottom: 1px solid white;
+        color: white;
+    }
+    td a {
+        background: unset;
+        color: black;
+        text-decoration: underline;
+    }
+    .safe a, .safe td {
+        color: white;
+    }
+    .unknown a, .unknown td {
+        color: white;
+    }
 }
