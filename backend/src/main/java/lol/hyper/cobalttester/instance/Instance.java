@@ -193,6 +193,7 @@ public class Instance implements Comparable<Instance> {
             this.setCommit("Offline");
             this.setBranch("Offline");
             this.setName("Offline");
+            this.setVersion("Offline");
             return;
         }
         this.setApiWorking(true);
