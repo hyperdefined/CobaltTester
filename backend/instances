@@ -12,14 +12,11 @@ api.co.rooot.gay,co.rooot.gay,https,safe
 wukko.wolfdo.gg,co.wolfdo.gg,https,safe
 downloadapi.stuff.solutions,download.stuff.solutions,https,safe
 cobalt.api.timelessnesses.me,cobalt.timelessnesses.me,https,safe
-api-dl.cgm.rs,dl.cgm.rs,https,safe
 co-api.mae.wtf,co.mae.wtf,https,safe
 capi.oak.li,c.oak.li,https,safe
 co.tskau.team,co.tskau.team,https,safe
 sea-downloadapi.stuff.solutions,sea-download.stuff.solutions,https,safe
 cobalt.wither.ing,cobalt.wither.ing,https,safe
-cobalt-api.alexagirl.studio,cobalt.alexagirl.studio,https,safe
-coapi.kelig.me,co.kelig.me,https,unknown
 ca.haloz.at,dl.haloz.at,https,unknown
 nyc1.coapi.ggtyler.dev,nyc1.co.ggtyler.dev,https,safe
 cal1.coapi.ggtyler.dev,cal1.co.ggtyler.dev,https,safe
@@ -29,7 +26,6 @@ cobalt-api.ayo.tf,cobalt.ayo.tf,https,unknown
 cobalt.minaev.su,cobalt.minaev.su,https,unknown
 dlapi.miichelle.moe,dl.miichelle.moe,https,unknown
 api.seventyhost.net,d.seventyhost.net,https,safe
-api.cobalt.tacohitbox.com,cobalt.tacohitbox.com,https,safe
 api.snaptik.so,None,https,unknown
 dl01.spotifyloader.com,None,https,unknown
 capi.tieren.men,cob.tieren.men,https,unknown
@@ -42,7 +38,6 @@ api.dl.ixhby.dev,dl.ixhby.dev,https,unknown
 dl-api.memorybouquet.com,dl.memorybouquet.com,https,unknown
 api.sacreations.me,md.sacreations.me,https,unknown
 cobapi.imanity.de,cobalt.imanity.de,https,unknown
-cobaltapi-oracle-bbb-arm-01.thetech.network,cobalt.thetech.network,https,unknown
 api.cobalt.hoshinagi.top,cobalt.hoshinagi.top,https,unknown
 api.cobalt.witd.in,cobalt.witd.in,https,unknown
 apicloud2.filsfkwtlfjas.xyz,None,https,unknown
@@ -61,9 +56,6 @@ api.lcsq.top:9000,api.lcsq.top:9001,http,unknown
 cobalt.misike.eu,None,https,unknown
 dl01.yt-dl.click,None,https,unknown
 dl02.yt-dl.click,None,https,unknown
-dl03.yt-dl.click,None,https,unknown
-dl04.yt-dl.click,None,https,unknown
-dl05.yt-dl.click,None,https,unknown
 co.otomir23.me,co.otomir23.me,https,safe
 api-cobalt.isnubi.fr,cobalt.isnubi.fr,https,unknown
 dl.hep.gg,co.hep.gg,https,safe
@@ -78,7 +70,6 @@ node05.dlapi.app,None,https,unknown
 api.xdm.plus,dl.xdm.plus,https,unknown
 video.runapps.org,video.runapps.org,https,unknown
 api.top1savetube.com,top1savetube.com,https,not_safe
-cobalt.flaskjoy.us.kg,None,https,unknown
 cobalt.yuntae.in,None,https,unknown
 cobaltapi.hnplz.top,cobalt.hnplz.top,https,unknown
 dl-api.polyg.online,dl.polyg.online,https,unknown
@@ -92,7 +83,6 @@ api.digi-follower.com,None,https,unknown
 cobalt.aicover.ai,None,https,unknown
 cobalt2.aicover.ai,None,https,unknown
 cobalt5.aicover.ai,None,https,unknown
-media.miona.bot,None,https,unknown
 cobaltapi.yjasmine.com,cobalt.yjasmine.com,https,unknown
 api.cnvmp3.com,None,https,not_safe
 api.quizmovies.com,None,https,not_safe
@@ -110,12 +100,11 @@ dwndld-api.nichind.dev,None,https,unknown
 92.51.47.196:9000,None,http,unknown
 195.15.242.243:9000,195.15.242.243:9001,http,unknown
 185.170.213.63:9000,185.170.213.63:9001,http,unknown
-194.163.167.46:9000,194.163.167.46:9001,http,unknown
+194.163.167.46:9000,194.163.167.46:9001,http,not_safe
 109.71.246.24:9000,None,http,unknown
 13.213.191.84:9000,13.213.191.84:9001,http,unknown
 148.135.96.148:9000,148.135.96.148:9001,http,unknown
 93.127.202.159:9000,93.127.202.159:9001,http,unknown
-161.35.66.210:9000,None,http,unknown
 119.91.251.51:9000,119.91.251.51:9001,http,unknown
 116.199.110.194:9000,116.199.110.194:9001,http,unknown
 154.221.29.217:9000,154.221.29.217:9001,http,unknown
@@ -135,7 +124,6 @@ dwndld-api.nichind.dev,None,https,unknown
 66.112.209.209:9000,66.112.209.209:9001,http,unknown
 38.148.249.53:9000,38.148.249.53:9001,http,unknown
 74.48.82.224:9000,74.48.82.224:9001,http,unknown
-128.140.36.48:9000,128.140.36.48:9001,http,unknown
 176.169.191.51:9000,176.169.191.51:9001,http,unknown
 34.107.254.11,None,http,unknown
 152.70.197.156:9000,152.70.197.156:9001,http,unknown
@@ -154,7 +142,6 @@ dwndld-api.nichind.dev,None,https,unknown
 47.108.64.162:9000,47.108.64.162:9001,http,unknown
 142.171.75.242:9000,142.171.75.242:9001,http,unknown
 188.225.31.27:9000,None,http,unknown
-43.242.203.109:9000,43.242.203.109:9001,http,unknown
 130.61.68.108:9000,None,http,unknown
 54.253.121.98:9000,None,http,unknown
 147.78.247.244:9000,147.78.247.244:9001,http,unknown
@@ -165,17 +152,12 @@ dwndld-api.nichind.dev,None,https,unknown
 20.11.64.79:9000,20.11.64.79:9001,http,unknown
 123.202.99.111:9000,123.202.99.111:9001,http,unknown
 192.248.189.244:30000,None,http,unknown
-116.22.80.128:9090,None,http,unknown
 8.138.101.232:9000,8.138.101.232:9001,http,unknown
 119.29.247.111:9000,119.29.247.111:9001,http,unknown
 45.140.188.136:9000,45.140.188.136:9001,http,unknown
 107.173.35.126:9000,107.173.35.126:9001,http,unknown
-139.84.196.47:9000,139.84.196.47:9001,http,unknown
 43.143.164.67:9000,43.143.164.67:9001,http,unknown
-23.94.218.146:9000,23.94.218.146:9001,http,unknown
-171.120.183.171:9000,171.120.183.171:9001,http,unknown
 45.95.234.29:9000,45.95.234.29:9001,http,unknown
-54.149.216.115:9000,None,http,unknown
 147.45.111.84:9000,None,http,unknown
 194.99.81.200,None,http,unknown
 150.109.70.210:9000,None,http,unknown
