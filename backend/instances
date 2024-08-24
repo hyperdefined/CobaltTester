@@ -14,7 +14,6 @@ downloadapi.stuff.solutions,download.stuff.solutions,https,safe
 cobalt.api.timelessnesses.me,cobalt.timelessnesses.me,https,safe
 co-api.mae.wtf,co.mae.wtf,https,safe
 capi.oak.li,c.oak.li,https,safe
-co.tskau.team,co.tskau.team,https,safe
 sea-downloadapi.stuff.solutions,sea-download.stuff.solutions,https,safe
 cobalt.wither.ing,cobalt.wither.ing,https,safe
 ca.haloz.at,dl.haloz.at,https,unknown
@@ -55,7 +54,6 @@ cobalt.decrystalfan.app,video.decrystalfan.app,https,unknown
 api.lcsq.top:9000,api.lcsq.top:9001,http,unknown
 cobalt.misike.eu,None,https,unknown
 dl01.yt-dl.click,None,https,unknown
-dl02.yt-dl.click,None,https,unknown
 co.otomir23.me,co.otomir23.me,https,safe
 api-cobalt.isnubi.fr,cobalt.isnubi.fr,https,unknown
 dl.hep.gg,co.hep.gg,https,safe
@@ -67,32 +65,29 @@ node02.dlapi.app,None,https,unknown
 node03.dlapi.app,None,https,unknown
 node04.dlapi.app,None,https,unknown
 node05.dlapi.app,None,https,unknown
-api.xdm.plus,dl.xdm.plus,https,unknown
 video.runapps.org,video.runapps.org,https,unknown
 api.top1savetube.com,top1savetube.com,https,not_safe
 cobalt.yuntae.in,None,https,unknown
 cobaltapi.hnplz.top,cobalt.hnplz.top,https,unknown
 dl-api.polyg.online,dl.polyg.online,https,unknown
 api.cobalt.xinchen.io,cobalt.xinchen.io,https,unknown
-api-dl.tan.my.id,dl.tan.my.id,https,unknown
 co.lzwz.me,None,https,unknown
 vidown.chensao.cc:9000,vidown.chensao.cc:9001,http,unknown
 pve.sily.cc:6003,pve.sily.cc:6004,https,unknown
 social.mohsentaleb.com,social.mohsentaleb.com,http,unknown
-api.digi-follower.com,None,https,unknown
 cobalt.aicover.ai,None,https,unknown
 cobalt2.aicover.ai,None,https,unknown
 cobalt5.aicover.ai,None,https,unknown
 cobaltapi.yjasmine.com,cobalt.yjasmine.com,https,unknown
 api.cnvmp3.com,None,https,not_safe
 api.quizmovies.com,None,https,not_safe
-api.sssyoutube.net,None,https,unknown
+api.sssyoutube.net,None,https,not_safe
 cobalt.kwiatekmiki.com,cobalt.kwiatekmiki.com,https,safe
 api.oj-code.com,None,https,unknown
-cobalt-api.veblr.com,cobalt.veblr.com,https,unknown
 api.cobalt.meanii.dev,cobalt.meanii.dev,https,unknown
 trashtrack.chickenkiller.com:9000,trashtrack.chickenkiller.com:9001,http,unknown
 dwndld-api.nichind.dev,None,https,unknown
+cobald.playground.robinglauser.ch,None,https,unknown
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http,unknown
@@ -110,7 +105,6 @@ dwndld-api.nichind.dev,None,https,unknown
 154.221.29.217:9000,154.221.29.217:9001,http,unknown
 149.102.135.144:9000,None,http,unknown
 108.61.180.174:9000,None,http,unknown
-89.208.245.91:9000,89.208.245.91:9001,http,unknown
 120.27.151.229:9000,None,http,unknown
 107.173.165.135:9000,107.173.165.135:9001,http,unknown
 172.245.5.114:9000,172.245.5.114:9001,http,unknown
@@ -139,7 +133,6 @@ dwndld-api.nichind.dev,None,https,unknown
 156.254.114.3:9000,156.254.114.3:9001,http,unknown
 185.208.172.11:9000,185.208.172.11:9001,http,unknown
 23.94.158.104:9000,23.94.158.104:9001,http,unknown
-47.108.64.162:9000,47.108.64.162:9001,http,unknown
 142.171.75.242:9000,142.171.75.242:9001,http,unknown
 188.225.31.27:9000,None,http,unknown
 130.61.68.108:9000,None,http,unknown
@@ -155,7 +148,6 @@ dwndld-api.nichind.dev,None,https,unknown
 8.138.101.232:9000,8.138.101.232:9001,http,unknown
 119.29.247.111:9000,119.29.247.111:9001,http,unknown
 45.140.188.136:9000,45.140.188.136:9001,http,unknown
-107.173.35.126:9000,107.173.35.126:9001,http,unknown
 43.143.164.67:9000,43.143.164.67:9001,http,unknown
 45.95.234.29:9000,45.95.234.29:9001,http,unknown
 147.45.111.84:9000,None,http,unknown
@@ -165,5 +157,14 @@ dwndld-api.nichind.dev,None,https,unknown
 209.141.52.36:9000,None,http,unknown
 144.126.131.132:9000,144.126.131.132:9001,http,unknown
 109.107.189.229:9000,109.107.189.229:9001,http,unknown
-171.116.224.131:9000,171.116.224.131:9001,http,unknown
 147.45.187.78:9000,None,http,unknown
+178.63.19.109:9000,None,http,unknown
+35.220.205.248:9000,35.220.205.248:9001,http,unknown
+89.110.114.23:9000,89.110.114.23:9001,http,unknown
+13.229.126.191:10001,None,http,unknown
+5.42.83.140:9000,5.42.83.140:9001,http,unknown
+34.93.253.189:9000,34.93.253.189:9001,http,unknown
+89.110.110.80:9000,89.110.110.80:9001,http,unknown
+54.214.223.181:9000,54.214.223.181:9001,http,unknown
+157.245.128.170:9000,157.245.128.170:9001,http,unknown
+74.48.192.26:9000,74.48.192.26:9001,http,unknown
