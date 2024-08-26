@@ -86,6 +86,7 @@ api.cobalt.meanii.dev,cobalt.meanii.dev,https,unknown
 trashtrack.chickenkiller.com:9000,trashtrack.chickenkiller.com:9001,http,unknown
 dwndld-api.nichind.dev,None,https,unknown
 cobald.playground.robinglauser.ch,None,https,unknown
+cobalt-api.bloat.cat,cobalt.bloat.cat,https,unknown
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http,unknown
