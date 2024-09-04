@@ -88,6 +88,7 @@ cobald.playground.robinglauser.ch,None,https,unknown
 cobalt-api.bloat.cat,cobalt.bloat.cat,https,unknown
 coapi.astronima.bet,cobalt.astronima.bet,https,unknown
 cobaltservice.6vz.dev,cobalt.6vz.dev,https,unknown
+cobaltapi-oracle-bbb-arm-01.thetech.network,cobalt.thetech.network,https,unknown
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http,unknown
@@ -166,7 +167,7 @@ cobaltservice.6vz.dev,cobalt.6vz.dev,https,unknown
 192.248.189.244:9000,192.248.189.244:9001,http,unknown
 172.96.193.197:9000,172.96.193.197:9001,http,unknown
 123.202.99.111:9000,123.202.99.111:9001,http,unknown
-20.11.64.79:9000,None,http,unknown
+20.11.64.79:9000,20.11.64.79:9001,http,unknown
 116.22.81.86:9090,None,http,unknown
 152.42.192.9:9000,152.42.192.9:9001,http,unknown
 120.245.57.67:9000,120.245.57.67:9001,http,unknown
@@ -180,3 +181,4 @@ cobaltservice.6vz.dev,cobalt.6vz.dev,https,unknown
 217.25.230.151:9000,None,http,unknown
 194.32.98.178:9000,None,http,unknown
 172.247.113.233:9000,172.247.113.233:9001,http,unknown
+47.108.64.162:9000,47.108.64.162:9001,http,unknown
