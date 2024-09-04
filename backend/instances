@@ -19,7 +19,6 @@ cobalt.wither.ing,cobalt.wither.ing,https,safe
 ca.haloz.at,dl.haloz.at,https,unknown
 nyc1.coapi.ggtyler.dev,nyc1.co.ggtyler.dev,https,safe
 cal1.coapi.ggtyler.dev,cal1.co.ggtyler.dev,https,safe
-par1.coapi.ggtyler.dev,par1.co.ggtyler.dev,https,safe
 pol1.coapi.ggtyler.dev,pol1.co.ggtyler.dev,https,safe
 cobalt-api.ayo.tf,cobalt.ayo.tf,https,unknown
 cobalt.minaev.su,cobalt.minaev.su,https,unknown
@@ -88,11 +87,11 @@ dwndld-api.nichind.dev,None,https,unknown
 cobald.playground.robinglauser.ch,None,https,unknown
 cobalt-api.bloat.cat,cobalt.bloat.cat,https,unknown
 coapi.astronima.bet,cobalt.astronima.bet,https,unknown
+cobaltservice.6vz.dev,cobalt.6vz.dev,https,unknown
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http,unknown
 2.56.214.74:9000,None,http,unknown
-92.51.47.196:9000,None,http,unknown
 195.15.242.243:9000,195.15.242.243:9001,http,unknown
 185.170.213.63:9000,185.170.213.63:9001,http,unknown
 194.163.167.46:9000,194.163.167.46:9001,http,not_safe
@@ -112,7 +111,6 @@ coapi.astronima.bet,cobalt.astronima.bet,https,unknown
 77.237.238.179:9000,77.237.238.179:9001,http,unknown
 85.31.235.5:9000,85.31.235.5:9001,http,unknown
 142.171.131.246:9000,142.171.131.246:9001,http,unknown
-159.75.120.46:19000,159.75.120.46:19001,http,unknown
 20.203.104.84:9001,None,http,unknown
 86.195.21.136:8018,None,http,unknown
 66.112.209.209:9000,66.112.209.209:9001,http,unknown
@@ -152,7 +150,6 @@ coapi.astronima.bet,cobalt.astronima.bet,https,unknown
 209.141.52.36:9000,None,http,unknown
 144.126.131.132:9000,144.126.131.132:9001,http,unknown
 109.107.189.229:9000,109.107.189.229:9001,http,unknown
-147.45.187.78:9000,None,http,unknown
 178.63.19.109:9000,None,http,unknown
 35.220.205.248:9000,35.220.205.248:9001,http,unknown
 89.110.114.23:9000,89.110.114.23:9001,http,unknown
@@ -164,3 +161,22 @@ coapi.astronima.bet,cobalt.astronima.bet,https,unknown
 74.48.192.26:9000,74.48.192.26:9001,http,unknown
 154.12.56.227:9000,154.12.56.227:9001,http,unknown
 70.34.255.72:9000,70.34.255.72:9001,http,unknown
+45.80.211.13:8081,None,http,unknown
+38.55.135.43:9000,38.55.135.43:9001,http,unknown
+192.248.189.244:9000,192.248.189.244:9001,http,unknown
+172.96.193.197:9000,172.96.193.197:9001,http,unknown
+123.202.99.111:9000,123.202.99.111:9001,http,unknown
+20.11.64.79:9000,None,http,unknown
+116.22.81.86:9090,None,http,unknown
+152.42.192.9:9000,152.42.192.9:9001,http,unknown
+120.245.57.67:9000,120.245.57.67:9001,http,unknown
+164.90.142.89:9000,164.90.142.89:9001,http,unknown
+171.120.183.69:9001,171.120.183.69:9000,http,unknown
+188.119.113.18:9000,188.119.113.18:9001,http,unknown
+107.172.103.102:9000,None,http,unknown
+66.42.91.14:9000,None,http,unknown
+74.48.35.30:9000,74.48.35.30:9001,http,unknown
+74.48.202.63:9000,74.48.202.63:9001,http,
+217.25.230.151:9000,None,http,unknown
+194.32.98.178:9000,None,http,unknown
+172.247.113.233:9000,172.247.113.233:9001,http,unknown
