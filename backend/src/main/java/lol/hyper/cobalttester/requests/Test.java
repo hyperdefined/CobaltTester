@@ -64,7 +64,7 @@ public class Test {
         postContents.put("url", testUrl);
         RequestResults testResponse = RequestUtil.sendPost(postContents, api);
         if (testResponse.responseContent() == null) {
-            logger.warn("Test FAIL for {} with {} - HTTP {}, request returned null", api, testUrl, testResponse.responseCode());
+            logger.warn("Test FAIL for {} with {} - HTTP {}, request returned null", api, service, testResponse.responseCode());
             return;
         }
         String status = getStatus(testResponse.responseContent());
@@ -74,40 +74,40 @@ public class Test {
         if (testResponse.responseCode() == 200) {
             // if we couldn't get the status from the response, it failed
             if (status == null) {
-                logger.warn("Test FAIL for {} with {} - HTTP 200, status=INVALID", api, testUrl);
+                logger.warn("Test FAIL for {} with {} - HTTP 200, status=INVALID", api, service);
                 instance.addResult(service, false);
                 return;
             }
 
             // if the API's status was redirect/stream/success/picker, it was successful
             if (status.equalsIgnoreCase("redirect") || status.equalsIgnoreCase("stream") || status.equalsIgnoreCase("success") || status.equalsIgnoreCase("picker")) {
-                logger.info("Test PASS for {} with {} - HTTP 200, status={}", api, testUrl, status);
+                logger.info("Test PASS for {} with {} - HTTP 200, status={}", api, service, status);
                 instance.addResult(service, true);
             }
         } else {
             // if we didn't get back a 200 response, it failed
             if (status == null) {
-                logger.warn("Test FAIL for {} with {} - HTTP {}, status=INVALID", api, testUrl, testResponse.responseCode());
+                logger.warn("Test FAIL for {} with {} - HTTP {}, status=INVALID", api, service, testResponse.responseCode());
                 instance.addResult(service, false);
                 return;
             }
             // if we got rate limited, rerun the test in a few seconds
             if (status.equalsIgnoreCase("rate-limit")) {
                 if (attempts >= 5) {
-                    logger.warn("Test FAIL for {} with {} - attempts limit REACHED with {} tries", api, testUrl, attempts);
+                    logger.warn("Test FAIL for {} with {} - attempts limit REACHED with {} tries", api, service, attempts);
                     return;
                 }
                 long secondsToWait = 3 + (attempts);
-                logger.warn("Test RATE-LIMITED for {} with {} - trying again in {} seconds, attempts={}", api, testUrl, secondsToWait, attempts);
+                logger.warn("Test RATE-LIMITED for {} with {} - trying again in {} seconds, attempts={}", api, service, secondsToWait, attempts);
                 try {
                     Thread.sleep(secondsToWait * 1000);
                     runApiTest();
                 } catch (InterruptedException exception) {
-                    logger.error("Rate-limit retry interrupted for {} with {}", api, testUrl, exception);
+                    logger.error("Rate-limit retry interrupted for {} with {}", api, service, exception);
                 }
                 return;
             }
-            logger.warn("Test FAIL for {} with {} - HTTP {}, status={}", api, testUrl, testResponse.responseCode(), status);
+            logger.warn("Test FAIL for {} with {} - HTTP {}, status={}", api, service, testResponse.responseCode(), status);
             instance.addResult(service, false);
         }
     }
