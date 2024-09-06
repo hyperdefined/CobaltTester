@@ -159,7 +159,7 @@ public class CobaltTester {
 
         // Wait until all tasks are finished
         try {
-            if (!executorService.awaitTermination(1, TimeUnit.HOURS)) {
+            if (!executorService.awaitTermination(20, TimeUnit.MINUTES)) {
                 logger.error("ExecutorService did not terminate properly!!!!!");
             }
         } catch (InterruptedException exception) {
@@ -231,6 +231,7 @@ public class CobaltTester {
         long duration = endTime - startTime;
         long minutesTaken = TimeUnit.MINUTES.convert(duration, TimeUnit.NANOSECONDS);
         logger.info("Completed run in {} minutes.", minutesTaken);
+        System.exit(0);
     }
 
     public static String getCommit() throws IOException, GitAPIException {
