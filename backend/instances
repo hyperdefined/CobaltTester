@@ -105,7 +105,6 @@ cobaltapi-oracle-bbb-arm-01.thetech.network,cobalt.thetech.network,https,unknown
 154.221.29.217:9000,154.221.29.217:9001,http,unknown
 149.102.135.144:9000,None,http,unknown
 108.61.180.174:9000,None,http,unknown
-120.27.151.229:9000,None,http,unknown
 107.173.165.135:9000,107.173.165.135:9001,http,unknown
 172.245.5.114:9000,172.245.5.114:9001,http,unknown
 18.181.224.209:9000,18.181.224.209:9001,http,unknown
@@ -116,7 +115,6 @@ cobaltapi-oracle-bbb-arm-01.thetech.network,cobalt.thetech.network,https,unknown
 86.195.21.136:8018,None,http,unknown
 66.112.209.209:9000,66.112.209.209:9001,http,unknown
 38.148.249.53:9000,38.148.249.53:9001,http,unknown
-74.48.82.224:9000,74.48.82.224:9001,http,unknown
 176.169.191.51:9000,176.169.191.51:9001,http,unknown
 34.107.254.11,None,http,unknown
 152.70.197.156:9000,152.70.197.156:9001,http,unknown
@@ -164,13 +162,10 @@ cobaltapi-oracle-bbb-arm-01.thetech.network,cobalt.thetech.network,https,unknown
 70.34.255.72:9000,70.34.255.72:9001,http,unknown
 45.80.211.13:8081,None,http,unknown
 38.55.135.43:9000,38.55.135.43:9001,http,unknown
-192.248.189.244:9000,192.248.189.244:9001,http,unknown
 172.96.193.197:9000,172.96.193.197:9001,http,unknown
 123.202.99.111:9000,123.202.99.111:9001,http,unknown
 20.11.64.79:9000,20.11.64.79:9001,http,unknown
-116.22.81.86:9090,None,http,unknown
 152.42.192.9:9000,152.42.192.9:9001,http,unknown
-120.245.57.67:9000,120.245.57.67:9001,http,unknown
 164.90.142.89:9000,164.90.142.89:9001,http,unknown
 171.120.183.69:9001,171.120.183.69:9000,http,unknown
 188.119.113.18:9000,188.119.113.18:9001,http,unknown
@@ -179,6 +174,5 @@ cobaltapi-oracle-bbb-arm-01.thetech.network,cobalt.thetech.network,https,unknown
 74.48.35.30:9000,74.48.35.30:9001,http,unknown
 74.48.202.63:9000,74.48.202.63:9001,http,
 217.25.230.151:9000,None,http,unknown
-194.32.98.178:9000,None,http,unknown
 172.247.113.233:9000,172.247.113.233:9001,http,unknown
 47.108.64.162:9000,47.108.64.162:9001,http,unknown
