@@ -4,6 +4,7 @@ import lol.hyper.cobalttester.requests.RequestUtil;
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Locale;
@@ -26,6 +27,7 @@ public class Instance implements Comparable<Instance> {
     private boolean apiWorking;
     private double score;
     private String hash;
+    private boolean isNew = false;
     private final Logger logger = LogManager.getLogger(this);
 
     private final Map<String, Boolean> testResults = new TreeMap<>();
@@ -169,6 +171,10 @@ public class Instance implements Comparable<Instance> {
         this.trustStatus = trustStatus;
     }
 
+    public boolean isNew() {
+        return isNew;
+    }
+
     public void calculateScore() {
         long workingServices = testResults.values().stream().filter(Boolean::booleanValue).count();
         int totalTestsRan = testResults.size();
@@ -183,42 +189,92 @@ public class Instance implements Comparable<Instance> {
      * Save the API's information.
      */
     public void loadApiJSON() {
-        String url = protocol + "://" + api + "/api/serverInfo";
-        logger.info("Reading API information for {}", url);
-        JSONObject apiJson = RequestUtil.requestJSON(url);
-        if (apiJson == null) {
-            this.setApiWorking(false);
-            this.setTrustStatus("offline");
-            this.setName("Offline");
-            this.setCommit("Offline");
-            this.setBranch("Offline");
-            this.setName("Offline");
-            this.setVersion("Offline");
+        logger.info("Reading API information for {}", api);
+        String responseContent;
+        JSONObject json;
+        String url = protocol + "://" + api;
+        // check the base of the domain first (for cobalt 10)
+        int responseCode = RequestUtil.getStatusCode(url);
+        if (responseCode == 200) {
+            // Load the API information
+            responseContent = RequestUtil.requestJSON(url);
+            // if it fails to load any content (this should never happen with 200)
+            if (responseContent == null) {
+                logger.warn("Root content null for {}", api);
+                setOffline();
+                return;
+            }
+            // if it fails to parse, try /api/serverInfo
+            try {
+                json = new JSONObject(responseContent);
+            } catch (JSONException exception) {
+                logger.warn("Failed to parse root for {}", api);
+                responseContent = RequestUtil.requestJSON(url + "/api/serverInfo");
+                if (responseContent == null) {
+                    logger.warn("Response null serverInfo for {}", api);
+                    setOffline();
+                    return;
+                }
+                try {
+                    json = new JSONObject(responseContent);
+                } catch (JSONException exception2) {
+                    // we tried everything, mark it dead
+                    logger.warn("Failed to parse serverInfo for {}", api);
+                    setOffline();
+                    return;
+                }
+            }
+        } else {
+            // check the older serverInfo response (base returned not 200)
+            url = url + "/api/serverInfo";
+            responseContent = RequestUtil.requestJSON(url);
+            // if it fails to load any content
+            if (responseContent == null) {
+                logger.warn("Root content null for {}", api);
+                setOffline();
+                return;
+            }
+            // make sure we can parse it
+            try {
+                json = new JSONObject(responseContent);
+            } catch (JSONException exception2) {
+                logger.warn("Failed to parse serverInfo for {}", api);
+                // we tried everything, mark it dead
+                setOffline();
+                return;
+            }
+        }
+
+        this.setApiWorking(true);
+        // on cobalt 10, the JSON response is different
+        if (json.has("cobalt")) {
+            loadNewApi(json);
+            isNew = true;
             return;
         }
-        this.setApiWorking(true);
-        if (apiJson.has("name")) {
-            String name = apiJson.getString("name");
+
+        if (json.has("name")) {
+            String name = json.getString("name");
             this.setName(StringEscapeUtils.escapeHtml4(name));
         }
-        if (apiJson.has("version")) {
-            String version = apiJson.getString("version");
+        if (json.has("version")) {
+            String version = json.getString("version");
             // older instances had -dev in the version
             if (version.contains("-dev")) {
                 version = version.replace("-dev", "");
             }
             this.setVersion(StringEscapeUtils.escapeHtml4(version));
         }
-        if (apiJson.has("commit")) {
-            String commit = apiJson.getString("commit");
+        if (json.has("commit")) {
+            String commit = json.getString("commit");
             this.setCommit(StringEscapeUtils.escapeHtml4(commit));
         }
-        if (apiJson.has("branch")) {
-            String branch = apiJson.getString("branch");
+        if (json.has("branch")) {
+            String branch = json.getString("branch");
             this.setBranch(StringEscapeUtils.escapeHtml4(branch));
         }
-        if (apiJson.has("cors")) {
-            int cors = apiJson.getInt("cors");
+        if (json.has("cors")) {
+            int cors = json.getInt("cors");
             if (cors == 0 || cors == 1) {
                 this.setCors(cors);
             } else {
@@ -226,15 +282,36 @@ public class Instance implements Comparable<Instance> {
                 logger.warn("{} has an invalid cors!", this.getApi());
             }
         }
-        if (apiJson.has("startTime")) {
-            String startTimeString = String.valueOf(apiJson.getLong("startTime"));
+        if (json.has("startTime")) {
+            String startTimeString = String.valueOf(json.getLong("startTime"));
             if (startTimeString.matches("[0-9]+")) {
-                this.setStartTime(apiJson.getLong("startTime"));
+                this.setStartTime(json.getLong("startTime"));
             } else {
                 this.setStartTime(0L);
                 logger.warn("{} has an invalid startTime!", this.getApi());
             }
         }
+    }
+
+    public void loadNewApi(JSONObject response) {
+        JSONObject cobalt = response.getJSONObject("cobalt");
+        this.setName(api);
+        this.setVersion(StringEscapeUtils.escapeHtml4(cobalt.getString("version")));
+        this.setCors(1);
+        JSONObject git = response.getJSONObject("git");
+        this.setBranch(StringEscapeUtils.escapeHtml4(git.getString("branch")));
+        this.setCommit(StringEscapeUtils.escapeHtml4(git.getString("commit").substring(0, 6)));
+    }
+
+    private void setOffline() {
+        this.setApiWorking(false);
+        this.setTrustStatus("offline");
+        this.setName("Offline");
+        this.setCommit("Offline");
+        this.setBranch("Offline");
+        this.setName("Offline");
+        this.setVersion("Offline");
+        logger.warn("Marking {} as OFFLINE", api);
     }
 
     @Override

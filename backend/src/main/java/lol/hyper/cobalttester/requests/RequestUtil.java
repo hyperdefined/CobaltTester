@@ -3,13 +3,12 @@ package lol.hyper.cobalttester.requests;
 import lol.hyper.cobalttester.CobaltTester;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
-import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -82,38 +81,46 @@ public class RequestUtil {
      * @param url The URL to request.
      * @return The JSONObject it returns. NULL if something went wrong.
      */
-    public static JSONObject requestJSON(String url) {
+    public static String requestJSON(String url) {
         String rawJSON;
+        HttpURLConnection connection = null;
         try {
-            URLConnection connection = new URL(url).openConnection();
+            connection = (HttpURLConnection) new URL(url).openConnection();
             connection.setRequestProperty("User-Agent", CobaltTester.USER_AGENT);
             connection.setConnectTimeout(20000);
             connection.setReadTimeout(20000);
             connection.connect();
-            InputStream in = connection.getInputStream();
+
+            InputStream in;
+            if (connection.getResponseCode() >= 400) {
+                in = connection.getErrorStream();
+            } else {
+                in = connection.getInputStream();
+            }
+
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             rawJSON = reader.lines().collect(Collectors.joining(System.lineSeparator()));
             reader.close();
-        } catch (Exception exception) {
-            logger.error("Unable to read contents of {}", url, exception);
+        } catch (IOException exception) {
+            logger.error("Unable to connect to or read from {}", url, exception);
             return null;
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
         if (rawJSON.isEmpty()) {
             logger.error("Read JSON from {} returned an empty string!", url);
             return null;
         }
-        try {
-            return new JSONObject(rawJSON);
-        } catch (JSONException exception) {
-            return null;
-        }
+        return rawJSON;
     }
 
     /**
-     * Test a coablt's frontend. It will match the HTML title "cobalt".
+     * Test a cobalt's frontend. It will match the HTML title "cobalt".
      *
      * @param url The url to test.
-     * @return true/false if it works and is valid..
+     * @return true/false if it works and is valid.
      */
     public static boolean testFrontEnd(String url) {
         int response;
@@ -150,5 +157,25 @@ public class RequestUtil {
             return false;
         }
         return false;
+    }
+
+    /**
+     * Returns the status code of a given URL.
+     *
+     * @param urlString The URL to test.
+     * @return The status code.
+     */
+    public static int getStatusCode(String urlString) {
+        int statusCode = -1;
+        try {
+            URL url = URI.create(urlString).toURL();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.connect();
+            statusCode = connection.getResponseCode();
+        } catch (IOException exception) {
+            logger.error("Unable to load url", exception);
+        }
+        return statusCode;
     }
 }

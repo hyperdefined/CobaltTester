@@ -1,6 +1,5 @@
 package lol.hyper.cobalttester.requests;
 
-import lol.hyper.cobalttester.CobaltTester;
 import lol.hyper.cobalttester.instance.Instance;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -55,10 +54,11 @@ public class Test {
 
     private void runApiTest() {
         String protocol = instance.getProtocol();
-        String api = protocol + "://" + instance.getApi() + "/api/json";
-        // if the api is down, don't run this test
-        if (!instance.isApiWorking()) {
-            return;
+        String api;
+        if (instance.isNew()) {
+            api = protocol + "://" + instance.getApi();
+        } else {
+            api = protocol + "://" + instance.getApi() + "/api/json";
         }
         JSONObject postContents = new JSONObject();
         postContents.put("url", testUrl);
@@ -67,7 +67,8 @@ public class Test {
             logger.warn("Test FAIL for {} with {} - HTTP {}, request returned null", api, service, testResponse.responseCode());
             return;
         }
-        String status = getStatus(testResponse.responseContent());
+        JSONObject jsonResponse = new JSONObject(testResponse.responseContent());
+        String status = jsonResponse.getString("status");
         // count the attempts
         attempts++;
         // if the API's response was HTTP 200, it most likely worked
@@ -80,9 +81,12 @@ public class Test {
             }
 
             // if the API's status was redirect/stream/success/picker, it was successful
-            if (status.equalsIgnoreCase("redirect") || status.equalsIgnoreCase("stream") || status.equalsIgnoreCase("success") || status.equalsIgnoreCase("picker")) {
+            if (status.equalsIgnoreCase("redirect") || status.equalsIgnoreCase("stream") || status.equalsIgnoreCase("success") || status.equalsIgnoreCase("picker") || status.equalsIgnoreCase("tunnel")) {
                 logger.info("Test PASS for {} with {} - HTTP 200, status={}", api, service, status);
                 instance.addResult(service, true);
+            } else {
+                logger.info("Test FAIL for {} with {} - HTTP 200, status={}", api, service, status);
+                instance.addResult(service, false);
             }
         } else {
             // if we didn't get back a 200 response, it failed
@@ -91,8 +95,17 @@ public class Test {
                 instance.addResult(service, false);
                 return;
             }
+
+            // output what the error was
+            String errorMessage;
+            if (jsonResponse.has("error")) {
+                JSONObject errorBody = jsonResponse.getJSONObject("error");
+                errorMessage = errorBody.getString("code");
+            } else {
+                errorMessage = jsonResponse.getString("text");
+            }
             // if we got rate limited, rerun the test in a few seconds
-            if (status.equalsIgnoreCase("rate-limit")) {
+            if (status.equalsIgnoreCase("rate-limit") || errorMessage.contains("rate_exceeded")) {
                 if (attempts >= 5) {
                     logger.warn("Test FAIL for {} with {} - attempts limit REACHED with {} tries", api, service, attempts);
                     return;
@@ -107,7 +120,7 @@ public class Test {
                 }
                 return;
             }
-            logger.warn("Test FAIL for {} with {} - HTTP {}, status={}", api, service, testResponse.responseCode(), status);
+            logger.warn("Test FAIL for {} with {} - HTTP {}, status=error, reason={}", api, service, testResponse.responseCode(), errorMessage);
             instance.addResult(service, false);
         }
     }

@@ -7,6 +7,7 @@
 # instances with domains
 api.cobalt.tools,cobalt.tools,https,safe
 cobalt.canine.tools,cobalt.canine.tools,https,safe
+beta.cobalt.canine.tools,None,https,safe
 coapi.selfstacked.com,co.selfstacked.com,https,safe
 api.co.rooot.gay,co.rooot.gay,https,safe
 wukko.wolfdo.gg,co.wolfdo.gg,https,safe
@@ -167,7 +168,7 @@ cobaltapi-oracle-bbb-arm-01.thetech.network,cobalt.thetech.network,https,unknown
 20.11.64.79:9000,20.11.64.79:9001,http,unknown
 152.42.192.9:9000,152.42.192.9:9001,http,unknown
 164.90.142.89:9000,164.90.142.89:9001,http,unknown
-171.120.183.69:9001,171.120.183.69:9000,http,unknown
+171.120.183.69:9000,171.120.183.69:9001,http,unknown
 188.119.113.18:9000,188.119.113.18:9001,http,unknown
 107.172.103.102:9000,None,http,unknown
 66.42.91.14:9000,None,http,unknown
