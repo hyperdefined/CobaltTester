@@ -1,6 +1,7 @@
 package lol.hyper.cobalttester.utils;
 
 import lol.hyper.cobalttester.instance.Instance;
+import lol.hyper.cobalttester.requests.TestResult;
 import lol.hyper.cobalttester.services.Services;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -88,20 +89,23 @@ public class StringUtil {
     public static String buildScoreTable(Instance instance) {
         StringBuilder table = new StringBuilder();
         // build the table for output
-        table.append("<div class=\"table-container\"><table>\n<tr><th>Service</th><th>Working?</th></tr>\n");
+        table.append("<div class=\"table-container\"><table>\n<tr><th>Service</th><th>Working?</th><th>Status</th></tr>\n");
 
-        for (Map.Entry<String, Boolean> pair : instance.getTestResults().entrySet()) {
-            String service = pair.getKey();
+        // make it sort correctly
+        instance.getTestResults().sort(Comparator.comparing(TestResult::service));
+
+        for (TestResult result : instance.getTestResults()) {
+            String service = result.service();
+            boolean working = result.status();
             switch (service) {
                 case "Reddit", "Instagram", "YouTube", "YouTube Music", "YouTube Shorts" -> service = service + "*";
             }
-            boolean result = pair.getValue();
             String serviceLink = "<a href=\"{{ site.url }}/service/" + Services.makeSlug(service).replace("*", "") + "\">" + service + "</a>";
             table.append("<tr><td>").append(serviceLink).append("</td>");
-            if (result) {
-                table.append("<td>").append("✅").append("</td>");
+            if (working) {
+                table.append("<td>").append("✅").append("</td>").append("<td>Working</td>");
             } else {
-                table.append("<td>").append("❌").append("</td>");
+                table.append("<td>").append("❌").append("</td>").append("<td>").append(result.message()).append("</td>");
             }
             table.append("</tr>");
         }
@@ -116,12 +120,7 @@ public class StringUtil {
         // Store which instance works with this service
         Map<Instance, Boolean> workingInstances = new HashMap<>();
         for (Instance instance : filtered) {
-            Boolean working = instance.getTestResults().get(service);
-            // if the API is offline, this will return null.
-            // force set this service to be false.
-            if (working == null) {
-                working = false;
-            }
+            boolean working = instance.getTestResults().stream().filter(testResult -> testResult.service().equals(service)).map(TestResult::status).findFirst().orElse(false);
             workingInstances.put(instance, working);
         }
 
@@ -179,5 +178,15 @@ public class StringUtil {
     public static String makeHash(String input) {
         String hash = DigestUtils.sha256Hex(input).toLowerCase(Locale.ROOT);
         return hash.substring(0, 10);
+    }
+
+    /**
+     * Remove HTML tags in a string.
+     *
+     * @param input The input.
+     * @return The string back with no HTML tags.
+     */
+    public static String removeHtml(String input) {
+        return input.replaceAll("<[^>]+>", "");
     }
 }

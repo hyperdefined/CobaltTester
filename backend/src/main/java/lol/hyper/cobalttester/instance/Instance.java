@@ -1,16 +1,14 @@
 package lol.hyper.cobalttester.instance;
 
 import lol.hyper.cobalttester.requests.RequestUtil;
+import lol.hyper.cobalttester.requests.TestResult;
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Instance implements Comparable<Instance> {
 
@@ -30,7 +28,7 @@ public class Instance implements Comparable<Instance> {
     private boolean isNew = false;
     private final Logger logger = LogManager.getLogger(this);
 
-    private final Map<String, Boolean> testResults = new TreeMap<>();
+    private final List<TestResult> testResults = new ArrayList<>();
 
     public Instance(String frontEnd, String api, String protocol, String trustStatus) {
         this.frontEnd = frontEnd;
@@ -54,14 +52,13 @@ public class Instance implements Comparable<Instance> {
         instanceJSON.put("score", score);
         instanceJSON.put("trust", trustStatus);
         JSONObject workingServices = new JSONObject();
-        for (Map.Entry<String, Boolean> pair : testResults.entrySet()) {
-            String service = pair.getKey().toLowerCase(Locale.ROOT).replace(" ", "_");
+        for (TestResult result : testResults) {
+            String service = result.service().toLowerCase(Locale.ROOT).replace(" ", "_ ");
             // skip frontend here
             if (service.equalsIgnoreCase("Frontend")) {
                 continue;
             }
-            boolean working = pair.getValue();
-            workingServices.put(service, working);
+            workingServices.put(service, result.status());
         }
         instanceJSON.put("services", workingServices);
         return instanceJSON;
@@ -151,12 +148,12 @@ public class Instance implements Comparable<Instance> {
         return hash;
     }
 
-    public Map<String, Boolean> getTestResults() {
+    public List<TestResult> getTestResults() {
         return testResults;
     }
 
-    public void addResult(String service, boolean working) {
-        testResults.put(service, working);
+    public void addResult(TestResult testResult) {
+        testResults.add(testResult);
     }
 
     public void addCurve(int curve) {
@@ -176,7 +173,7 @@ public class Instance implements Comparable<Instance> {
     }
 
     public void calculateScore() {
-        long workingServices = testResults.values().stream().filter(Boolean::booleanValue).count();
+        long workingServices = testResults.stream().filter(TestResult::status).count();
         int totalTestsRan = testResults.size();
         if (totalTestsRan > 0) {
             score = ((double) workingServices / totalTestsRan) * 100;

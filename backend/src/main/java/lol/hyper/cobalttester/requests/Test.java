@@ -1,6 +1,7 @@
 package lol.hyper.cobalttester.requests;
 
 import lol.hyper.cobalttester.instance.Instance;
+import lol.hyper.cobalttester.utils.StringUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
@@ -49,7 +50,7 @@ public class Test {
         } else {
             logger.info("Test FAIL for checking frontend {} ", testUrl);
         }
-        instance.addResult(service, validFrontEnd);
+        instance.addResult(new TestResult(service, validFrontEnd, null));
     }
 
     private void runApiTest() {
@@ -76,23 +77,23 @@ public class Test {
             // if we couldn't get the status from the response, it failed
             if (status == null) {
                 logger.warn("Test FAIL for {} with {} - HTTP 200, status=INVALID", api, service);
-                instance.addResult(service, false);
+                instance.addResult(new TestResult(service, false, "Status returned null, HTTP " + testResponse.responseCode()));
                 return;
             }
 
             // if the API's status was redirect/stream/success/picker, it was successful
             if (status.equalsIgnoreCase("redirect") || status.equalsIgnoreCase("stream") || status.equalsIgnoreCase("success") || status.equalsIgnoreCase("picker") || status.equalsIgnoreCase("tunnel")) {
                 logger.info("Test PASS for {} with {} - HTTP 200, status={}", api, service, status);
-                instance.addResult(service, true);
+                instance.addResult(new TestResult(service, true, "Working, returned valid status and HTTP 200"));
             } else {
                 logger.info("Test FAIL for {} with {} - HTTP 200, status={}", api, service, status);
-                instance.addResult(service, false);
+                instance.addResult(new TestResult(service, false, "Status returned " + status));
             }
         } else {
             // if we didn't get back a 200 response, it failed
             if (status == null) {
                 logger.warn("Test FAIL for {} with {} - HTTP {}, status=INVALID", api, service, testResponse.responseCode());
-                instance.addResult(service, false);
+                instance.addResult(new TestResult(service, false, "Status returned null"));
                 return;
             }
 
@@ -108,6 +109,7 @@ public class Test {
             if (status.equalsIgnoreCase("rate-limit") || errorMessage.contains("rate_exceeded")) {
                 if (attempts >= 5) {
                     logger.warn("Test FAIL for {} with {} - attempts limit REACHED with {} tries", api, service, attempts);
+                    instance.addResult(new TestResult(service, false, "Rate limited, max attempts reached"));
                     return;
                 }
                 long secondsToWait = 3 + (attempts);
@@ -121,7 +123,7 @@ public class Test {
                 return;
             }
             logger.warn("Test FAIL for {} with {} - HTTP {}, status=error, reason={}", api, service, testResponse.responseCode(), errorMessage);
-            instance.addResult(service, false);
+            instance.addResult(new TestResult(service, false, "API returned error status, HTTP " + testResponse.responseCode()));
         }
     }
 }
