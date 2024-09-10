@@ -6,8 +6,7 @@
 
 # instances with domains
 api.cobalt.tools,cobalt.tools,https,safe
-cobalt.canine.tools,cobalt.canine.tools,https,safe
-beta.cobalt.canine.tools,None,https,safe
+cobalt-backend.canine.tools,cobalt.canine.tools,https,safe
 coapi.selfstacked.com,co.selfstacked.com,https,safe
 api.co.rooot.gay,co.rooot.gay,https,safe
 wukko.wolfdo.gg,co.wolfdo.gg,https,safe
