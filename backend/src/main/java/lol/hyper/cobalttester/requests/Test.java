@@ -123,7 +123,7 @@ public class Test {
                 return;
             }
             logger.warn("Test FAIL for {} with {} - HTTP {}, status=error, reason={}", api, service, testResponse.responseCode(), errorMessage);
-            instance.addResult(new TestResult(service, false, "API returned error status, HTTP " + testResponse.responseCode()));
+            instance.addResult(new TestResult(service, false, errorMessage));
         }
     }
 }

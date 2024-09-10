@@ -105,7 +105,7 @@ public class StringUtil {
             if (working) {
                 table.append("<td>").append("✅").append("</td>").append("<td>Working</td>");
             } else {
-                table.append("<td>").append("❌").append("</td>").append("<td>").append(result.message()).append("</td>");
+                table.append("<td>").append("❌").append("</td>").append("<td>").append(makeLogPretty(result.message())).append("</td>");
             }
             table.append("</tr>");
         }
@@ -188,5 +188,33 @@ public class StringUtil {
      */
     public static String removeHtml(String input) {
         return input.replaceAll("<[^>]+>", "");
+    }
+
+    public static String makeLogPretty(String input) {
+        if (input == null) {
+            return "";
+        }
+        if (input.contains("youtube")) {
+            return "Failed due to missing YouTube cookies";
+        }
+        if (input.contains("not supported")) {
+            return "Instance does not support this service";
+        }
+        if (input.contains("find anything about this") || input.contains("something went wrong when")) {
+            return "Failed to fetch media";
+        }
+        if (input.contains("soundcloud")) {
+            return "Failed to fetch temporary token for download";
+        }
+        if (input.contains("service api")) {
+            return "Failed to connect to service API";
+        }
+        if (input.contains("requests") || input.contains("rate_exceeded")) {
+            return "Rate limited by instance";
+        }
+        if (input.contains("jwt.missing")) {
+            return "Missing JWT";
+        }
+        return removeHtml(input);
     }
 }

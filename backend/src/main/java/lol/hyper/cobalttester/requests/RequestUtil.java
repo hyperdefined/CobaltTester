@@ -174,7 +174,7 @@ public class RequestUtil {
             connection.connect();
             statusCode = connection.getResponseCode();
         } catch (IOException exception) {
-            logger.error("Unable to load url", exception);
+            logger.error("Unable to test url {}", urlString, exception);
         }
         return statusCode;
     }

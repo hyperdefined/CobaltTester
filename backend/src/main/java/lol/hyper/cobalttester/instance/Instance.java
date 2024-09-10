@@ -205,10 +205,10 @@ public class Instance implements Comparable<Instance> {
             try {
                 json = new JSONObject(responseContent);
             } catch (JSONException exception) {
-                logger.warn("Failed to parse root for {}", api);
+                logger.warn("Failed to parse root for {}, trying /api/serverInfo", api);
                 responseContent = RequestUtil.requestJSON(url + "/api/serverInfo");
                 if (responseContent == null) {
-                    logger.warn("Response null serverInfo for {}", api);
+                    logger.warn("Response null for {} on /api/serverInfo", api);
                     setOffline();
                     return;
                 }
@@ -216,7 +216,7 @@ public class Instance implements Comparable<Instance> {
                     json = new JSONObject(responseContent);
                 } catch (JSONException exception2) {
                     // we tried everything, mark it dead
-                    logger.warn("Failed to parse serverInfo for {}", api);
+                    logger.warn("Failed to parse /api/serverInfo for {}", api);
                     setOffline();
                     return;
                 }
@@ -227,7 +227,7 @@ public class Instance implements Comparable<Instance> {
             responseContent = RequestUtil.requestJSON(url);
             // if it fails to load any content
             if (responseContent == null) {
-                logger.warn("Root content null for {}", api);
+                logger.warn("Response null for {} on /api/serverInfo", api);
                 setOffline();
                 return;
             }
@@ -292,7 +292,7 @@ public class Instance implements Comparable<Instance> {
 
     public void loadNewApi(JSONObject response) {
         JSONObject cobalt = response.getJSONObject("cobalt");
-        this.setName(api);
+        this.setName("N/A");
         this.setVersion(StringEscapeUtils.escapeHtml4(cobalt.getString("version")));
         this.setCors(1);
         JSONObject git = response.getJSONObject("git");
