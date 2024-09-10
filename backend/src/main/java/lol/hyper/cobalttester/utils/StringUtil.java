@@ -200,7 +200,7 @@ public class StringUtil {
         if (input.contains("not supported")) {
             return "Instance does not support this service";
         }
-        if (input.contains("find anything about this") || input.contains("something went wrong when")) {
+        if (input.contains("find anything about this") || input.contains("something went wrong") || input.contains("i don't see anything")) {
             return "Failed to fetch media";
         }
         if (input.contains("soundcloud")) {
@@ -213,7 +213,7 @@ public class StringUtil {
             return "Rate limited by instance";
         }
         if (input.contains("jwt.missing")) {
-            return "Missing JWT";
+            return "Missing JWT, use instance frontend to access";
         }
         return removeHtml(input);
     }
