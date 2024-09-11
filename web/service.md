@@ -5,6 +5,7 @@ description: "all services cobalt can download."
 ---
 You can see what instances work on what service below.
 * [BiliBili]({{ site.url}}/service/bilibili)
+* [Bluesky]({{ site.url}}/service/bluesky)
 * [Dailymotion]({{ site.url}}/service/dailymotion)
 * [Facebook]({{ site.url}}/service/facebook)
 * [Instagram]({{ site.url}}/service/instagram)
