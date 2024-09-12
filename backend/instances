@@ -78,6 +78,8 @@ cobalt-api.bloat.cat,cobalt.bloat.cat,https,unknown
 cobaltservice.6vz.dev,cobalt.6vz.dev,https,unknown
 cobaltapi-oracle-bbb-arm-01.thetech.network,cobalt.thetech.network,https,unknown
 v.justinmad.com,v.justinmad.com,https,unknown
+api-youtube.briddle.party,youtube.briddle.party,https,unknown
+www.lingyunmu.site,www.lingyunmu.site,http,unknown
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http,unknown
@@ -159,3 +161,4 @@ v.justinmad.com,v.justinmad.com,https,unknown
 154.9.241.49:9000,154.9.241.49:9001,http,unknown
 120.245.57.22:9000,120.245.57.22:9001,http,unknown
 85.203.42.21,85.203.42.21,http,unknown
+61.240.37.60:9000,61.240.37.60:9001,http,unknown
