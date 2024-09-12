@@ -98,6 +98,11 @@ public class RequestUtil {
                 in = connection.getInputStream();
             }
 
+            if (in == null) {
+                connection.disconnect();
+                return null;
+            }
+
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             rawJSON = reader.lines().collect(Collectors.joining(System.lineSeparator()));
             reader.close();
