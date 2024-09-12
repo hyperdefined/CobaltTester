@@ -215,6 +215,9 @@ public class StringUtil {
         if (input.contains("jwt.missing")) {
             return "Missing JWT, use instance frontend to access";
         }
+        if (input.contains("fetch.empty")) {
+            return "This service did not return anything to download";
+        }
         return removeHtml(input);
     }
 }
