@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 public class CobaltTester {
 
     public static Logger logger;
-    public static String USER_AGENT = "CobaltTester-<commit> (+https://instances.hyper.lol)";
+    public static String USER_AGENT = "CobaltTester-git-<commit> (+https://instances.hyper.lol)";
     public static JSONObject config;
     public static ExecutorService executorService;
 
