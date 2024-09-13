@@ -175,6 +175,7 @@ public class RequestUtil {
         try {
             URL url = URI.create(urlString).toURL();
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestProperty("User-Agent", CobaltTester.USER_AGENT);
             connection.setRequestMethod("GET");
             connection.connect();
             statusCode = connection.getResponseCode();
