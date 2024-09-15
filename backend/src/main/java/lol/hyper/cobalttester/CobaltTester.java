@@ -159,7 +159,7 @@ public class CobaltTester {
 
         // Wait until all tasks are finished
         try {
-            if (!executorService.awaitTermination(25, TimeUnit.MINUTES)) {
+            if (!executorService.awaitTermination(40, TimeUnit.MINUTES)) {
                 logger.error("ExecutorService did not terminate properly!!!!!");
             }
         } catch (InterruptedException exception) {
