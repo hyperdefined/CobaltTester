@@ -53,7 +53,7 @@ public class Instance implements Comparable<Instance> {
         instanceJSON.put("trust", trustStatus);
         JSONObject workingServices = new JSONObject();
         for (TestResult result : testResults) {
-            String service = result.service().toLowerCase(Locale.ROOT).replace(" ", "_ ");
+            String service = result.service().toLowerCase(Locale.ROOT).replace(" ", "_");
             // skip frontend here
             if (service.equalsIgnoreCase("Frontend")) {
                 continue;
