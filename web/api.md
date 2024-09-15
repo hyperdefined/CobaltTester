@@ -5,9 +5,17 @@ description: "an api to access the instance list"
 ---
 This is a simple API to access the list of instances. Please don't scrape this site, you can parse the API and make our lives both easier.
 
-To access it, you can call <code>https://instances.hyper.lol/instances.json</code>. This JSON file is created when the script runs. The script runs at the top of every hour and completes within 20-30 minutes.
+All the instance data is store here: <code>https://instances.hyper.lol/instances.json</code>. This JSON file is created when the script runs. The script runs at the top of every hour and completes within 30-40 minutes.
 
 <strong>Please set a proper user agent when making requests!</strong> I block common user agents (like `curl`, `python-requests`, `Go-http-client` etc) due to many bots hitting this server. I want to know who uses this API!
+
+<div class="banner">
+    <h3>PLEASE READ!</h3>
+    <p>cobalt recently has updated to version 10! Please note: any instance that is running on version 10 <strong>WILL HAVE DIFFERENT REQUIREMENTS.</strong></p>
+    <p>You should account for these differences, or filter whatever API version you want instead. You can see the API docs below.</p>
+    <p><a href="https://github.com/imputnet/cobalt/blob/7/docs/api.md">Version 7 API docs</a></p>
+    <p><a href="https://github.com/imputnet/cobalt/blob/main/docs/api.md">Version 10 API docs</a></p>
+</div>
 
 ### Example
 When calling the API, it will return a JSON array that contains all instances. Here is a snippet of what information an instance has:
@@ -18,18 +26,20 @@ When calling the API, it will return a JSON array that contains all instances. H
   "trust": "safe",
   "api_online": true,
   "cors": 1,
-  "commit": "05ba1f0",
-  "services": {
+  "commit": "a24146",
+  "sevices": {
     "youtube": true,
-    "facebook": false,
+    "twitch_clips": true,
+    "facebook": true,
     "rutube": true,
+    "bluesky": true,
     "tumblr": true,
     "bilibili": false,
     "pinterest": true,
     "instagram": true,
     "soundcloud": true,
-    "youtube_music": true,
     "odnoklassniki": true,
+    "youtube_music": true,
     "dailymotion": true,
     "snapchat": true,
     "twitter": true,
@@ -39,18 +49,17 @@ When calling the API, it will return a JSON array that contains all instances. H
     "vk": true,
     "tiktok": true,
     "reddit": true,
-    "twitch_clips": true,
-    "youtube_shorts": true,
-    "vine": true
-  },
-  "version": "7.15",
-  "branch": "current",
-  "score": 90.9090909090909,
+    "vine": true,
+    "youtube_shorts": true
+},
+  "version": "10.0.0",
+  "branch": "main",
+  "score": 95.83333333333334,
   "protocol": "https",
-  "name": "kityune",
-  "startTime": 1724088311229,
-  "api": "api.cobalt.tools",
-  "frontEnd": "cobalt.tools"
+  "name": "N/A",
+  "startTime": 0,
+  "api": "cobalt-backend.canine.tools",
+  "frontEnd": "cobalt.canine.tools"
 }
 {% endhighlight %}
 </details>
