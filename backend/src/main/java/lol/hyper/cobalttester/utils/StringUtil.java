@@ -6,6 +6,7 @@ import lol.hyper.cobalttester.services.Services;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class StringUtil {
 
@@ -194,35 +195,24 @@ public class StringUtil {
         if (input == null) {
             return "";
         }
-        if (input.contains("youtube")) {
-            return "Failed due to missing YouTube cookies";
-        }
-        if (input.contains("not supported")) {
-            return "Instance does not support this service";
-        }
-        if (input.contains("find anything about this") || input.contains("something went wrong") || input.contains("i don't see anything") || input.contains("fetch.fail") || input.contains("fetch.critical")) {
-            return "Failed to load media, this can be for a lot of reasons";
-        }
-        if (input.contains("soundcloud")) {
-            return "Failed to fetch temporary token for download";
-        }
-        if (input.contains("service api")) {
-            return "Failed to connect to service API";
-        }
-        if (input.contains("requests") || input.contains("rate_exceeded")) {
-            return "Rate limited by instance";
-        }
-        if (input.contains("jwt.missing")) {
-            return "Missing JWT, use instance frontend to access";
-        }
-        if (input.contains("fetch.empty")) {
-            return "This service did not return anything to download";
-        }
-        if (input.contains("SocketTimeoutException") || input.contains("timed_out")) {
-            return "Timed out, or this instance is slow";
-        }
-        if (input.contains("JSONException")) {
-            return "API returned invalid JSON";
+
+        Map<Pattern, String> errorMessages = new HashMap<>();
+        errorMessages.put(Pattern.compile("(?i)youtube"), "Failed due to missing YouTube cookies");
+        errorMessages.put(Pattern.compile("(?i)not supported"), "Instance does not support this service");
+        errorMessages.put(Pattern.compile("(?i)find anything about this|something went wrong|i don't see anything|fetch.fail|fetch.critical"), "Failed to load media, this can be for a lot of reasons");
+        errorMessages.put(Pattern.compile("(?i)soundcloud"), "Failed to fetch temporary token for download");
+        errorMessages.put(Pattern.compile("(?i)service api"), "Failed to connect to service API");
+        errorMessages.put(Pattern.compile("(?i)requests|rate_exceeded"), "Rate limited by instance");
+        errorMessages.put(Pattern.compile("(?i)jwt.missing"), "Missing JWT, use instance frontend to access");
+        errorMessages.put(Pattern.compile("(?i)fetch.empty"), "This service did not return anything to download");
+        errorMessages.put(Pattern.compile("(?i)SocketTimeoutException|timed_out"), "Timed out or this request was too slow");
+        errorMessages.put(Pattern.compile("(?i)JSONException"), "API returned invalid JSON");
+        errorMessages.put(Pattern.compile("(?i)tweet"), "Unable to find media in tweet");
+
+        for (Map.Entry<Pattern, String> entry : errorMessages.entrySet()) {
+            if (entry.getKey().matcher(input).find()) {
+                return entry.getValue();
+            }
         }
         return removeHtml(input);
     }
