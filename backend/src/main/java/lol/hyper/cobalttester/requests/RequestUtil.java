@@ -40,6 +40,8 @@ public class RequestUtil {
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
             connection.setRequestProperty("User-Agent", CobaltTester.USER_AGENT);
+            connection.setConnectTimeout(20000);
+            connection.setReadTimeout(20000);
 
             byte[] out = body.toString().getBytes(StandardCharsets.UTF_8);
             OutputStream stream = connection.getOutputStream();
@@ -66,13 +68,13 @@ public class RequestUtil {
             content = stringBuilder.toString();
 
         } catch (Exception exception) {
-            return new RequestResults(null, responseCode);
+            return new RequestResults(null, responseCode, exception);
         } finally {
             if (connection != null) {
                 connection.disconnect();
             }
         }
-        return new RequestResults(content, responseCode);
+        return new RequestResults(content, responseCode, null);
     }
 
     /**
@@ -81,7 +83,7 @@ public class RequestUtil {
      * @param url The URL to request.
      * @return The JSONObject it returns. NULL if something went wrong.
      */
-    public static String requestJSON(String url) {
+    public static RequestResults requestJSON(String url) {
         String rawJSON;
         HttpURLConnection connection = null;
         try {
@@ -100,7 +102,7 @@ public class RequestUtil {
 
             if (in == null) {
                 connection.disconnect();
-                return null;
+                return new RequestResults(null, -1, null);
             }
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
@@ -108,7 +110,7 @@ public class RequestUtil {
             reader.close();
         } catch (IOException exception) {
             logger.error("Unable to connect to or read from {}", url, exception);
-            return null;
+            return new RequestResults(null, -1, exception);
         } finally {
             if (connection != null) {
                 connection.disconnect();
@@ -116,9 +118,9 @@ public class RequestUtil {
         }
         if (rawJSON.isEmpty()) {
             logger.error("Read JSON from {} returned an empty string!", url);
-            return null;
+            return new RequestResults(null, -1, null);
         }
-        return rawJSON;
+        return new RequestResults(rawJSON, -1, null);
     }
 
     /**
@@ -129,11 +131,14 @@ public class RequestUtil {
      */
     public static boolean testFrontEnd(String url) {
         int response;
+        HttpURLConnection connection = null;
         try {
             URL connectUrl = new URL(url);
-            HttpURLConnection connection = (HttpURLConnection) connectUrl.openConnection();
+            connection = (HttpURLConnection) connectUrl.openConnection();
             connection.setRequestProperty("User-Agent", CobaltTester.USER_AGENT);
             connection.setRequestMethod("GET");
+            connection.setConnectTimeout(20000);
+            connection.setReadTimeout(20000);
             connection.connect();
             response = connection.getResponseCode();
 
@@ -160,6 +165,10 @@ public class RequestUtil {
         } catch (IOException exception) {
             logger.error("Unable to read URL {}", url, exception);
             return false;
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
         return false;
     }
@@ -170,18 +179,26 @@ public class RequestUtil {
      * @param urlString The URL to test.
      * @return The status code.
      */
-    public static int getStatusCode(String urlString) {
-        int statusCode = -1;
+    public static RequestResults getStatusCode(String urlString) {
+        int statusCode;
+        HttpURLConnection connection = null;
         try {
             URL url = URI.create(urlString).toURL();
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection = (HttpURLConnection) url.openConnection();
             connection.setRequestProperty("User-Agent", CobaltTester.USER_AGENT);
             connection.setRequestMethod("GET");
+            connection.setConnectTimeout(20000);
+            connection.setReadTimeout(20000);
             connection.connect();
             statusCode = connection.getResponseCode();
         } catch (IOException exception) {
             logger.error("Unable to test url {}", urlString, exception);
+            return new RequestResults(null, -1, exception);
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
-        return statusCode;
+        return new RequestResults(null, statusCode, null);
     }
 }

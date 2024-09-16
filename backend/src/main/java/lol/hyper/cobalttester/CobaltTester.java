@@ -20,9 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class CobaltTester {
 
@@ -77,6 +75,7 @@ public class CobaltTester {
         File instancesFile = new File("instances");
         File testUrlsFile = new File("tests.json");
         List<String> instanceFileContents = FileUtil.readRawFile(instancesFile);
+        logger.info("Loaded {} instances from file", instanceFileContents.size());
         String testUrlContents = FileUtil.readFile(testUrlsFile);
         if (testUrlContents == null) {
             logger.error("tests.json failed to load!");
@@ -123,13 +122,14 @@ public class CobaltTester {
                 frontEnd = null;
             }
             // build the instance
-            logger.info("Building instance {}", api);
+            logger.info("Setting up instance {}", api);
             Instance newInstance = new Instance(frontEnd, api, protocol, trustStatus);
             newInstance.setHash(StringUtil.makeHash(api));
             instances.add(newInstance);
             newInstance.loadApiJSON();
 
             if (newInstance.isApiWorking()) {
+                logger.info("SUCCESS!!!!!!!! version={}", newInstance.getVersion());
                 for (Map.Entry<String, String> tests : services.getTests().entrySet()) {
                     String service = tests.getKey();
                     String url = tests.getValue();
@@ -141,32 +141,54 @@ public class CobaltTester {
                     Test frontEndTest = new Test(newInstance, "Frontend", protocol + "://" + frontEnd);
                     testsToRun.add(frontEndTest);
                 }
+            } else {
+                logger.warn("{} is OFFLINE!!!!!!!!", api);
             }
         }
-
         Collections.shuffle(testsToRun);
-        int totalTests = testsToRun.size();
+        ConcurrentLinkedQueue<Test> testsQueue = new ConcurrentLinkedQueue<>(testsToRun);
+        CountDownLatch latch = new CountDownLatch(testsQueue.size());
+        int totalTests = testsQueue.size();
         int cores = Runtime.getRuntime().availableProcessors();
         logger.info("Total tests to process: {}", totalTests);
 
         executorService = Executors.newFixedThreadPool(cores * 2);
 
         // queue all tests
-        for (Test test : testsToRun) {
-            executorService.submit(test::run);
+        while (!testsQueue.isEmpty()) {
+            Test test = testsQueue.poll();
+            if (test != null) {
+                executorService.submit(() -> {
+                    try {
+                        test.run();
+                    } catch (Exception e) {
+                        logger.error("Test failed due to an exception: {}", test, e);
+                    } finally {
+                        latch.countDown();
+                    }
+                });
+            }
         }
         executorService.shutdown();
 
         // Wait until all tasks are finished
         try {
-            if (!executorService.awaitTermination(40, TimeUnit.MINUTES)) {
-                logger.error("ExecutorService did not terminate properly!!!!!");
+            while (!latch.await(1, TimeUnit.MINUTES)) {
+                logger.info("Remaining tests: {}", latch.getCount());
+                if (!testsQueue.isEmpty()) {
+                    logger.info("Tests still in queue: {}", testsQueue);
+                }
             }
         } catch (InterruptedException exception) {
-            logger.error(exception);
+            logger.error("Execution was interrupted", exception);
         }
 
-        logger.info("All threads have completed!!!!");
+        if (latch.getCount() == 0) {
+            logger.info("All tests have completed!!!!");
+        } else {
+            logger.error("There are tests remaining that we did not complete :(((");
+            logger.error("Tests left: {}", latch.getCount());
+        }
 
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
         f.setTimeZone(TimeZone.getTimeZone("UTC"));

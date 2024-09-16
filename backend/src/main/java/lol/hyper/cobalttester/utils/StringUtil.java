@@ -200,8 +200,8 @@ public class StringUtil {
         if (input.contains("not supported")) {
             return "Instance does not support this service";
         }
-        if (input.contains("find anything about this") || input.contains("something went wrong") || input.contains("i don't see anything")) {
-            return "Failed to fetch media";
+        if (input.contains("find anything about this") || input.contains("something went wrong") || input.contains("i don't see anything") || input.contains("fetch.fail") || input.contains("fetch.critical")) {
+            return "Failed to load media, this can be for a lot of reasons";
         }
         if (input.contains("soundcloud")) {
             return "Failed to fetch temporary token for download";
@@ -217,6 +217,12 @@ public class StringUtil {
         }
         if (input.contains("fetch.empty")) {
             return "This service did not return anything to download";
+        }
+        if (input.contains("SocketTimeoutException") || input.contains("timed_out")) {
+            return "Timed out, or this instance is slow";
+        }
+        if (input.contains("JSONException")) {
+            return "API returned invalid JSON";
         }
         return removeHtml(input);
     }

@@ -1,5 +1,6 @@
 package lol.hyper.cobalttester.instance;
 
+import lol.hyper.cobalttester.requests.RequestResults;
 import lol.hyper.cobalttester.requests.RequestUtil;
 import lol.hyper.cobalttester.requests.TestResult;
 import org.apache.commons.text.StringEscapeUtils;
@@ -8,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.util.*;
 
 public class Instance implements Comparable<Instance> {
@@ -191,10 +194,11 @@ public class Instance implements Comparable<Instance> {
         JSONObject json;
         String url = protocol + "://" + api;
         // check the base of the domain first (for cobalt 10)
-        int responseCode = RequestUtil.getStatusCode(url);
+        RequestResults requestResults = RequestUtil.getStatusCode(url);
+        int responseCode = requestResults.responseCode();
         if (responseCode == 200) {
             // Load the API information
-            responseContent = RequestUtil.requestJSON(url);
+            responseContent = RequestUtil.requestJSON(url).responseContent();
             // if it fails to load any content (this should never happen with 200)
             if (responseContent == null) {
                 logger.warn("Root content null for {}", api);
@@ -206,7 +210,7 @@ public class Instance implements Comparable<Instance> {
                 json = new JSONObject(responseContent);
             } catch (JSONException exception) {
                 logger.warn("Failed to parse root for {}, trying /api/serverInfo", api);
-                responseContent = RequestUtil.requestJSON(url + "/api/serverInfo");
+                responseContent = RequestUtil.requestJSON(url + "/api/serverInfo").responseContent();
                 if (responseContent == null) {
                     logger.warn("Response null for {} on /api/serverInfo", api);
                     setOffline();
@@ -224,7 +228,7 @@ public class Instance implements Comparable<Instance> {
         } else {
             // check the older serverInfo response (base returned not 200)
             url = url + "/api/serverInfo";
-            responseContent = RequestUtil.requestJSON(url);
+            responseContent = RequestUtil.requestJSON(url).responseContent();
             // if it fails to load any content
             if (responseContent == null) {
                 logger.warn("Response null for {} on /api/serverInfo", api);
@@ -308,7 +312,6 @@ public class Instance implements Comparable<Instance> {
         this.setBranch("Offline");
         this.setName("Offline");
         this.setVersion("Offline");
-        logger.warn("Marking {} as OFFLINE", api);
     }
 
     @Override
