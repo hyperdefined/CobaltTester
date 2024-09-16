@@ -5,7 +5,7 @@ description: "an api to access the instance list"
 ---
 This is a simple API to access the list of instances. Please don't scrape this site, you can parse the API and make our lives both easier.
 
-All the instance data is store here: <code>https://instances.hyper.lol/instances.json</code>. This JSON file is created when the script runs. The script runs at the top of every hour and completes within 30-40 minutes.
+All the instance data is store here: <code>https://instances.hyper.lol/instances.json</code>. This JSON file is created when the script runs. The script runs every 30 minutes and completes within 10 minutes.
 
 <strong>Please set a proper user agent when making requests!</strong> I block common user agents (like `curl`, `python-requests`, `Go-http-client` etc) due to many bots hitting this server. I want to know who uses this API!
 
