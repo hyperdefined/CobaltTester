@@ -52,3 +52,4 @@ backend/target
 backend/instances.json
 backend/removed_instances
 CobaltTester-*.jar
+backend/jwt.json

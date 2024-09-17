@@ -26,7 +26,7 @@ public class RequestUtil {
      * @param url  The url to send to.
      * @return A RequestResults object.
      */
-    public static RequestResults sendPost(JSONObject body, String url) {
+    public static RequestResults sendPost(JSONObject body, String url, String authorization) {
         String content;
         HttpURLConnection connection = null;
         int responseCode = -1;
@@ -39,6 +39,9 @@ public class RequestUtil {
             connection.setDoOutput(true);
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
+            if (authorization != null) {
+                connection.setRequestProperty("Authorization", "Bearer " + authorization);
+            }
             connection.setRequestProperty("User-Agent", CobaltTester.USER_AGENT);
             connection.setConnectTimeout(20000);
             connection.setReadTimeout(20000);

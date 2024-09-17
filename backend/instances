@@ -42,21 +42,17 @@ apicloud6.filsfkwtlfjas.xyz,None,https,unknown
 apicloud8.filsfkwtlfjas.xyz,None,https,unknown
 apicloud9.filsfkwtlfjas.xyz,None,https,unknown
 songfinderapi.ddns.net:9000,songfinderapi.ddns.net:9001,http,unknown
-api.down.vipvtt.cn,down.vipvtt.cn,https,unknown
 dl.khyernet.xyz,co.khyernet.xyz,https,safe
 apicb.tigaultraman.com,cb.tigaultraman.com,https,unknown
-cobalt.decrystalfan.app,video.decrystalfan.app,https,unknown
 cobalt.misike.eu,None,https,unknown
 co.otomir23.me,co.otomir23.me,https,safe
 api-cobalt.isnubi.fr,cobalt.isnubi.fr,https,unknown
 dl.hep.gg,co.hep.gg,https,safe
 cobaltapi.laidoulaile.icu,cobalt.laidoulaile.icu,https,unknown
-api.knap.cc:8888,None,https,unknown
 co-api.vulpine.network,co.vulpine.network,https,unknown
 node02.dlapi.app,None,https,unknown
 node03.dlapi.app,None,https,unknown
 node04.dlapi.app,None,https,unknown
-node05.dlapi.app,None,https,unknown
 cobalt.yuntae.in,None,https,unknown
 cobaltapi.hnplz.top,cobalt.hnplz.top,https,unknown
 dl-api.polyg.online,dl.polyg.online,https,unknown
@@ -76,7 +72,6 @@ trashtrack.chickenkiller.com:9000,trashtrack.chickenkiller.com:9001,http,unknown
 dwnld-api.nichind.dev,None,https,unknown
 cobalt-api.bloat.cat,cobalt.bloat.cat,https,unknown
 cobaltservice.6vz.dev,cobalt.6vz.dev,https,unknown
-cobaltapi-oracle-bbb-arm-01.thetech.network,cobalt.thetech.network,https,unknown
 v.justinmad.com,v.justinmad.com,https,unknown
 api-youtube.briddle.party,youtube.briddle.party,https,unknown
 www.lingyunmu.site,www.lingyunmu.site,http,unknown
@@ -111,8 +106,6 @@ www.lingyunmu.site,www.lingyunmu.site,http,unknown
 152.67.111.114:9000,None,http,unknown
 43.135.145.225:9000,43.135.145.225:9001,http,unknown
 193.123.56.138:9000,None,http,unknown
-157.173.195.144:9000,None,http,unknown
-107.175.136.189:9000,107.175.136.189:9001,http,unknown
 223.240.69.157:9002,223.240.69.157:9003,http,unknown
 107.174.246.175:9000,107.174.246.175:9001,http,unknown
 156.254.114.3:9000,156.254.114.3:9001,http,unknown
@@ -159,6 +152,4 @@ www.lingyunmu.site,www.lingyunmu.site,http,unknown
 172.247.113.233:9000,172.247.113.233:9001,http,unknown
 47.108.64.162:9000,47.108.64.162:9001,http,unknown
 154.9.241.49:9000,154.9.241.49:9001,http,unknown
-120.245.57.22:9000,120.245.57.22:9001,http,unknown
 85.203.42.21,85.203.42.21,http,unknown
-61.240.37.60:9000,61.240.37.60:9001,http,unknown

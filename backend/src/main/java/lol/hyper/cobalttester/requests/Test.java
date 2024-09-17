@@ -11,13 +11,15 @@ public class Test {
     private final Instance instance;
     private final String service;
     private final String testUrl;
+    private final String authorization;
     private final Logger logger = LogManager.getLogger(this);
     private int attempts = 0;
 
-    public Test(Instance instance, String service, String testUrl) {
+    public Test(Instance instance, String service, String testUrl, String authorization) {
         this.instance = instance;
         this.service = service;
         this.testUrl = testUrl;
+        this.authorization = authorization;
     }
 
     public void run() {
@@ -48,7 +50,7 @@ public class Test {
         }
         JSONObject postContents = new JSONObject();
         postContents.put("url", testUrl);
-        RequestResults testResponse = RequestUtil.sendPost(postContents, api);
+        RequestResults testResponse = RequestUtil.sendPost(postContents, api, authorization);
         String content = testResponse.responseContent();
         int responseCode = testResponse.responseCode();
         Exception exception = testResponse.exception();

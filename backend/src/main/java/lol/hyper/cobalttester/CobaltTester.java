@@ -74,14 +74,21 @@ public class CobaltTester {
         // load some files
         File instancesFile = new File("instances");
         File testUrlsFile = new File("tests.json");
+        File jwtFile = new File("jwt.json");
         List<String> instanceFileContents = FileUtil.readRawFile(instancesFile);
         logger.info("Loaded {} instances from file", instanceFileContents.size());
         String testUrlContents = FileUtil.readFile(testUrlsFile);
+        String jwtContents = FileUtil.readFile(jwtFile);
         if (testUrlContents == null) {
             logger.error("tests.json failed to load!");
             System.exit(1);
         }
+        if (jwtContents == null) {
+            logger.error("jwt.json failed to load!");
+            jwtContents = "{}";
+        }
         JSONObject testUrlsContents = new JSONObject(testUrlContents);
+        JSONObject jwtTokens = new JSONObject(jwtContents);
         // make sure all files exist
         if (instanceFileContents.isEmpty()) {
             logger.error("Instance file returned empty. Does it exist?");
@@ -130,15 +137,20 @@ public class CobaltTester {
 
             if (newInstance.isApiWorking()) {
                 logger.info("SUCCESS!!!!!!!! version={}", newInstance.getVersion());
+                String token = null;
+                if (jwtTokens.has(api)) {
+                    logger.info("Found authorization token for {}", api);
+                    token = jwtTokens.getString(api);
+                }
                 for (Map.Entry<String, String> tests : services.getTests().entrySet()) {
                     String service = tests.getKey();
                     String url = tests.getValue();
-                    Test test = new Test(newInstance, service, url);
+                    Test test = new Test(newInstance, service, url, token);
                     testsToRun.add(test);
                 }
                 // if the frontend is not null, add it to the tests
                 if (newInstance.getFrontEnd() != null) {
-                    Test frontEndTest = new Test(newInstance, "Frontend", protocol + "://" + frontEnd);
+                    Test frontEndTest = new Test(newInstance, "Frontend", protocol + "://" + frontEnd, null);
                     testsToRun.add(frontEndTest);
                 }
             } else {
