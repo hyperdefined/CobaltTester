@@ -75,6 +75,10 @@ cobaltservice.6vz.dev,cobalt.6vz.dev,https,unknown
 v.justinmad.com,v.justinmad.com,https,unknown
 api-youtube.briddle.party,youtube.briddle.party,https,unknown
 www.lingyunmu.site,www.lingyunmu.site,http,unknown
+dl04.yt-dl.click,None,https,unknown
+dl06.yt-dl.click,None,https,unknown
+coapi.astronima.bet,cobalt.astronima.bet,https,unknown
+api-dl.cgm.rs,dl.cgm.rs,https,safe
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http,unknown
@@ -153,3 +157,4 @@ www.lingyunmu.site,www.lingyunmu.site,http,unknown
 47.108.64.162:9000,47.108.64.162:9001,http,unknown
 154.9.241.49:9000,154.9.241.49:9001,http,unknown
 85.203.42.21,85.203.42.21,http,unknown
+34.107.254.11,None,http,unknown
