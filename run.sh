@@ -24,6 +24,8 @@ java -jar CobaltTester-latest.jar web
 export JEKYLL_ENV=production
 cd ../web || exit
 echo Building site...
+bundle install
+bundle update
 bundle exec jekyll build
 
 # Copy the instances.json to site output
