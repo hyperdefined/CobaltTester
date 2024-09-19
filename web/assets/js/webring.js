@@ -26,7 +26,8 @@ var cobaltWebring_members = [
     'hyper.lol',
     'lostdusty.dev.br',
     'canine.tools',
-    'nat.envs.sh'
+    'nat.envs.sh',
+    'spax.zone'
 ];
 
 // Various config options that should be self-documenting.
