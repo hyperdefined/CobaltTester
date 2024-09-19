@@ -31,10 +31,10 @@ var cobaltWebring_members = [
 // Various config options that should be self-documenting.
 // Again, if you're hosting this Librering, please change all the instances of cobaltWebring to your particular webring name in lower case, and insert valid image URLs for the badges and navigation.
 var cobaltWebring_ringurl = "https://instances.hyper.lol/webring"; // The URL of the webring itself, for contact and information purposes.
-var cobaltWebring_badgeurl = "http://instances.hyper.lol/assets/img/cobalt_wr_home_animated.gif"; // The URL of the main badge of the webring; 88x31 recommended, but any size goes.
-var cobaltWebring_prevurl = "http://instances.hyper.lol/assets/img/cobalt_wr_prev.png"; // The URL of the PREVIOUS badge of the webring; in the original design, a quarter of the main badge.
-var cobaltWebring_nexturl = "http://instances.hyper.lol/assets/img/cobalt_wr_next.png"; // The URL of the NEXT badge of the webring; in the original design, a quarter of the main badge.
-var cobaltWebring_randomurl = "http://instances.hyper.lol/assets/img/cobalt_wr_random.png"; // The URL of the RANDOM badge of the webring; in the original design, a quarter of the main badge.
+var cobaltWebring_badgeurl = "https://instances.hyper.lol/assets/img/cobalt_wr_home_animated.gif"; // The URL of the main badge of the webring; 88x31 recommended, but any size goes.
+var cobaltWebring_prevurl = "https://instances.hyper.lol/assets/img/cobalt_wr_prev.png"; // The URL of the PREVIOUS badge of the webring; in the original design, a quarter of the main badge.
+var cobaltWebring_nexturl = "https://instances.hyper.lol/assets/img/cobalt_wr_next.png"; // The URL of the NEXT badge of the webring; in the original design, a quarter of the main badge.
+var cobaltWebring_randomurl = "https://instances.hyper.lol/assets/img/cobalt_wr_random.png"; // The URL of the RANDOM badge of the webring; in the original design, a quarter of the main badge.
 
 // 路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路
 // : DISPLAY SECTION :: This defines whatever happens on a member's individual site: most notably, inserting a little display. :
