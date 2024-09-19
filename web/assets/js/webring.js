@@ -25,7 +25,8 @@ var cobaltWebring_members = [
     'instances.hyper.lol',
     'hyper.lol',
     'lostdusty.dev.br',
-    'canine.tools'
+    'canine.tools',
+    'nat.envs.sh'
 ];
 
 // Various config options that should be self-documenting.
