@@ -1,11 +1,13 @@
 package lol.hyper.cobalttester.instance;
 
+import lol.hyper.cobalttester.CobaltTester;
 import lol.hyper.cobalttester.requests.RequestResults;
 import lol.hyper.cobalttester.requests.RequestUtil;
 import lol.hyper.cobalttester.requests.TestResult;
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.message.ReusableMessageFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,7 +31,7 @@ public class Instance implements Comparable<Instance> {
     private double score;
     private String hash;
     private boolean isNew = false;
-    private final Logger logger = LogManager.getLogger(this);
+    private final Logger logger = LogManager.getLogger(Instance.class, CobaltTester.MESSAGE_FACTORY);
 
     private final List<TestResult> testResults = new ArrayList<>();
 
@@ -254,10 +256,6 @@ public class Instance implements Comparable<Instance> {
             return;
         }
 
-        if (json.has("name")) {
-            String name = json.getString("name");
-            this.setName(StringEscapeUtils.escapeHtml4(name));
-        }
         if (json.has("version")) {
             String version = json.getString("version");
             // older instances had -dev in the version
@@ -265,6 +263,15 @@ public class Instance implements Comparable<Instance> {
                 version = version.replace("-dev", "");
             }
             this.setVersion(StringEscapeUtils.escapeHtml4(version));
+        } else {
+            logger.warn("{} is online, but failed to get version", api);
+            setOffline();
+            return;
+        }
+
+        if (json.has("name")) {
+            String name = json.getString("name");
+            this.setName(StringEscapeUtils.escapeHtml4(name));
         }
         if (json.has("commit")) {
             String commit = json.getString("commit");

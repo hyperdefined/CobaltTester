@@ -1,5 +1,6 @@
 package lol.hyper.cobalttester.requests;
 
+import lol.hyper.cobalttester.CobaltTester;
 import lol.hyper.cobalttester.instance.Instance;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,7 +13,7 @@ public class Test {
     private final String service;
     private final String testUrl;
     private final String authorization;
-    private final Logger logger = LogManager.getLogger(this);
+    private final Logger logger = LogManager.getLogger(Test.class, CobaltTester.MESSAGE_FACTORY);
     private int attempts = 0;
 
     public Test(Instance instance, String service, String testUrl, String authorization) {

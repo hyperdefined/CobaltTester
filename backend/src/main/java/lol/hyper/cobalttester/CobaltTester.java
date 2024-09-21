@@ -8,6 +8,7 @@ import lol.hyper.cobalttester.utils.StringUtil;
 import lol.hyper.cobalttester.web.WebBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.message.ReusableMessageFactory;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.Repository;
@@ -28,6 +29,7 @@ public class CobaltTester {
     public static String USER_AGENT = "CobaltTester-git-<commit> (+https://instances.hyper.lol)";
     public static JSONObject config;
     public static ExecutorService executorService;
+    public static final ReusableMessageFactory MESSAGE_FACTORY = new ReusableMessageFactory();
 
     public static void main(String[] args) {
         long startTime = System.nanoTime();
