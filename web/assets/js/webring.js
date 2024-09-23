@@ -27,7 +27,8 @@ var cobaltWebring_members = [
     'lostdusty.dev.br',
     'canine.tools',
     'nat.envs.sh',
-    'spax.zone'
+    'spax.zone',
+    'mae.wtf'
 ];
 
 // Various config options that should be self-documenting.
