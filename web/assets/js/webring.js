@@ -78,8 +78,8 @@ if (siteIndex == -1) {
     // Now it is time to get to the meaty stuff. This will replace our little display container with the actual display content: a general badge, next/previous buttons, and a webring info and random link.
     // Remove, swap around or change these components as you see fit.
     displayElement.innerHTML =
-    "<a href='https://" + cobaltWebring_members[beforeID] + "'><img alt='Previous' src='" + cobaltWebring_prevurl + "' /></a>" +
-    "<a href='" + cobaltWebring_ringurl + "'><img alt='Badge: cobaltWebring webring' src='" + cobaltWebring_badgeurl + "' /></a>" +
-    "<a href='https://" + cobaltWebring_members[randomID] + "'><img alt='Random' src='" + cobaltWebring_randomurl + "' /></a>" +
-    "<a href='https://" + cobaltWebring_members[afterID] + "'><img alt='Next' src='" + cobaltWebring_nexturl + "' /></a>";
+    "<a href='https://" + cobaltWebring_members[beforeID] + "'><img style='image-rendering: pixelated;' alt='Previous' src='" + cobaltWebring_prevurl + "' /></a>" +
+    "<a href='" + cobaltWebring_ringurl + "'><img style='image-rendering: pixelated;' alt='Badge: cobaltWebring webring' src='" + cobaltWebring_badgeurl + "' /></a>" +
+    "<a href='https://" + cobaltWebring_members[randomID] + "'><img style='image-rendering: pixelated;' alt='Random' src='" + cobaltWebring_randomurl + "' /></a>" +
+    "<a href='https://" + cobaltWebring_members[afterID] + "'><img style='image-rendering: pixelated;' alt='Next' src='" + cobaltWebring_nexturl + "' /></a>";
 }
