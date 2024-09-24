@@ -75,7 +75,7 @@ Safe instances are generally better to use, as they don't contain malicious code
 
 <details>
 <summary>How did you find these instances?</summary>
-I wrote a post about it <a href="https://hyper.lol/blog/2024/05-03-hunting-down-cobalt-instances/">here</a> on my blog. In short, I used "service scanners" to search for specific queries to find them. Some instances were requested to be added.
+I wrote a post about it <a href="https://hyper.lol/blog/2024/05-03/hunting-down-cobalt-instances">here</a> on my blog. In short, I used "service scanners" to search for specific queries to find them. Some instances were requested to be added.
 </details>
 
 <details>
