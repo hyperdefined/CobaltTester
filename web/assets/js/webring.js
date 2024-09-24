@@ -53,6 +53,7 @@ var cobaltWebring_randomurl = "https://instances.hyper.lol/assets/img/cobalt_wr_
 // For displaying messages of all kinds, as well as the working webring display, we want to keep our little HTML element in mind.
 // Remember to insert your webring's name here, just like everywhere, if you host this webring.
 var displayElement = document.getElementById("cobaltWebring"); 
+displayElement.style.textAlign = "center";
 
 // First of all, we want to check whether we are even a member of this particular webring, and if so, at which position.
 var currentLocation = window.location.hostname;
