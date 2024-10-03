@@ -15,9 +15,9 @@
     You should have received a copy of the GNU Lesser General Public License along with this program. If not, see <https://www.gnu.org/licenses/>. 
 */
 
-// 路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路
+// ------------------------------------------------------------------------
 // : ADMINISTRATOR SECTION :: This section contains configuration options :
-// 路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路
+// ------------------------------------------------------------------------
 
 // List of all members in the webring. Add onto this manually whenever you want to add someone new to the ring.
 // Please take time to go through here and use the search-and-replace feature of your favorite text editor to change all instances of cobaltWebring to a lower-case or camel-case version of your webring name, as well as change the configuration to your liking.
@@ -39,9 +39,9 @@ var cobaltWebring_prevurl = "https://instances.hyper.lol/assets/img/cobalt_wr_pr
 var cobaltWebring_nexturl = "https://instances.hyper.lol/assets/img/cobalt_wr_next.png"; // The URL of the NEXT badge of the webring; in the original design, a quarter of the main badge.
 var cobaltWebring_randomurl = "https://instances.hyper.lol/assets/img/cobalt_wr_random.png"; // The URL of the RANDOM badge of the webring; in the original design, a quarter of the main badge.
 
-// 路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路
+// -----------------------------------------------------------------------------------------------------------------------------
 // : DISPLAY SECTION :: This defines whatever happens on a member's individual site: most notably, inserting a little display. :
-// 路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路路
+// -----------------------------------------------------------------------------------------------------------------------------
 
 // Before you can use this, please replace all instances of cobaltWebring with your webring name in lower case.
 // This will allow you to have multiple webrings on the same site without them conflicting with each other. 
@@ -56,7 +56,7 @@ var displayElement = document.getElementById("cobaltWebring");
 displayElement.style.textAlign = "center";
 
 // First of all, we want to check whether we are even a member of this particular webring, and if so, at which position.
-var currentLocation = window.location.hostname;
+var currentLocation = displayElement.getAttribute("name") || window.location.hostname;
 var siteIndex = cobaltWebring_members.indexOf(currentLocation);
 
 // If our current location is NOT in the webring, display an error message. The rest of the code only runs if the site has been found in the webring.
