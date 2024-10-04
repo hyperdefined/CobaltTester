@@ -309,6 +309,10 @@ public class Instance implements Comparable<Instance> {
         JSONObject git = response.getJSONObject("git");
         this.setBranch(StringEscapeUtils.escapeHtml4(git.getString("branch")));
         this.setCommit(StringEscapeUtils.escapeHtml4(git.getString("commit").substring(0, 6)));
+        String remote = git.getString("remote");
+        if (!remote.equalsIgnoreCase("imputnet/cobalt")) {
+            logger.warn("{} is running a FORK, remote is {}", api, remote);
+        }
     }
 
     private void setOffline() {
