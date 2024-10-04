@@ -46,9 +46,6 @@ co.otomir23.me,co.otomir23.me,https,safe
 api-cobalt.isnubi.fr,cobalt.isnubi.fr,https,unknown
 cobaltapi.laidoulaile.icu,cobalt.laidoulaile.icu,https,unknown
 co-api.vulpine.network,co.vulpine.network,https,unknown
-node02.dlapi.app,None,https,unknown
-node03.dlapi.app,None,https,unknown
-node04.dlapi.app,None,https,unknown
 cobalt.yuntae.in,None,https,unknown
 cobaltapi.hnplz.top,cobalt.hnplz.top,https,unknown
 dl-api.polyg.online,dl.polyg.online,https,unknown
@@ -70,7 +67,6 @@ cobalt-api.bloat.cat,cobalt.bloat.cat,https,unknown
 cobaltservice.6vz.dev,cobalt.6vz.dev,https,unknown
 api-youtube.briddle.party,youtube.briddle.party,https,unknown
 www.lingyunmu.site,www.lingyunmu.site,http,unknown
-dl04.yt-dl.click,None,https,unknown
 coapi.astronima.bet,cobalt.astronima.bet,https,unknown
 cobalt-7.kwiatekmiki.com,cobalt-7.kwiatekmiki.com,https,safe
 cobalt.kwiatekmiki.com,None,https,safe
@@ -78,7 +74,6 @@ cobalt.kimbab.club,None,https,unknown
 apicobalt.momoshort.com,None,https,unknown
 mips.zapto.org:9000,None,http,unknown
 happy4ever.cloudns.ch:9000,None,http,unknown
-stickers-pack.site,None,https,unknown
 apicobalt.yingyintonghua.com,cobalt.yingyintonghua.com,https,unknown
 dl-02.w-ytdl.store,None,https,unknown
 dl-03.w-ytdl.store,None,https,unknown
@@ -86,19 +81,14 @@ dl-04.w-ytdl.store,None,https,unknown
 dl-05.w-ytdl.store,None,https,unknown
 dl-06.w-ytdl.store,None,https,unknown
 dl-07.w-ytdl.store,None,https,unknown
-dl-08.w-ytdl.store,None,https,unknown
 dl-09.w-ytdl.store,None,https,unknown
-dl-10.w-ytdl.store,None,https,unknown
-dl-11.w-ytdl.store,None,https,unknown
 dl-12.w-ytdl.store,None,https,unknown
 dl-13.w-ytdl.store,None,https,unknown
 dl-14.w-ytdl.store,None,https,unknown
-dl-15.w-ytdl.store,None,https,unknown
 dl-16.w-ytdl.store,None,https,unknown
 dl-17.w-ytdl.store,None,https,unknown
 dl-18.w-ytdl.store,None,https,unknown
 dl-19.w-ytdl.store,None,https,unknown
-dl-20.w-ytdl.store,None,https,unknown
 api-cobalt.bronto.website,None,https,unknown
 
 # instances without domains
@@ -140,7 +130,6 @@ api-cobalt.bronto.website,None,https,unknown
 54.253.121.98:9000,None,http,unknown
 147.78.247.244:9000,147.78.247.244:9001,http,unknown
 3.106.63.72:9000,None,http,unknown
-93.177.103.28:4444,None,http,unknown
 148.135.90.3:9000,148.135.90.3:9001,http,unknown
 123.202.99.111:9000,123.202.99.111:9001,http,unknown
 192.248.189.244:30000,None,http,unknown
@@ -151,11 +140,9 @@ api-cobalt.bronto.website,None,https,unknown
 144.126.131.132:9000,144.126.131.132:9001,http,unknown
 109.107.189.229:9000,109.107.189.229:9001,http,unknown
 178.63.19.109:9000,None,http,unknown
-35.220.205.248:9000,35.220.205.248:9001,http,unknown
 89.110.114.23:9000,89.110.114.23:9001,http,unknown
 13.229.126.191:10001,None,http,unknown
 5.42.83.140:9000,5.42.83.140:9001,http,unknown
-34.93.253.189:9000,34.93.253.189:9001,http,unknown
 89.110.110.80:9000,89.110.110.80:9001,http,unknown
 54.214.223.181:9000,54.214.223.181:9001,http,unknown
 74.48.192.26:9000,74.48.192.26:9001,http,unknown
@@ -170,7 +157,6 @@ api-cobalt.bronto.website,None,https,unknown
 74.48.35.30:9000,74.48.35.30:9001,http,unknown
 74.48.202.63:9000,74.48.202.63:9001,http,
 217.25.230.151:9000,None,http,unknown
-172.247.113.233:9000,172.247.113.233:9001,http,unknown
 47.108.64.162:9000,47.108.64.162:9001,http,unknown
 154.9.241.49:9000,154.9.241.49:9001,http,unknown
 34.107.254.11,None,http,unknown
