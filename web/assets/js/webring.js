@@ -26,7 +26,6 @@ var cobaltWebring_members = [
     'hyper.lol',
     'lostdusty.dev.br',
     'canine.tools',
-    'nat.envs.sh',
     'spax.zone',
     'mae.wtf'
 ];
