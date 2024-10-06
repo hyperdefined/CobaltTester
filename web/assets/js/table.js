@@ -1,6 +1,65 @@
-function sortTable(n, event) {
+// Function to apply all filters
+function applyFilters(tableId, searchInputId, dropdownId, sliderId) {
+    const input = document.getElementById(searchInputId);
+    const dropdown = document.getElementById(dropdownId);
+    const slider = document.getElementById(sliderId);
+
+    const filterText = input.value.toLowerCase();
+    const filterDropdown = dropdown.value;
+    const scoreValue = parseInt(slider.value, 10);
+
+    const valueDisplayId = sliderId + "-value";
+    const valueDisplay = document.getElementById(valueDisplayId);
+    if (valueDisplay) {
+        valueDisplay.textContent = scoreValue + "%";
+    }
+
+    const table = document.getElementById(tableId);
+    const rows = table.getElementsByTagName("tr");
+
+    for (let i = 1; i < rows.length; i++) {
+        const row = rows[i];
+        const cells = row.getElementsByTagName("td");
+        let shouldDisplay = true;
+
+        // Filter by search input
+        if (filterText) {
+            shouldDisplay = Array.from(cells).some(cell => {
+                const txtValue = cell.textContent || cell.innerText;
+                return txtValue.toLowerCase().indexOf(filterText) > -1;
+            });
+        }
+
+        // Filter by dropdown
+        if (filterDropdown !== "all") {
+            const rowClass = row.className;
+            shouldDisplay = shouldDisplay && (rowClass === filterDropdown);
+        }
+
+        // Filter by score
+        const scoreCell = cells[7];
+        if (scoreCell) {
+            const score = parseInt(scoreCell.textContent.replace('%', '').trim(), 10) || 0;
+            shouldDisplay = shouldDisplay && (score >= scoreValue);
+        }
+
+        row.style.display = shouldDisplay ? "" : "none";
+    }
+}
+
+function onFilterChange(tableId, searchInputId, dropdownId, sliderId) {
+    applyFilters(tableId, searchInputId, dropdownId, sliderId);
+}
+
+function convertEmojiToNumber(text) {
+    if (text.includes('✅')) return 1;
+    if (text.includes('❌')) return 0;
+    return text;
+}
+
+function sortTable(n, event, searchInputId, dropdownId, sliderId) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-    table = event.target.closest("table"); // Get the closest table from the header clicked
+    table = event.target.closest("table");
     switching = true;
     dir = "asc";
 
@@ -44,33 +103,8 @@ function sortTable(n, event) {
             }
         }
     }
-}
-
-function convertEmojiToNumber(text) {
-    if (text.includes('✅')) return 1;
-    if (text.includes('❌')) return 0;
-    return text;
-}
-
-function searchTable(searchInputId, tableId) {
-    var input = document.getElementById(searchInputId);
-    var filter = input.value.toLowerCase();
-    var table = document.getElementById(tableId);
-    var rows = table.getElementsByTagName("tr");
-
-    for (var i = 1; i < rows.length; i++) {
-        var cells = rows[i].getElementsByTagName("td");
-        var shouldDisplay = false;
-
-        for (var j = 0; j < cells.length; j++) {
-            var cell = cells[j];
-            var txtValue = cell.textContent || cell.innerText;
-
-            if (txtValue.toLowerCase().indexOf(filter) > -1) {
-                shouldDisplay = true;
-                break;
-            }
-        }
-        rows[i].style.display = shouldDisplay ? "" : "none";
-    }
+    console.log(searchInputId)
+    console.log(dropdownId)
+    console.log(sliderId)
+    applyFilters(table.id, searchInputId, dropdownId, sliderId);
 }

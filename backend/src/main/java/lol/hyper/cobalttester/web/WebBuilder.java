@@ -28,8 +28,8 @@ public class WebBuilder {
         String ipTable = StringUtil.buildMainTables(new ArrayList<>(instances), "ip");
         // replace the placeholder with the tables
         mainListTemplate = mainListTemplate.replaceAll("<main-table-official>", officialTable.replace(" id=\"sort-table\"", ""));
-        mainListTemplate = mainListTemplate.replaceAll("<main-table-domain>", mainTable.replace("sort-table", "main-table"));
-        mainListTemplate = mainListTemplate.replaceAll("<main-table-nodomain>", ipTable.replace("sort-table", "other-table"));
+        mainListTemplate = mainListTemplate.replaceAll("<main-table-domain>", mainTable.replace("sort-table", "main-table").replace("search", "'main-search'").replace("dropdown", "'main-filter'").replace("slider", "'slider-main'"));
+        mainListTemplate = mainListTemplate.replaceAll("<main-table-nodomain>", ipTable.replace("sort-table", "other-table").replace("search", "'other-search'").replace("dropdown", "'other-filter'").replace("slider", "'slider-other'"));
         mainListTemplate = mainListTemplate.replaceAll("<instance-count>", String.valueOf(instances.size()));
         // update the time it was run
         mainListTemplate = mainListTemplate.replaceAll("<time>", formattedDate);
@@ -48,9 +48,9 @@ public class WebBuilder {
         scoreTemplate = scoreTemplate.replaceAll("<hash>", instance.getHash());
         scoreTemplate = scoreTemplate.replaceAll("<time>", formattedDate);
         scoreTemplate = scoreTemplate.replaceAll("<trust>", instance.getTrustStatus());
-        scoreTemplate = scoreTemplate.replaceAll("<api-button>", "<a href=\"" + instance.getProtocol() + "://" + instance.getApi() + "\"><button>Access API</button></a>");
+        scoreTemplate = scoreTemplate.replaceAll("<api-button>", "<a href=\"" + instance.getProtocol() + "://" + instance.getApi() + "\"><button>View API</button></a>");
         if (instance.getFrontEnd() != null) {
-            String frontEnd = "<a href=\"" + instance.getProtocol() + "://" + instance.getFrontEnd() + "\"><button>Access Frontend</button></a>";
+            String frontEnd = "<a href=\"" + instance.getProtocol() + "://" + instance.getFrontEnd() + "\"><button>View Frontend</button></a>";
             scoreTemplate = scoreTemplate.replaceAll("<frontend-button>", frontEnd);
         } else {
             scoreTemplate = scoreTemplate.replaceAll("<frontend-button>", "");
@@ -84,8 +84,8 @@ public class WebBuilder {
 
         // replace the placeholder with the tables
         serviceTemplate = serviceTemplate.replaceAll("<service-table-official>", officialTable.replace(" id=\"sort-table\"", ""));
-        serviceTemplate = serviceTemplate.replaceAll("<service-table-domain>", mainTable.replace("sort-table", "main-table"));
-        serviceTemplate = serviceTemplate.replaceAll("<service-table-nodomain>", ipTable.replace("sort-table", "other-table"));
+        serviceTemplate = serviceTemplate.replaceAll("<service-table-domain>", mainTable.replace("sort-table", "main-table").replace("search", "'main-search'").replace("dropdown", "'main-filter'").replace("slider", "'slider-main'"));
+        serviceTemplate = serviceTemplate.replaceAll("<service-table-nodomain>", ipTable.replace("sort-table", "other-table").replace("search", "'other-search'").replace("dropdown", "'other-filter'").replace("slider", "'slider-other'"));
 
         FileUtil.writeFile(serviceTemplate, new File(CobaltTester.config.getString("service_path"), slug + ".md"));
     }

@@ -21,7 +21,7 @@ public class StringUtil {
     public static String buildMainTables(List<Instance> instances, String type) {
         StringBuilder table = new StringBuilder();
         // build the table for output
-        table.append("<div class=\"table-container\"><table id=\"sort-table\">\n<tr><th onclick=\"sortTable(0, event)\">Frontend</th><th onclick=\"sortTable(1, event)\">API</th><th onclick=\"sortTable(2, event)\">Version</th><th onclick=\"sortTable(3, event)\">Commit</th><th onclick=\"sortTable(4, event)\">Branch</th><th onclick=\"sortTable(5, event)\">Name</th><th onclick=\"sortTable(6, event)\">CORS</th><th onclick=\"sortTable(7, event)\">Score</th></tr>\n");
+        table.append("<div class=\"table-container\"><table id=\"sort-table\">\n<tr><th onclick=\"sortTable(0, event, search, dropdown, slider)\">Frontend</th><th onclick=\"sortTable(1, event, search, dropdown, slider)\">API</th><th onclick=\"sortTable(2, event, search, dropdown, slider)\">Version</th><th onclick=\"sortTable(3, event, search, dropdown, slider)\">Commit</th><th onclick=\"sortTable(4, event, search, dropdown, slider)\">Branch</th><th onclick=\"sortTable(5, event, search, dropdown, slider)\">Name</th><th onclick=\"sortTable(6, event, search, dropdown, slider)\">CORS</th><th onclick=\"sortTable(7, event)\">Score</th></tr>\n");
 
         List<Instance> filtered = FilterUtils.filter(instances, type);
 
@@ -136,7 +136,7 @@ public class StringUtil {
 
         StringBuilder table = new StringBuilder();
         // build the table for output
-        table.append("<div class=\"table-container\"><table id=\"sort-table\">\n<tr><th onclick=\"sortTable(0, event)\">Frontend</th><th onclick=\"sortTable(1, event)\">API</th><th onclick=\"sortTable(2, event)\">Working?</th></tr>\n");
+        table.append("<div class=\"table-container\"><table id=\"sort-table\">\n<tr><th onclick=\"sortTable(0, event, search, dropdown, slider)\">Frontend</th><th onclick=\"sortTable(1, event, search, dropdown, slider)\">API</th><th onclick=\"sortTable(2, event, search, dropdown, slider)\">Working?</th></tr>\n");
 
         for (Map.Entry<Instance, Boolean> pair : workingInstances.entrySet()) {
             Instance instance = pair.getKey();

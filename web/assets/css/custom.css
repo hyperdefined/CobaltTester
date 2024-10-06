@@ -143,16 +143,8 @@ header h1 {
         border-bottom: 1px solid white;
         color: white;
     }
-    td a {
-        background: unset;
+    .service-table a, .service-table td {
         color: black;
-        text-decoration: underline;
-    }
-    .safe a, .safe td {
-        color: white;
-    }
-    .unknown a, .unknown td {
-        color: white;
     }
     pre {
         background: rgb(25, 25, 25);
