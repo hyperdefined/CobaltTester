@@ -73,7 +73,7 @@ public class ApiCheck {
             } catch (JSONException exception2) {
                 logger.warn("Failed to parse serverInfo for {}", api);
                 // we tried everything, mark it dead
-                instance.setOffline();;
+                instance.setOffline();
                 return;
             }
         }
