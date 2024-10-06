@@ -1,8 +1,10 @@
 package lol.hyper.cobalttester;
 
 import lol.hyper.cobalttester.instance.Instance;
+import lol.hyper.cobalttester.requests.ApiCheck;
 import lol.hyper.cobalttester.requests.Test;
 import lol.hyper.cobalttester.services.Services;
+import lol.hyper.cobalttester.tests.TestBuilder;
 import lol.hyper.cobalttester.utils.FileUtil;
 import lol.hyper.cobalttester.utils.StringUtil;
 import lol.hyper.cobalttester.web.WebBuilder;
@@ -28,7 +30,6 @@ public class CobaltTester {
     public static Logger logger;
     public static String USER_AGENT = "CobaltTester-git-<commit> (+https://instances.hyper.lol)";
     public static JSONObject config;
-    public static ExecutorService executorService;
     public static final ReusableMessageFactory MESSAGE_FACTORY = new ReusableMessageFactory();
 
     public static void main(String[] args) {
@@ -76,21 +77,21 @@ public class CobaltTester {
         // load some files
         File instancesFile = new File("instances");
         File testUrlsFile = new File("tests.json");
-        File jwtFile = new File("jwt.json");
+        File apiKeysFile = new File("apikeys.json");
         List<String> instanceFileContents = FileUtil.readRawFile(instancesFile);
         logger.info("Loaded {} instances from file", instanceFileContents.size());
         String testUrlContents = FileUtil.readFile(testUrlsFile);
-        String jwtContents = FileUtil.readFile(jwtFile);
+        String apiKeyContents = FileUtil.readFile(apiKeysFile);
         if (testUrlContents == null) {
             logger.error("tests.json failed to load!");
             System.exit(1);
         }
-        if (jwtContents == null) {
-            logger.error("jwt.json failed to load!");
-            jwtContents = "{}";
+        if (apiKeyContents == null) {
+            logger.error("apikeys.json failed to load!");
+            apiKeyContents = "{}";
         }
         JSONObject testUrlsContents = new JSONObject(testUrlContents);
-        JSONObject jwtTokens = new JSONObject(jwtContents);
+        JSONObject apiKeys = new JSONObject(apiKeyContents);
         // make sure all files exist
         if (instanceFileContents.isEmpty()) {
             logger.error("Instance file returned empty. Does it exist?");
@@ -104,8 +105,6 @@ public class CobaltTester {
         // load the tests into services
         Services services = new Services(testUrlsContents);
         services.importTests();
-
-        List<Test> testsToRun = new ArrayList<>();
 
         // shuffle the lists here
         Collections.shuffle(instanceFileContents);
@@ -135,74 +134,50 @@ public class CobaltTester {
             Instance newInstance = new Instance(frontEnd, api, protocol, trustStatus);
             newInstance.setHash(StringUtil.makeHash(api));
             instances.add(newInstance);
-            newInstance.loadApiJSON();
+        }
 
-            if (newInstance.isApiWorking()) {
-                logger.info("SUCCESS!!!!!!!! version={}", newInstance.getVersion());
+        // create the tests to make sure each API works
+        List<ApiCheck> apiChecks = new ArrayList<>();
+        for (Instance instance : instances) {
+            ApiCheck apiCheck = new ApiCheck(instance);
+            apiChecks.add(apiCheck);
+        }
+
+        // create the test builder, which performs the tests
+        TestBuilder testBuilder = new TestBuilder();
+        // check the APIs to see if they work
+        testBuilder.runApiInfoTests(apiChecks);
+
+        // create tests for all APIs that are working
+        List<Test> testsToRun = new ArrayList<>();
+        for (Instance instance : instances) {
+            if (instance.isApiWorking()) {
                 String token = null;
-                if (jwtTokens.has(api)) {
+                String api = instance.getApi();
+                logger.info("{} is ONLINE", instance.getApi());
+                if (apiKeys.has(api)) {
                     logger.info("Found authorization token for {}", api);
-                    token = jwtTokens.getString(api);
+                    token = apiKeys.getString(api);
                 }
                 for (Map.Entry<String, String> tests : services.getTests().entrySet()) {
                     String service = tests.getKey();
                     String url = tests.getValue();
-                    Test test = new Test(newInstance, service, url, token);
+                    Test test = new Test(instance, service, url, token);
                     testsToRun.add(test);
                 }
                 // if the frontend is not null, add it to the tests
-                if (newInstance.getFrontEnd() != null) {
-                    Test frontEndTest = new Test(newInstance, "Frontend", protocol + "://" + frontEnd, null);
+                if (instance.getFrontEnd() != null) {
+                    Test frontEndTest = new Test(instance, "Frontend", instance.getProtocol() + "://" + instance.getFrontEnd(), null);
                     testsToRun.add(frontEndTest);
                 }
             } else {
-                logger.warn("{} is OFFLINE!!!!!!!!", api);
+                logger.info("{} is OFFLINE", instance.getApi());
             }
         }
+
+        // perform the service tests
         Collections.shuffle(testsToRun);
-        ConcurrentLinkedQueue<Test> testsQueue = new ConcurrentLinkedQueue<>(testsToRun);
-        CountDownLatch latch = new CountDownLatch(testsQueue.size());
-        int totalTests = testsQueue.size();
-        int cores = Runtime.getRuntime().availableProcessors();
-        logger.info("Total tests to process: {}", totalTests);
-
-        executorService = Executors.newFixedThreadPool(cores * 2);
-
-        // queue all tests
-        while (!testsQueue.isEmpty()) {
-            Test test = testsQueue.poll();
-            if (test != null) {
-                executorService.submit(() -> {
-                    try {
-                        test.run();
-                    } catch (Exception e) {
-                        logger.error("Test failed due to an exception: {}", test, e);
-                    } finally {
-                        latch.countDown();
-                    }
-                });
-            }
-        }
-        executorService.shutdown();
-
-        // Wait until all tasks are finished
-        try {
-            while (!latch.await(1, TimeUnit.MINUTES)) {
-                logger.info("Remaining tests: {}", latch.getCount());
-                if (!testsQueue.isEmpty()) {
-                    logger.info("Tests still in queue: {}", testsQueue);
-                }
-            }
-        } catch (InterruptedException exception) {
-            logger.error("Execution was interrupted", exception);
-        }
-
-        if (latch.getCount() == 0) {
-            logger.info("All tests have completed!!!!");
-        } else {
-            logger.error("There are tests remaining that we did not complete :(((");
-            logger.error("Tests left: {}", latch.getCount());
-        }
+        testBuilder.runServiceTests(testsToRun);
 
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
         f.setTimeZone(TimeZone.getTimeZone("UTC"));

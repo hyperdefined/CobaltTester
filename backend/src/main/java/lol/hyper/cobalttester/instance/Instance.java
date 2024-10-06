@@ -1,19 +1,16 @@
 package lol.hyper.cobalttester.instance;
 
 import lol.hyper.cobalttester.CobaltTester;
-import lol.hyper.cobalttester.requests.RequestResults;
-import lol.hyper.cobalttester.requests.RequestUtil;
 import lol.hyper.cobalttester.requests.TestResult;
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.message.ReusableMessageFactory;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 public class Instance implements Comparable<Instance> {
 
@@ -30,8 +27,6 @@ public class Instance implements Comparable<Instance> {
     private boolean apiWorking;
     private double score;
     private String hash;
-    private boolean isNew = false;
-    private final Logger logger = LogManager.getLogger(Instance.class, CobaltTester.MESSAGE_FACTORY);
 
     private final List<TestResult> testResults = new ArrayList<>();
 
@@ -173,10 +168,6 @@ public class Instance implements Comparable<Instance> {
         this.trustStatus = trustStatus;
     }
 
-    public boolean isNew() {
-        return isNew;
-    }
-
     public void calculateScore() {
         long workingServices = testResults.stream().filter(TestResult::status).count();
         int totalTestsRan = testResults.size();
@@ -187,135 +178,7 @@ public class Instance implements Comparable<Instance> {
         }
     }
 
-    /**
-     * Save the API's information.
-     */
-    public void loadApiJSON() {
-        logger.info("Reading API information for {}", api);
-        String responseContent;
-        JSONObject json;
-        String url = protocol + "://" + api;
-        // check the base of the domain first (for cobalt 10)
-        RequestResults requestResults = RequestUtil.getStatusCode(url);
-        int responseCode = requestResults.responseCode();
-        if (responseCode == 200) {
-            // Load the API information
-            responseContent = RequestUtil.requestJSON(url).responseContent();
-            // if it fails to load any content (this should never happen with 200)
-            if (responseContent == null) {
-                logger.warn("Root content null for {}", api);
-                setOffline();
-                return;
-            }
-            // if it fails to parse, try /api/serverInfo
-            try {
-                json = new JSONObject(responseContent);
-            } catch (JSONException exception) {
-                logger.warn("Failed to parse root for {}, trying /api/serverInfo", api);
-                responseContent = RequestUtil.requestJSON(url + "/api/serverInfo").responseContent();
-                if (responseContent == null) {
-                    logger.warn("Response null for {} on /api/serverInfo", api);
-                    setOffline();
-                    return;
-                }
-                try {
-                    json = new JSONObject(responseContent);
-                } catch (JSONException exception2) {
-                    // we tried everything, mark it dead
-                    logger.warn("Failed to parse /api/serverInfo for {}", api);
-                    setOffline();
-                    return;
-                }
-            }
-        } else {
-            // check the older serverInfo response (base returned not 200)
-            url = url + "/api/serverInfo";
-            responseContent = RequestUtil.requestJSON(url).responseContent();
-            // if it fails to load any content
-            if (responseContent == null) {
-                logger.warn("Response null for {} on /api/serverInfo", api);
-                setOffline();
-                return;
-            }
-            // make sure we can parse it
-            try {
-                json = new JSONObject(responseContent);
-            } catch (JSONException exception2) {
-                logger.warn("Failed to parse serverInfo for {}", api);
-                // we tried everything, mark it dead
-                setOffline();
-                return;
-            }
-        }
-
-        this.setApiWorking(true);
-        // on cobalt 10, the JSON response is different
-        if (json.has("cobalt")) {
-            loadNewApi(json);
-            isNew = true;
-            return;
-        }
-
-        if (json.has("version")) {
-            String version = json.getString("version");
-            // older instances had -dev in the version
-            if (version.contains("-dev")) {
-                version = version.replace("-dev", "");
-            }
-            this.setVersion(StringEscapeUtils.escapeHtml4(version));
-        } else {
-            logger.warn("{} is online, but failed to get version", api);
-            setOffline();
-            return;
-        }
-
-        if (json.has("name")) {
-            String name = json.getString("name");
-            this.setName(StringEscapeUtils.escapeHtml4(name));
-        }
-        if (json.has("commit")) {
-            String commit = json.getString("commit");
-            this.setCommit(StringEscapeUtils.escapeHtml4(commit));
-        }
-        if (json.has("branch")) {
-            String branch = json.getString("branch");
-            this.setBranch(StringEscapeUtils.escapeHtml4(branch));
-        }
-        if (json.has("cors")) {
-            int cors = json.getInt("cors");
-            if (cors == 0 || cors == 1) {
-                this.setCors(cors);
-            } else {
-                this.setCors(-1);
-                logger.warn("{} has an invalid cors!", this.getApi());
-            }
-        }
-        if (json.has("startTime")) {
-            String startTimeString = String.valueOf(json.getLong("startTime"));
-            if (startTimeString.matches("[0-9]+")) {
-                this.setStartTime(json.getLong("startTime"));
-            } else {
-                this.setStartTime(0L);
-                logger.warn("{} has an invalid startTime!", this.getApi());
-            }
-        }
-    }
-
-    public void loadNewApi(JSONObject response) {
-        JSONObject cobalt = response.getJSONObject("cobalt");
-        this.setName("N/A");
-        this.setVersion(StringEscapeUtils.escapeHtml4(cobalt.getString("version")));
-        this.setCors(1);
-        JSONObject git = response.getJSONObject("git");
-        this.setBranch(StringEscapeUtils.escapeHtml4(git.getString("branch")));
-        this.setCommit(StringEscapeUtils.escapeHtml4(git.getString("commit").substring(0, 6)));
-        String remote = git.getString("remote");
-        if (!remote.equalsIgnoreCase("imputnet/cobalt")) {
-            logger.warn("{} is running a FORK, remote is {}", api, remote);
-        }
-    }
-
-    private void setOffline() {
+    public void setOffline() {
         this.setApiWorking(false);
         this.setTrustStatus("offline");
         this.setName("Offline");

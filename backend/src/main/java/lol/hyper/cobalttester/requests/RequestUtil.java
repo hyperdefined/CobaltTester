@@ -40,7 +40,7 @@ public class RequestUtil {
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
             if (authorization != null) {
-                connection.setRequestProperty("Authorization", "Bearer " + authorization);
+                connection.setRequestProperty("Authorization", "Api-Key " + authorization);
             }
             connection.setRequestProperty("User-Agent", CobaltTester.USER_AGENT);
             connection.setConnectTimeout(20000);

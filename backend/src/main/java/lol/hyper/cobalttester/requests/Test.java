@@ -44,7 +44,7 @@ public class Test {
     private void runApiTest() {
         String protocol = instance.getProtocol();
         String api;
-        if (instance.isNew()) {
+        if (instance.getVersion().startsWith("10.")) {
             api = protocol + "://" + instance.getApi();
         } else {
             api = protocol + "://" + instance.getApi() + "/api/json";
