@@ -35,12 +35,18 @@ public class StringUtil {
                 frontEnd = "<a href=\"" + instance.getProtocol() + "://" + instance.getFrontEnd() + "\">" + instance.getFrontEnd() + "</a>";
             }
             // get basic information
-            String api = "<a href=\"" + instance.getProtocol() + "://" + instance.getApi() + "/api/serverInfo\">" + instance.getApi() + "</a>";
             String version = instance.getVersion();
-            String branch = instance.getBranch();
             String name = instance.getName();
             int cors = instance.getCors();
+            String scorePage = "<a href=\"{{ site.url }}" + "/instance/" + instance.getHash() + "\">" + instance.getApi() + "</a>";
+            String branch = "<a href=\"https://github.com/imputnet/cobalt/tree/" + instance.getBranch() + "\">" + instance.getBranch() + "</a>";
             String score = Double.toString(instance.getScore()).split("\\.")[0] + "%";
+            String commit;
+            if (instance.isApiWorking()) {
+                commit = "<a href=\"https://github.com/imputnet/cobalt/commit/" + instance.getCommit() + "\">" + instance.getCommit() + "</a>";
+            } else {
+                commit = instance.getCommit();
+            }
             // add the instance elements
             switch (instance.getTrustStatus()) {
                 case "safe": {
@@ -60,15 +66,9 @@ public class StringUtil {
                     break;
                 }
             }
-            table.append("<td>").append(frontEnd).append("</td>");
-            table.append("<td>").append(api).append("</td>");
+            table.append("<td>").append(scorePage).append("</td>");
+            table.append("<td>").append(scorePage).append("</td>");
             table.append("<td>").append(version).append("</td>");
-            String commit;
-            if (instance.isApiWorking()) {
-                commit = "<a href=\"https://github.com/imputnet/cobalt/commit/" + instance.getCommit() + "\">" + instance.getCommit() + "</a>";
-            } else {
-                commit = instance.getCommit();
-            }
             table.append("<td>").append(commit).append("</td>");
             table.append("<td>").append(branch).append("</td>");
             table.append("<td>").append(name).append("</td>");
@@ -156,9 +156,9 @@ public class StringUtil {
                     break;
                 }
             }
-            table.append("<td>").append(frontEnd).append("</td>");
-            String api = "<a href=\"" + instance.getProtocol() + "://" + instance.getApi() + "/api/serverInfo\">" + instance.getApi() + "</a>";
-            table.append("<td>").append(api).append("</td>");
+            String scorePage = "<a href=\"{{ site.url }}" + "/instance/" + instance.getHash() + "\">" + instance.getApi() + "</a>";
+            table.append("<td>").append(scorePage).append("</td>");
+            table.append("<td>").append(scorePage).append("</td>");
             if (working) {
                 table.append("<td>").append("✅").append("</td>");
             } else {
