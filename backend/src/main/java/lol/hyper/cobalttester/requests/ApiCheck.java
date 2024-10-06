@@ -133,7 +133,11 @@ public class ApiCheck {
     private void loadNewApi(JSONObject response) {
         JSONObject cobalt = response.getJSONObject("cobalt");
         instance.setName("N/A");
-        instance.setVersion(StringEscapeUtils.escapeHtml4(cobalt.getString("version")));
+        if (cobalt.has("version")) {
+            instance.setVersion(StringEscapeUtils.escapeHtml4(cobalt.getString("version")));
+        } else {
+            instance.setVersion("Unknown");
+        }
         instance.setCors(1);
         JSONObject git = response.getJSONObject("git");
         instance.setBranch(StringEscapeUtils.escapeHtml4(git.getString("branch")));
@@ -142,5 +146,10 @@ public class ApiCheck {
         if (!remote.equalsIgnoreCase("imputnet/cobalt")) {
             logger.warn("{} is running a FORK, remote is {}", instance.getApi(), remote);
         }
+    }
+
+    @Override
+    public String toString() {
+        return instance.getApi() + ":" + "check";
     }
 }
