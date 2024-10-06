@@ -6,7 +6,7 @@ description: "a collection of community cobalt projects."
 This is a collection of community projects that use cobalt!
 
 ### Websites
-* [playlist.spawn.best](https://playlist.spawn.best) - YouTube playlist downloader.
+* [playlist.kwiatekmiki.pl](https://playlist.kwiatekmiki.pl/) - YouTube playlist downloader.
 
 ### Command-Line
 * [tcobalt](https://github.com/khyerdev/tcobalt) - Command-line interface wrapper written in Rust.
