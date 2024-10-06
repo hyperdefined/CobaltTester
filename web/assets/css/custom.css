@@ -47,43 +47,6 @@ blockquote h4 {
 details[open] summary {
     padding-bottom: 10px;
 }
-.banner {
-    text-align: center;
-    background-color: darkred;
-    padding: 10px;
-}
-.banner p {
-    margin: 0;
-    padding: 5px;
-}
-.banner .safe {
-    background-color: green;
-}
-.banner .unknown {
-    background-color: darkorange;
-    color: white;
-}
-.banner h3, .banner.unknown h3, .banner.safe h3, .banner.not-safe h3 {
-    border-bottom: 1px solid white;
-}
-.safe {
-    background-color: green !important;
-}
-.safe a {
-    color: white;
-}
-.unknown {
-    background-color: darkorange !important;
-}
-.unknown a {
-    color: white;
-}
-.not-safe {
-    background-color: darkred !important;
-}
-.not-safe a {
-    color: white;
-}
 a button {
     background-color: rgb(25, 25, 25);
     border: 0.5px solid white;
@@ -99,9 +62,12 @@ a {
 a:hover {
     color: black;
 }
+td {
+    color: gray;
+}
 td a {
     background: unset;
-    color: white;
+    color: gray;
     text-decoration: underline;
 }
 td a:hover {
@@ -109,29 +75,49 @@ td a:hover {
     color: gray;
     text-decoration: underline;
 }
-.safe a {
-    background: unset;
-    color: white;
-    text-decoration: underline;
+.safe, .safe a, .safe td {
+    color: green;
 }
 .safe a:hover {
+    background-color: green;
     color: white;
 }
-.unknown a {
-    background: unset;
-    color: white;
-    text-decoration: underline;
+.unknown, .unknown a, .unknown td {
+    color: darkgoldenrod;
 }
 .unknown a:hover {
     color: white;
+    background-color: darkgoldenrod;
 }
-.not-safe a {
-    background: unset;
-    color: white;
-    text-decoration: underline;
+.not-safe, .not-safe a, .not-safe td {
+    color: red;
 }
 .not-safe a:hover {
     color: white;
+    background-color: red;
+}
+.banner {
+    text-align: center;
+    padding: 10px;
+}
+.banner p {
+    margin: 0;
+    padding: 5px;
+}
+.banner.safe {
+    background-color: green;
+    color: white;
+}
+.banner.unknown {
+    background-color: darkorange;
+    color: white;
+}
+.banner.not-safe {
+    background-color: darkred;
+    color: white;
+}
+.banner h3, .banner.unknown h3, .banner.safe h3, .banner.not-safe h3 {
+    border-bottom: 1px solid white;
 }
 header, footer {
     background-color: rgb(25, 25, 25)
@@ -141,6 +127,9 @@ header h1 {
 }
 #cobaltWebring a {
     background-color: unset;
+}
+.service-table a, .service-table td {
+    color: white;
 }
 /* Lightmode things */
 @media (prefers-color-scheme: light) {

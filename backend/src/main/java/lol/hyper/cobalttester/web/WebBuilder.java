@@ -27,9 +27,9 @@ public class WebBuilder {
         String mainTable = StringUtil.buildMainTables(new ArrayList<>(instances), "domain");
         String ipTable = StringUtil.buildMainTables(new ArrayList<>(instances), "ip");
         // replace the placeholder with the tables
-        mainListTemplate = mainListTemplate.replaceAll("<main-table-official>", officialTable);
-        mainListTemplate = mainListTemplate.replaceAll("<main-table-domain>", mainTable);
-        mainListTemplate = mainListTemplate.replaceAll("<main-table-nodomain>", ipTable);
+        mainListTemplate = mainListTemplate.replaceAll("<main-table-official>", officialTable.replace(" id=\"sort-table\"", ""));
+        mainListTemplate = mainListTemplate.replaceAll("<main-table-domain>", mainTable.replace("sort-table", "main-table"));
+        mainListTemplate = mainListTemplate.replaceAll("<main-table-nodomain>", ipTable.replace("sort-table", "other-table"));
         mainListTemplate = mainListTemplate.replaceAll("<instance-count>", String.valueOf(instances.size()));
         // update the time it was run
         mainListTemplate = mainListTemplate.replaceAll("<time>", formattedDate);
@@ -83,9 +83,9 @@ public class WebBuilder {
         serviceTemplate = serviceTemplate.replaceAll("<service-slug>", slug);
 
         // replace the placeholder with the tables
-        serviceTemplate = serviceTemplate.replaceAll("<service-table-official>", officialTable);
-        serviceTemplate = serviceTemplate.replaceAll("<service-table-domain>", mainTable);
-        serviceTemplate = serviceTemplate.replaceAll("<service-table-nodomain>", ipTable);
+        serviceTemplate = serviceTemplate.replaceAll("<service-table-official>", officialTable.replace(" id=\"sort-table\"", ""));
+        serviceTemplate = serviceTemplate.replaceAll("<service-table-domain>", mainTable.replace("sort-table", "main-table"));
+        serviceTemplate = serviceTemplate.replaceAll("<service-table-nodomain>", ipTable.replace("sort-table", "other-table"));
 
         FileUtil.writeFile(serviceTemplate, new File(CobaltTester.config.getString("service_path"), slug + ".md"));
     }

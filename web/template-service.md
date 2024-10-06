@@ -9,18 +9,17 @@ Service status for <service> on all instances.
 Last updated (UTC): <time>
 
 ### Official Instance
-<details>
-<summary>Show Instance</summary>
 <service-table-official>
-</details>
 
 ### Community (with domain)
 <details>
 <summary>Show List</summary>
+<input type="text" id="main-search" placeholder="Search instances..." onkeyup="searchTable('main-search', 'main-table')">
 <service-table-domain>
 </details>
 ### Community (no domain)
 <details>
 <summary>Show List</summary>
+<input type="text" id="other-search" placeholder="Search instances..." onkeyup="searchTable('other-search', 'other-table')">
 <service-table-nodomain>
 </details>

@@ -21,32 +21,41 @@ public class StringUtil {
     public static String buildMainTables(List<Instance> instances, String type) {
         StringBuilder table = new StringBuilder();
         // build the table for output
-        table.append("<div class=\"table-container\"><table>\n<tr><th>Frontend</th><th>API</th><th>Version</th><th>Commit</th><th>Branch</th><th>Name</th><th>CORS</th><th>Score</th></tr>\n");
+        table.append("<div class=\"table-container\"><table id=\"sort-table\">\n<tr><th onclick=\"sortTable(0, event)\">Frontend</th><th onclick=\"sortTable(1, event)\">API</th><th onclick=\"sortTable(2, event)\">Version</th><th onclick=\"sortTable(3, event)\">Commit</th><th onclick=\"sortTable(4, event)\">Branch</th><th onclick=\"sortTable(5, event)\">Name</th><th onclick=\"sortTable(6, event)\">CORS</th><th onclick=\"sortTable(7, event)\">Score</th></tr>\n");
 
         List<Instance> filtered = FilterUtils.filter(instances, type);
 
         // build each element for the table
         for (Instance instance : filtered) {
-            // does not have a front end
-            String frontEnd;
-            if (instance.getFrontEnd() == null) {
-                frontEnd = "None";
-            } else {
-                frontEnd = "<a href=\"" + instance.getProtocol() + "://" + instance.getFrontEnd() + "\">" + instance.getFrontEnd() + "</a>";
-            }
             // get basic information
             String version = instance.getVersion();
             String name = instance.getName();
             int cors = instance.getCors();
-            String scorePage = "<a href=\"{{ site.url }}" + "/instance/" + instance.getHash() + "\">" + instance.getApi() + "</a>";
-            String branch = "<a href=\"https://github.com/imputnet/cobalt/tree/" + instance.getBranch() + "\">" + instance.getBranch() + "</a>";
             String score = Double.toString(instance.getScore()).split("\\.")[0] + "%";
             String commit;
+            String api;
+            String branch;
+            String frontEnd;
             if (instance.isApiWorking()) {
                 commit = "<a href=\"https://github.com/imputnet/cobalt/commit/" + instance.getCommit() + "\">" + instance.getCommit() + "</a>";
+                api = "<a href=\"{{ site.url }}" + "/instance/" + instance.getHash() + "\">" + instance.getApi() + "</a>";
+                branch = "<a href=\"https://github.com/imputnet/cobalt/tree/" + instance.getBranch() + "\">" + instance.getBranch() + "</a>";
+                if (instance.getFrontEnd() == null) {
+                    frontEnd = "<a href=\"{{ site.url }}" + "/instance/" + instance.getHash() + "\">None</a>";
+                } else {
+                    frontEnd = "<a href=\"{{ site.url }}" + "/instance/" + instance.getHash() + "\">" + instance.getFrontEnd() + "</a>";
+                }
             } else {
                 commit = instance.getCommit();
+                api = instance.getApi();
+                branch = instance.getBranch();
+                if (instance.getFrontEnd() == null) {
+                    frontEnd = "None";
+                } else {
+                    frontEnd = instance.getFrontEnd();
+                }
             }
+
             // add the instance elements
             switch (instance.getTrustStatus()) {
                 case "safe": {
@@ -66,8 +75,8 @@ public class StringUtil {
                     break;
                 }
             }
-            table.append("<td>").append(scorePage).append("</td>");
-            table.append("<td>").append(scorePage).append("</td>");
+            table.append("<td>").append(frontEnd).append("</td>");
+            table.append("<td>").append(api).append("</td>");
             table.append("<td>").append(version).append("</td>");
             table.append("<td>").append(commit).append("</td>");
             table.append("<td>").append(branch).append("</td>");
@@ -90,7 +99,7 @@ public class StringUtil {
     public static String buildScoreTable(Instance instance) {
         StringBuilder table = new StringBuilder();
         // build the table for output
-        table.append("<div class=\"table-container\"><table>\n<tr><th>Service</th><th>Working?</th><th>Status</th></tr>\n");
+        table.append("<div class=\"table-container\"><table class=\"service-table\">\n<tr><th>Service</th><th>Working?</th><th>Status</th></tr>\n");
 
         // make it sort correctly
         instance.getTestResults().sort(Comparator.comparing(TestResult::service));
@@ -127,16 +136,27 @@ public class StringUtil {
 
         StringBuilder table = new StringBuilder();
         // build the table for output
-        table.append("<div class=\"table-container\"><table>\n<tr><th>Frontend</th><th>API</th><th>Working?</th></tr>\n");
+        table.append("<div class=\"table-container\"><table id=\"sort-table\">\n<tr><th onclick=\"sortTable(0, event)\">Frontend</th><th onclick=\"sortTable(1, event)\">API</th><th onclick=\"sortTable(2, event)\">Working?</th></tr>\n");
 
         for (Map.Entry<Instance, Boolean> pair : workingInstances.entrySet()) {
             Instance instance = pair.getKey();
             boolean working = pair.getValue();
             String frontEnd;
-            if (instance.getFrontEnd() == null) {
-                frontEnd = "None";
+            String api;
+            if (instance.isApiWorking()) {
+                api = "<a href=\"{{ site.url }}" + "/instance/" + instance.getHash() + "\">" + instance.getApi() + "</a>";
+                if (instance.getFrontEnd() == null) {
+                    frontEnd = "<a href=\"{{ site.url }}" + "/instance/" + instance.getHash() + "\">None</a>";
+                } else {
+                    frontEnd = "<a href=\"{{ site.url }}" + "/instance/" + instance.getHash() + "\">" + instance.getFrontEnd() + "</a>";
+                }
             } else {
-                frontEnd = "<a href=\"" + instance.getProtocol() + "://" + instance.getFrontEnd() + "\">" + instance.getFrontEnd() + "</a>";
+                api = instance.getApi();
+                if (instance.getFrontEnd() == null) {
+                    frontEnd = "None";
+                } else {
+                    frontEnd = instance.getFrontEnd();
+                }
             }
             switch (instance.getTrustStatus()) {
                 case "safe": {
@@ -156,9 +176,8 @@ public class StringUtil {
                     break;
                 }
             }
-            String scorePage = "<a href=\"{{ site.url }}" + "/instance/" + instance.getHash() + "\">" + instance.getApi() + "</a>";
-            table.append("<td>").append(scorePage).append("</td>");
-            table.append("<td>").append(scorePage).append("</td>");
+            table.append("<td>").append(frontEnd).append("</td>");
+            table.append("<td>").append(api).append("</td>");
             if (working) {
                 table.append("<td>").append("✅").append("</td>");
             } else {
