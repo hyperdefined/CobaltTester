@@ -14,7 +14,7 @@ Last updated (UTC): <time>
 ### Community (with domain)
 <details>
 <summary>Show List</summary>
-Community instances that have a domain. These are NOT OFFICIAL! Use the official instance above instead. <strong>Only use these when needed.</strong><br>
+Community instances that have a domain. These are NOT OFFICIAL! Use the official instance above instead. <strong>Only use these when needed.</strong><br>Score is a percentage of services that work for said instance. The higher score, the more it supports.<br>
 <input type="text" id="main-search" placeholder="Search instances..." onkeyup="onFilterChange('main-table', 'main-search', 'main-filter', 'slider-main')">
 <select id="main-filter" onchange="onFilterChange('main-table', 'main-search', 'main-filter', 'slider-main')">
     <option value="all">All</option>
@@ -30,7 +30,7 @@ Community instances that have a domain. These are NOT OFFICIAL! Use the official
 ### Community (no domain)
 <details>
 <summary>Show List</summary>
-Community instances that do not have a domain. These are NOT OFFICIAL! Use the official instance above instead. <strong>Only use these when needed.</strong><br>
+Community instances that do not have a domain. These are NOT OFFICIAL! Use the official instance above instead. <strong>Only use these when needed.</strong><br>Score is a percentage of services that work for said instance. The higher score, the more it supports.<br>
 <input type="text" id="other-search" placeholder="Search instances..." onkeyup="onFilterChange('other-table', 'other-search', 'other-filter', 'slider-other')">
 <select id="other-filter" onchange="onFilterChange('other-table', 'other-search', 'other-filter', 'slider-other')">
     <option value="all">All</option>
