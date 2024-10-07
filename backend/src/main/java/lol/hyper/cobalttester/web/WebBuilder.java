@@ -27,7 +27,7 @@ public class WebBuilder {
         String mainTable = StringUtil.buildMainTables(new ArrayList<>(instances), "domain");
         String ipTable = StringUtil.buildMainTables(new ArrayList<>(instances), "ip");
         // replace the placeholder with the tables
-        mainListTemplate = mainListTemplate.replaceAll("<main-table-official>", officialTable.replace(" id=\"sort-table\"", ""));
+        mainListTemplate = mainListTemplate.replaceAll("<main-table-official>", officialTable.replace("sort-table", "official-table"));
         mainListTemplate = mainListTemplate.replaceAll("<main-table-domain>", mainTable.replace("sort-table", "main-table").replace("search", "'main-search'").replace("dropdown", "'main-filter'").replace("slider", "'slider-main'"));
         mainListTemplate = mainListTemplate.replaceAll("<main-table-nodomain>", ipTable.replace("sort-table", "other-table").replace("search", "'other-search'").replace("dropdown", "'other-filter'").replace("slider", "'slider-other'"));
         mainListTemplate = mainListTemplate.replaceAll("<instance-count>", String.valueOf(instances.size()));
@@ -83,7 +83,7 @@ public class WebBuilder {
         serviceTemplate = serviceTemplate.replaceAll("<service-slug>", slug);
 
         // replace the placeholder with the tables
-        serviceTemplate = serviceTemplate.replaceAll("<service-table-official>", officialTable.replace(" id=\"sort-table\"", ""));
+        serviceTemplate = serviceTemplate.replaceAll("<service-table-official>", officialTable.replace("sort-table", "official-table"));
         serviceTemplate = serviceTemplate.replaceAll("<service-table-domain>", mainTable.replace("sort-table", "main-table").replace("search", "'main-search'").replace("dropdown", "'main-filter'").replace("slider", "'slider-main'"));
         serviceTemplate = serviceTemplate.replaceAll("<service-table-nodomain>", ipTable.replace("sort-table", "other-table").replace("search", "'other-search'").replace("dropdown", "'other-filter'").replace("slider", "'slider-other'"));
 
