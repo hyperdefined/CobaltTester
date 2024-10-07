@@ -31,10 +31,8 @@ dl-api.memorybouquet.com,dl.memorybouquet.com,https,unknown
 api.sacreations.me,md.sacreations.me,https,unknown
 cobapi.imanity.de,cobalt.imanity.de,https,unknown
 api.cobalt.witd.in,cobalt.witd.in,https,unknown
-apicloud2.filsfkwtlfjas.xyz,None,https,unknown
 apicloud3.filsfkwtlfjas.xyz,None,https,unknown
 apicloud4.filsfkwtlfjas.xyz,None,https,unknown
-apicloud5.filsfkwtlfjas.xyz,None,https,unknown
 apicloud6.filsfkwtlfjas.xyz,None,https,unknown
 apicloud8.filsfkwtlfjas.xyz,None,https,unknown
 apicloud9.filsfkwtlfjas.xyz,None,https,unknown
@@ -78,12 +76,9 @@ apicobalt.yingyintonghua.com,cobalt.yingyintonghua.com,https,unknown
 dl-02.w-ytdl.store,None,https,unknown
 dl-03.w-ytdl.store,None,https,unknown
 dl-04.w-ytdl.store,None,https,unknown
-dl-05.w-ytdl.store,None,https,unknown
-dl-06.w-ytdl.store,None,https,unknown
 dl-07.w-ytdl.store,None,https,unknown
 dl-09.w-ytdl.store,None,https,unknown
 dl-12.w-ytdl.store,None,https,unknown
-dl-13.w-ytdl.store,None,https,unknown
 dl-14.w-ytdl.store,None,https,unknown
 dl-16.w-ytdl.store,None,https,unknown
 dl-17.w-ytdl.store,None,https,unknown
@@ -91,6 +86,9 @@ dl-18.w-ytdl.store,None,https,unknown
 dl-19.w-ytdl.store,None,https,unknown
 api-cobalt.bronto.website,None,https,unknown
 cv.acid.im,None,https,unknown
+cobalt.catgirl.dog,None,https,unknown
+api-cobalt.realign.cn,None,http,unknown
+api.mcd.ac.cn,None,https,unknown
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http,unknown
@@ -147,14 +145,12 @@ cv.acid.im,None,https,unknown
 89.110.110.80:9000,89.110.110.80:9001,http,unknown
 54.214.223.181:9000,54.214.223.181:9001,http,unknown
 74.48.192.26:9000,74.48.192.26:9001,http,unknown
-154.12.56.227:9000,154.12.56.227:9001,http,unknown
 70.34.255.72:9000,70.34.255.72:9001,http,unknown
 172.96.193.197:9000,172.96.193.197:9001,http,unknown
 20.11.64.79:9000,20.11.64.79:9001,http,unknown
 152.42.192.9:9000,152.42.192.9:9001,http,unknown
 164.90.142.89:9000,164.90.142.89:9001,http,unknown
 188.119.113.18:9000,188.119.113.18:9001,http,unknown
-66.42.91.14:9000,66.42.91.14:9001,http,unknown
 74.48.35.30:9000,74.48.35.30:9001,http,unknown
 74.48.202.63:9000,74.48.202.63:9001,http,
 47.108.64.162:9000,47.108.64.162:9001,http,unknown
@@ -169,3 +165,9 @@ cv.acid.im,None,https,unknown
 142.171.77.173:9000,142.171.77.173:9001,http,unknown
 117.50.80.55:9000,117.50.80.55:9001,http,unknown
 188.245.102.101,None,http,unknown
+2.56.214.23:9000,None,http,unknown
+196.61.9.10:9000,None,http,unknown
+159.138.84.32:9000,None,http,unknown
+132.145.28.87:9000,None,http,unknown
+64.226.107.43:9000,None,http,unknown
+128.204.223.118:6000,None,http,unknown
