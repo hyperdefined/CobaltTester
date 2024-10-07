@@ -1,0 +1,75 @@
+@media (max-width: 1200px) {
+    #main-table tr th:nth-child(4),
+    #main-table tr th:nth-child(5),
+    #main-table tr th:nth-child(6),
+    #main-table tr th:nth-child(7) {
+        display: none;
+    }
+    
+    #main-table tr td:nth-child(4),
+    #main-table tr td:nth-child(5),
+    #main-table tr td:nth-child(6),
+    #main-table tr td:nth-child(7) {
+        display: none;
+    }
+
+    #other-table tr th:nth-child(4),
+    #other-table tr th:nth-child(5),
+    #other-table tr th:nth-child(6),
+    #other-table tr th:nth-child(7) {
+        display: none;
+    }
+
+    #other-table tr td:nth-child(4),
+    #other-table tr td:nth-child(5),
+    #other-table tr td:nth-child(6),
+    #other-table tr td:nth-child(7) {
+        display: none;
+    }
+}
+
+@media (max-width: 610px) {
+    .service-table tr th:nth-child(3) {
+        display: none;
+    }
+    
+    .service-table tr td:nth-child(3) {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    #main-table tr th:nth-child(1) {
+        display: none;
+    }
+    
+    #main-table tr td:nth-child(1) {
+        display: none;
+    }
+
+    #other-table tr th:nth-child(1) {
+        display: none;
+    }
+    
+    #other-table tr td:nth-child(1) {
+        display: none;
+    }
+}
+
+@media (max-width: 450px) {
+    #main-table tr th:nth-child(3) {
+        display: none;
+    }
+    
+    #main-table tr td:nth-child(3) {
+        display: none;
+    }
+
+    #other-table tr th:nth-child(3) {
+        display: none;
+    }
+    
+    #other-table tr td:nth-child(3) {
+        display: none;
+    }
+}

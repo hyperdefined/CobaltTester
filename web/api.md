@@ -9,7 +9,7 @@ All the instance data is store here: <code>https://instances.hyper.lol/instances
 
 <strong>Please set a proper user agent when making requests!</strong> I block common user agents (like `curl`, `python-requests`, `Go-http-client` etc) due to many bots hitting this server. I want to know who uses this API!
 
-<div class="banner">
+<div class="banner not-safe">
     <h3>PLEASE READ!</h3>
     <p>cobalt recently has updated to version 10! Please note: any instance that is running on version 10 <strong>WILL HAVE DIFFERENT REQUIREMENTS.</strong></p>
     <p>You should account for these differences, or filter whatever API version you want instead. You can see the API docs below.</p>

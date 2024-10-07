@@ -14,9 +14,6 @@
         {% if page.trust == "not_safe" %}
         {% include not-safe.html %}
         {% endif %}
-        {% unless page.trust %}
-            {% include main-banner.html %}
-        {% endunless %}
         <h2>{{ page.title }}</h2>
         {{ content }}
         {% include footer.html %}
