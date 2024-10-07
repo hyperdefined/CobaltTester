@@ -20,7 +20,7 @@ Community instances that have a domain. These are NOT OFFICIAL! Use the official
     <option value="all">All</option>
     <option value="safe">Safe</option>
     <option value="unknown">Unknown</option>
-    <option value="not-trusted">Not Trusted</option>
+    <option value="not-safe">Not Safe</option>
 </select>
 <label for="slider-main">Score Filter:</label>
 <input type="range" id="slider-main" min="0" max="100" value="0" oninput="onFilterChange('main-table', 'main-search', 'main-filter', 'slider-main')" />
@@ -36,7 +36,7 @@ Community instances that do not have a domain. These are NOT OFFICIAL! Use the o
     <option value="all">All</option>
     <option value="safe">Safe</option>
     <option value="unknown">Unknown</option>
-    <option value="not-trusted">Not Trusted</option>
+    <option value="not-safe">Not Safe</option>
 </select>
 <label for="slider-other">Score Filter:</label>
 <input type="range" id="slider-other" min="0" max="100" value="0" oninput="onFilterChange('other-table', 'other-search', 'other-filter', 'slider-other')" />

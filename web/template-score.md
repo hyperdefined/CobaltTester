@@ -17,6 +17,6 @@ Last updated (UTC): <time>
 
 <scores>
 
-\* YouTube needs account cookies setup on the instance to work at all.
-\* Instagram doesn't work 100% of the time, it may need cookies to work. Some media also does not work at all.
-\* Reddit might need an API key to work on some cases.
+\* YouTube needs account cookies setup on the instance to work at all.<br>
+\* Instagram doesn't work 100% of the time, it may need cookies to work. Some media also does not work at all.<br>
+\* Reddit might need an API key to work on some cases.<br>
