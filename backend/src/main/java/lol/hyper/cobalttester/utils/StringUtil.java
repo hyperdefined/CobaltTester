@@ -96,6 +96,12 @@ public class StringUtil {
         return table.toString();
     }
 
+    /**
+     * Build working/not working services table for a given instance.
+     *
+     * @param instance The instance to use.
+     * @return HTML table of working/not working services.
+     */
     public static String buildScoreTable(Instance instance) {
         StringBuilder table = new StringBuilder();
         // build the table for output
@@ -107,6 +113,7 @@ public class StringUtil {
         for (TestResult result : instance.getTestResults()) {
             String service = result.service();
             boolean working = result.status();
+            // mark these as needing cookies
             switch (service) {
                 case "Reddit", "Instagram", "YouTube", "YouTube Music", "YouTube Shorts" -> service = service + "*";
             }
@@ -123,6 +130,14 @@ public class StringUtil {
         return table.toString();
     }
 
+    /**
+     * Build the table for a given service.
+     *
+     * @param instances The instances to use.
+     * @param service   The friendly service name.
+     * @param type      The type of instances we want.
+     * @return A string of instances for this service.
+     */
     public static String buildServiceTable(List<Instance> instances, String service, String type) {
         List<Instance> filtered = FilterUtils.filter(instances, type);
         // Make them in alphabetical order
@@ -210,6 +225,12 @@ public class StringUtil {
         return input.replaceAll("<[^>]+>", "");
     }
 
+    /**
+     * Convert an error log from cobalt into a "pretty one."
+     *
+     * @param input The input log from cobalt.
+     * @return The pretty version.
+     */
     public static String makeLogPretty(String input) {
         if (input == null) {
             return "";

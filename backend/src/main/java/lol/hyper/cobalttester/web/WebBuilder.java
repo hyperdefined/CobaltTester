@@ -16,6 +16,12 @@ public class WebBuilder {
 
     private static final Logger logger = LogManager.getLogger(WebBuilder.class);
 
+    /**
+     * Build the main instance page.
+     *
+     * @param instances     The instances to put on the page.
+     * @param formattedDate The date to display.
+     */
     public static void buildIndex(List<Instance> instances, String formattedDate) {
         String mainListTemplate = FileUtil.readFile(new File(CobaltTester.config.getString("web_path"), "template-mainlist.md"));
         if (mainListTemplate == null) {
@@ -34,35 +40,51 @@ public class WebBuilder {
         // update the time it was run
         mainListTemplate = mainListTemplate.replaceAll("<time>", formattedDate);
         // write to index.md
-        FileUtil.writeFile(mainListTemplate, new File(CobaltTester.config.getString("web_path"), "instances.md"));
+        FileUtil.writeFile(mainListTemplate, new File(CobaltTester.config.getString("web_path"), "index.md"));
     }
 
+    /**
+     * Build an instance page for a given instance.
+     *
+     * @param instance      The instance to make the page for.
+     * @param formattedDate The date to display.
+     */
     public static void buildInstancePage(Instance instance, String formattedDate) {
-        String scoreTemplate = FileUtil.readFile(new File(CobaltTester.config.getString("web_path"), "template-score.md"));
-        if (scoreTemplate == null) {
-            logger.error("Unable to read template-score.md! Exiting...");
+        String instanceTemplate = FileUtil.readFile(new File(CobaltTester.config.getString("web_path"), "template-instance.md"));
+        if (instanceTemplate == null) {
+            logger.error("Unable to read template-instance.md! Exiting...");
             System.exit(1);
         }
 
-        scoreTemplate = scoreTemplate.replaceAll("<api>", instance.getApi());
-        scoreTemplate = scoreTemplate.replaceAll("<hash>", instance.getHash());
-        scoreTemplate = scoreTemplate.replaceAll("<time>", formattedDate);
-        scoreTemplate = scoreTemplate.replaceAll("<trust>", instance.getTrustStatus());
-        scoreTemplate = scoreTemplate.replaceAll("<api-button>", "<a href=\"" + instance.getProtocol() + "://" + instance.getApi() + "\"><button>View API</button></a>");
+        // replace different placeholders with values we want
+        instanceTemplate = instanceTemplate.replaceAll("<api>", instance.getApi());
+        instanceTemplate = instanceTemplate.replaceAll("<hash>", instance.getHash());
+        instanceTemplate = instanceTemplate.replaceAll("<time>", formattedDate);
+        instanceTemplate = instanceTemplate.replaceAll("<trust>", instance.getTrustStatus());
+        instanceTemplate = instanceTemplate.replaceAll("<api-button>", "<a href=\"" + instance.getProtocol() + "://" + instance.getApi() + "\"><button>View API</button></a>");
         if (instance.getFrontEnd() != null) {
             String frontEnd = "<a href=\"" + instance.getProtocol() + "://" + instance.getFrontEnd() + "\"><button>View Frontend</button></a>";
-            scoreTemplate = scoreTemplate.replaceAll("<frontend-button>", frontEnd);
+            instanceTemplate = instanceTemplate.replaceAll("<frontend-button>", frontEnd);
         } else {
-            scoreTemplate = scoreTemplate.replaceAll("<frontend-button>", "");
+            instanceTemplate = instanceTemplate.replaceAll("<frontend-button>", "");
         }
 
+        // create the score table to display the services
         String scoreTable = StringUtil.buildScoreTable(instance);
         // replace the placeholder with the score table
-        scoreTemplate = scoreTemplate.replaceAll("<scores>", scoreTable);
+        instanceTemplate = instanceTemplate.replaceAll("<scores>", scoreTable);
         File scoreFile = new File(CobaltTester.config.getString("score_path"), instance.getHash() + ".md");
-        FileUtil.writeFile(scoreTemplate, scoreFile);
+        FileUtil.writeFile(instanceTemplate, scoreFile);
     }
 
+    /**
+     * Build the page of instances for a given service.
+     *
+     * @param instances     The instances to put on the table.
+     * @param formattedDate The date to display.
+     * @param service       The service friendly name.
+     * @param slug          The slug for the URL.
+     */
     public static void buildServicePage(List<Instance> instances, String formattedDate, String service, String slug) {
         // sort into alphabetical order
         Collections.sort(instances);

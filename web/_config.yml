@@ -47,7 +47,7 @@ exclude:
   - Gemfile.lock
   - CobaltTester*
   - template-mainlist.md
-  - template-score.md
+  - template-instance.md
   - template-service.md
   - logs/
   - run.sh

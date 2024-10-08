@@ -39,7 +39,7 @@ If you're a regular user, you want to use the frontend. If you want to use the A
 There's a few ways to see the instances, by the master list or by service.
 
 <ul>
-<li><a href="{{ site.url }}/instances/">Master list</a>: see all cobalt instances.</li>
+<li><a href="{{ site.url }}">Master list</a>: see all cobalt instances.</li>
 <li><a href="{{ site.url }}/service/">By service</a>: see what services work on what instances.</li>
 </ul>
 
@@ -68,7 +68,7 @@ On each list, it contains these columns:
 
 <details>
 <summary>Why are some different colors on the list?</summary>
-Each color simply refers to what trust level the instance is. There is a key at the top of the page of instances and on the instance page itself. A trust level helps users know which instances are "good" or "bad."
+Each color simply refers to what trust level the instance is. A trust level helps users know which instances are "good" or "bad."
 <br><br>
 Safe instances are generally better to use, as they don't contain malicious code, tracking, or break the cobalt license itself. These are selected by the owner of this site based on the community.
 </details>

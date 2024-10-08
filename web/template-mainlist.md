@@ -1,10 +1,8 @@
 ---
-permalink: "/instances/"
 title: "Instances"
 description: "the master list of community cobalt instances. currently tracking <instance-count> instances."
-layout: banner-included
 ---
-This is the master list of instances. Currently tracking <instance-count> instances.
+This is the master list of instances. Currently tracking <instance-count> instances. See [FAQ]({{ site.url }}/faq) for common questions about this list.
 
 Last updated (UTC): <time>
 
