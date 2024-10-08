@@ -5,7 +5,7 @@ CobaltTester is a simple tool to test and track cobalt instances. It uses a scor
 It loads a list of instances, then performs various tests to see if they work. It then calculates a score on how many tests were successful.
 You can see what tests it runs [here](https://github.com/hyperdefined/CobaltTester/blob/master/backend/tests.json).
 
-Load instances -> Make sure API/frontend exist -> Perform tests -> Output results to `web/index.md` -> Build site via Jekyll.
+Load instances -> Make sure API/frontend exist -> Perform tests -> Builds site if requested.
 
 ## Contributing
 The project contains 2 parts:
@@ -15,7 +15,7 @@ The project contains 2 parts:
 ## How to use?
 You can see a live demo at [instances.hyper.lol](https://instances.hyper.lol). You can also look at the [wiki](https://github.com/hyperdefined/CobaltTester/wiki/Running-CobaltTester).
 
-### I want to add my instance to your site!
+## I want to add my instance to your site!
 You can fork this repository, add your instance to `backend/instances`, and make a pull request!
 
 If you need help running it on your end, please ping `hyperdefined` in the [cobalt discord](https://discord.gg/pQPt8HBUPu).
