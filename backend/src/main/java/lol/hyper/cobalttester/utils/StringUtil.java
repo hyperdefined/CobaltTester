@@ -227,6 +227,7 @@ public class StringUtil {
         errorMessages.put(Pattern.compile("(?i)SocketTimeoutException|timed_out"), "Timed out or this request was too slow");
         errorMessages.put(Pattern.compile("(?i)JSONException"), "API returned invalid JSON");
         errorMessages.put(Pattern.compile("(?i)tweet"), "Unable to find media in tweet");
+        errorMessages.put(Pattern.compile("(?i)api\\.key\\.missing"), "Requires API key to use");
 
         for (Map.Entry<Pattern, String> entry : errorMessages.entrySet()) {
             if (entry.getKey().matcher(input).find()) {
