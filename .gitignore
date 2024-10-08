@@ -45,6 +45,7 @@ web/instances.json
 web/instance
 web/service
 web/instances.md
+web/web-output
 
 ### Backend Module ##
 logs/
