@@ -6,6 +6,10 @@ BUILD_WEB=false
 WEB_DIR="$(pwd)/web-output"
 WEB_TYPE="dev"
 
+# Make sure these are in the path
+export GEM_HOME="$HOME/gems"
+export PATH="$HOME/gems/bin:$PATH"
+
 # Make sure using at least Java 21
 if (($(java -version 2>&1 | grep -Po '(?<=")[0-9]{2}') < 21)); then
     echo "You must need at least Java 21 installed. See the wiki for help!"
