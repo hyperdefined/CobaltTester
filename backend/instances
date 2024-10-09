@@ -7,6 +7,7 @@
 # instances with domains
 api.cobalt.tools,cobalt.tools,https,safe
 cobalt-backend.canine.tools,cobalt.canine.tools,https,safe
+cobalt-test.canine.tools,cobalt.canine.tools,https,safe
 api.co.rooot.gay,co.rooot.gay,https,safe
 wukko.wolfdo.gg,co.wolfdo.gg,https,safe
 downloadapi.stuff.solutions,download.stuff.solutions,https,safe
@@ -73,15 +74,6 @@ apicobalt.momoshort.com,None,https,unknown
 mips.zapto.org:9000,None,http,unknown
 happy4ever.cloudns.ch:9000,None,http,unknown
 apicobalt.yingyintonghua.com,cobalt.yingyintonghua.com,https,unknown
-dl-02.w-ytdl.store,None,https,unknown
-dl-03.w-ytdl.store,None,https,unknown
-dl-04.w-ytdl.store,None,https,unknown
-dl-07.w-ytdl.store,None,https,unknown
-dl-16.w-ytdl.store,None,https,unknown
-dl-17.w-ytdl.store,None,https,unknown
-dl-18.w-ytdl.store,None,https,unknown
-dl-19.w-ytdl.store,None,https,unknown
-dl-20.w-ytdl.store,None,https,unknown
 api-cobalt.bronto.website,None,https,unknown
 cv.acid.im,None,https,unknown
 cobalt.catgirl.dog,None,https,unknown
@@ -144,9 +136,7 @@ api.knap.cc:8888,None,https,unknown
 89.110.110.80:9000,89.110.110.80:9001,http,unknown
 54.214.223.181:9000,54.214.223.181:9001,http,unknown
 74.48.192.26:9000,74.48.192.26:9001,http,unknown
-70.34.255.72:9000,70.34.255.72:9001,http,unknown
 172.96.193.197:9000,172.96.193.197:9001,http,unknown
-20.11.64.79:9000,20.11.64.79:9001,http,unknown
 152.42.192.9:9000,152.42.192.9:9001,http,unknown
 164.90.142.89:9000,164.90.142.89:9001,http,unknown
 188.119.113.18:9000,188.119.113.18:9001,http,unknown
