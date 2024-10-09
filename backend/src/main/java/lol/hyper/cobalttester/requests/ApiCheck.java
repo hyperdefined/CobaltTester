@@ -131,6 +131,7 @@ public class ApiCheck {
     }
 
     private void loadNewApi(JSONObject response) {
+        instance.setIs10(true);
         JSONObject cobalt = response.getJSONObject("cobalt");
         instance.setName("N/A");
         if (cobalt.has("version")) {
@@ -145,6 +146,24 @@ public class ApiCheck {
         String remote = git.getString("remote");
         if (!remote.equalsIgnoreCase("imputnet/cobalt")) {
             logger.warn("{} is running a FORK, remote is {}", instance.getApi(), remote);
+        }
+
+        // on cobalt 10, check to see if the instance has turnstile on
+        // if it's enabled, then mark all tests as fail
+        RequestResults sessionResult = RequestUtil.sendPost(new JSONObject(), instance.getProtocol() + "://" + instance.getApi() + "/session", null);
+        JSONObject sessionJSON;
+        try {
+            sessionJSON = new JSONObject(sessionResult.responseContent());
+        } catch (JSONException exception) {
+            // this really should NEVER happen but you never know
+            logger.error("Unable to check session for {}", instance.getApi(), exception);
+            instance.setApiWorking(false);
+            return;
+        }
+        JSONObject error = sessionJSON.getJSONObject("error");
+        if (error.getString("code").contains("turnstile.missing")) {
+            instance.setTurnstile(true);
+            logger.warn("{} has turnstile enabled!", instance.getApi());
         }
     }
 

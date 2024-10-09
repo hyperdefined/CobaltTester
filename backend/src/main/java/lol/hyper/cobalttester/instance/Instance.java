@@ -27,6 +27,8 @@ public class Instance implements Comparable<Instance> {
     private boolean apiWorking;
     private double score;
     private String hash;
+    private boolean is10;
+    private boolean turnstile;
 
     private final List<TestResult> testResults = new ArrayList<>();
 
@@ -138,6 +140,22 @@ public class Instance implements Comparable<Instance> {
 
     public double getScore() {
         return score;
+    }
+
+    public boolean is10() {
+        return is10;
+    }
+
+    public void setIs10(boolean is10) {
+        this.is10 = is10;
+    }
+
+    public void setTurnstile(boolean turnstile) {
+        this.turnstile = turnstile;
+    }
+
+    public boolean hasTurnstile() {
+        return turnstile;
     }
 
     public void setHash(String hash) {
