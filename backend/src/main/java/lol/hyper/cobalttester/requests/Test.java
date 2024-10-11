@@ -39,6 +39,7 @@ public class Test {
             logger.info("Test FAIL for checking frontend {} ", testUrl);
         }
         instance.addResult(new TestResult(service, validFrontEnd, null));
+        instance.setFrontEndWorking(validFrontEnd);
     }
 
     private void runApiTest() {

@@ -85,6 +85,9 @@ public class ApiCheck {
             return;
         }
 
+        // cobalt 7 and below does not support turnstile, mark is as off
+        instance.setTurnstile(false);
+
         if (json.has("version")) {
             String version = json.getString("version");
             // older instances had -dev in the version

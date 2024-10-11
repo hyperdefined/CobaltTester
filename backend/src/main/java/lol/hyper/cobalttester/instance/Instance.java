@@ -1,10 +1,6 @@
 package lol.hyper.cobalttester.instance;
 
-import lol.hyper.cobalttester.CobaltTester;
 import lol.hyper.cobalttester.requests.TestResult;
-import org.apache.commons.text.StringEscapeUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -25,6 +21,7 @@ public class Instance implements Comparable<Instance> {
     private int cors;
     private long startTime;
     private boolean apiWorking;
+    private boolean frontEndWorking;
     private double score;
     private String hash;
     private boolean is10;
@@ -49,10 +46,12 @@ public class Instance implements Comparable<Instance> {
         instanceJSON.put("cors", this.cors);
         instanceJSON.put("startTime", Long.valueOf(this.startTime));
         instanceJSON.put("api_online", this.apiWorking);
+        instanceJSON.put("frontend_online", this.frontEndWorking);
         instanceJSON.put("frontEnd", Objects.requireNonNullElse(frontEnd, "None"));
         instanceJSON.put("protocol", protocol);
         instanceJSON.put("score", score);
         instanceJSON.put("trust", trustStatus);
+        instanceJSON.put("turnstile", turnstile);
         JSONObject workingServices = new JSONObject();
         for (TestResult result : testResults) {
             String service = result.service().toLowerCase(Locale.ROOT).replace(" ", "_");
@@ -156,6 +155,10 @@ public class Instance implements Comparable<Instance> {
 
     public boolean hasTurnstile() {
         return turnstile;
+    }
+
+    public void setFrontEndWorking(boolean status) {
+        this.frontEndWorking = status;
     }
 
     public void setHash(String hash) {
