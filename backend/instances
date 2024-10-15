@@ -80,6 +80,11 @@ cobalt.catgirl.dog,None,https,unknown
 api-cobalt.realign.cn,None,http,unknown
 api.mcd.ac.cn,None,https,unknown
 api.knap.cc:8888,None,https,unknown
+dl.omnisync.ai,None,https,unknown
+topjow.com,None,https,unknown
+extractapi.wafflehacker.io,None,https,unknown
+video-api.netaddiction.it,None,https,unknown
+api.ytapi.cc,None,https,unknown
 
 # instances without domains
 31.220.77.64:9000,31.220.77.64:9001,http,unknown
@@ -137,7 +142,7 @@ api.knap.cc:8888,None,https,unknown
 54.214.223.181:9000,54.214.223.181:9001,http,unknown
 74.48.192.26:9000,74.48.192.26:9001,http,unknown
 172.96.193.197:9000,172.96.193.197:9001,http,unknown
-152.42.192.9:9000,152.42.192.9:9001,http,unknown
+152.42.192.9:9000,None,http,unknown
 164.90.142.89:9000,164.90.142.89:9001,http,unknown
 188.119.113.18:9000,188.119.113.18:9001,http,unknown
 74.48.35.30:9000,74.48.35.30:9001,http,unknown
@@ -160,3 +165,8 @@ api.knap.cc:8888,None,https,unknown
 132.145.28.87:9000,None,http,unknown
 64.226.107.43:9000,None,http,unknown
 128.204.223.118:6000,None,http,unknown
+91.107.156.104:9000,None,http,unknown
+157.173.195.144:9000,None,http,unknown
+185.227.108.239:9000,None,http,unknown
+47.237.84.213:443,None,http,unknown
+172.93.102.44:9000,None,http,unknown
